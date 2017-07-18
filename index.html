@@ -272,6 +272,178 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2017/06/25/parser-in-OCaml/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rev">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-v1.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Reveirel">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/25/parser-in-OCaml/" itemprop="url">Write a Parser in OCaml</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-25T11:08:13+08:00">
+                2017-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/25/parser-in-OCaml/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/25/parser-in-OCaml/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>First we define the language, then translate it into OCaml code.</p>
+<h1 id="definition">Definition</h1>
+<p>Two part is necessary, 1. Syntax Definition in Bacus-Naur Form to define the “Language”(which is, set of string). 2. And sematics definition to Describe the “Meaning”.</p>
+<h2 id="syntax-definition">Syntax Definition</h2>
+<p>Including lexing and parsing rules.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;start&gt; ::= &lt;exp&gt; &apos;\n&apos;</div><div class="line">&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | [&quot;0&quot;-&quot;9&quot;]+</div><div class="line">&lt;op&gt;    ::= &quot;+&quot; | &quot;-&quot;</div></pre></td></tr></table></figure>
+<h2 id="sematics-definition">Sematics Definition</h2>
+<p>This is the AST(Abstract Syntax Tree) definition, sine we want to write a frontend for a compiler.</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> op  = <span class="type">Plus</span> | <span class="type">Minus</span> </div><div class="line"><span class="keyword">type</span> exp = <span class="type">Exp</span> <span class="keyword">of</span> exp * op * exp | <span class="type">Num</span> <span class="keyword">of</span> <span class="built_in">int</span></div></pre></td></tr></table></figure>
+<h1 id="implementation">Implementation</h1>
+<p>We need to implement four parts</p>
+<table>
+<thead>
+<tr class="header">
+<th>part</th>
+<th>file</th>
+<th>method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>lexer</td>
+<td>lexer.mll</td>
+<td>ocamllex</td>
+</tr>
+<tr class="even">
+<td>parser</td>
+<td>parser.mly</td>
+<td>ocamlyacc</td>
+</tr>
+<tr class="odd">
+<td>AST</td>
+<td>ast.ml</td>
+<td>by hand, some lib for pretty printing</td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td>driver.ml</td>
+<td>by hand</td>
+</tr>
+</tbody>
+</table>
+<h2 id="translate-language-definition-to-code">Translate language definition to code</h2>
+<p>In our Bacus-Naur Form definition, those symbols quoted with <code>'</code> <code>&quot;</code> should be denoted as Lexeme simble. and defined in the <code>parser.mly</code> file.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;start&gt; ::= &lt;exp&gt; &apos;\n&apos;</div><div class="line">&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | [&apos;0&apos;-&apos;9&apos;]+</div><div class="line">&lt;op&gt;    ::= &quot;+&quot; | &quot;-&quot;</div></pre></td></tr></table></figure>
+<p><span class="math inline">\(\Downarrow\)</span> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// regular grammar</div><div class="line">&lt;EOL&gt;   ::=  &apos;\n&apos;</div><div class="line">&lt;NUM&gt;   ::= [&apos;0&apos;-&apos;9&apos;]+</div><div class="line">&lt;PLUS&gt;  ::= &quot;+&quot;</div><div class="line">&lt;MINUS&gt; ::= &quot;-&quot;</div><div class="line">// context free grammar</div><div class="line">&lt;start&gt; ::= &lt;exp&gt; &lt;EOL&gt;</div><div class="line">&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | &lt;NUM&gt;</div><div class="line">&lt;op&gt;    ::= &lt;PLUS&gt; | &lt;MINUS&gt;</div></pre></td></tr></table></figure></p>
+<p>Regular grammar tokens are defined in the header of <code>parser.mly</code>, like this <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">%token &lt;int&gt; NUM</div><div class="line">%token PLUS MINUS</div><div class="line">%token EOL</div><div class="line">%left  PLUS MINUS</div></pre></td></tr></table></figure></p>
+<p>and produced by <code>lexer.mll</code>, like this <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">rule token = parse</div><div class="line">    [&apos; &apos; &apos;\t&apos;]      &#123; token lexbuf &#125;</div><div class="line">  | &apos;\n&apos;            &#123; Parser.EOL&#125;</div><div class="line">  | [&apos;0&apos;-&apos;9&apos;]+ as i &#123; Parser.NUM(int_of_string i) &#125;</div><div class="line">  | &apos;+&apos;             &#123; Parser.PLUS &#125;</div><div class="line">  | &apos;-&apos;             &#123; Parser.MINUS &#125;</div><div class="line">  | eof             &#123; raise Eof &#125;</div></pre></td></tr></table></figure></p>
+<p>Context free grammar are put in the main part of the <code>parser.mly</code></p>
+<p>The AST part can be put in the <code>ast.ml</code> file directly. Some utility function for error handling and pretty printing can be put here.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://reveriel.com/2017/03/01/始まりの物語/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -445,7 +617,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -458,7 +630,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
