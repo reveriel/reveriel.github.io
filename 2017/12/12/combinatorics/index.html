@@ -90,16 +90,16 @@
 
 
 
-<meta name="description" content="First we define the language, then translate it into OCaml code.">
+<meta name="description" content="先是在wiki上找了一下组合数学的词条. 发现蕴含的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Write a Parser in OCaml">
-<meta property="og:url" content="http://reveriel.com/2017/06/25/parser-in-OCaml/index.html">
+<meta property="og:title" content="combinatorics">
+<meta property="og:url" content="http://reveriel.com/2017/12/12/combinatorics/index.html">
 <meta property="og:site_name" content="Reveirel">
-<meta property="og:description" content="First we define the language, then translate it into OCaml code.">
-<meta property="og:updated_time" content="2017-12-11T06:59:30.330Z">
+<meta property="og:description" content="先是在wiki上找了一下组合数学的词条. 发现蕴含的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
+<meta property="og:updated_time" content="2017-12-19T00:35:48.292Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Write a Parser in OCaml">
-<meta name="twitter:description" content="First we define the language, then translate it into OCaml code.">
+<meta name="twitter:title" content="combinatorics">
+<meta name="twitter:description" content="先是在wiki上找了一下组合数学的词条. 发现蕴含的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://reveriel.com/2017/06/25/parser-in-OCaml/"/>
+  <link rel="canonical" href="http://reveriel.com/2017/12/12/combinatorics/"/>
 
 
 
 
 
-  <title>Write a Parser in OCaml | Reveirel</title>
+  <title>combinatorics | Reveirel</title>
   
 
 
@@ -305,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2017/06/25/parser-in-OCaml/">
+    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2017/12/12/combinatorics/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rev">
@@ -322,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Write a Parser in OCaml</h1>
+          <h1 class="post-title" itemprop="name headline">combinatorics</h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-25T11:08:13+08:00">
-                2017-06-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-12T17:30:32+08:00">
+                2017-12-12
               </time>
             
 
@@ -353,9 +353,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/25/parser-in-OCaml/#comments" itemprop="discussionUrl">
+                <a href="/2017/12/12/combinatorics/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/25/parser-in-OCaml/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/12/12/combinatorics/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -383,57 +383,48 @@
       
 
       
-        <p>First we define the language, then translate it into OCaml code.</p>
+        <p>先是在wiki上找了一下组合数学的词条. 发现蕴含的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.</p>
 <a id="more"></a>
-<h1 id="definition">Definition</h1>
-<p>Two part is necessary, 1. Syntax Definition in Bacus-Naur Form to define the “Language”(which is, set of string). 2. And sematics definition to Describe the “Meaning”.</p>
-<h2 id="syntax-definition">Syntax Definition</h2>
-<p>Including lexing and parsing rules.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;start&gt; ::= &lt;exp&gt; &apos;\n&apos;</div><div class="line">&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | [&quot;0&quot;-&quot;9&quot;]+</div><div class="line">&lt;op&gt;    ::= &quot;+&quot; | &quot;-&quot;</div></pre></td></tr></table></figure>
-<h2 id="sematics-definition">Sematics Definition</h2>
-<p>This is the AST(Abstract Syntax Tree) definition, sine we want to write a frontend for a compiler.</p>
-<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> op  = <span class="type">Plus</span> | <span class="type">Minus</span> </div><div class="line"><span class="keyword">type</span> exp = <span class="type">Exp</span> <span class="keyword">of</span> exp * op * exp | <span class="type">Num</span> <span class="keyword">of</span> <span class="built_in">int</span></div></pre></td></tr></table></figure>
-<h1 id="implementation">Implementation</h1>
-<p>We need to implement four parts</p>
-<table>
-<thead>
-<tr class="header">
-<th>part</th>
-<th>file</th>
-<th>method</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>lexer</td>
-<td>lexer.mll</td>
-<td>ocamllex</td>
-</tr>
-<tr class="even">
-<td>parser</td>
-<td>parser.mly</td>
-<td>ocamlyacc</td>
-</tr>
-<tr class="odd">
-<td>AST</td>
-<td>ast.ml</td>
-<td>by hand, some lib for pretty printing</td>
-</tr>
-<tr class="even">
-<td>driver</td>
-<td>driver.ml</td>
-<td>by hand</td>
-</tr>
-</tbody>
-</table>
-<h2 id="translate-language-definition-to-code">Translate language definition to code</h2>
-<p>In our Bacus-Naur Form definition, those symbols quoted with <code>'</code> <code>&quot;</code> should be denoted as Lexeme simble. and defined in the <code>parser.mly</code> file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;start&gt; ::= &lt;exp&gt; &apos;\n&apos;</div><div class="line">&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | [&apos;0&apos;-&apos;9&apos;]+</div><div class="line">&lt;op&gt;    ::= &quot;+&quot; | &quot;-&quot;</div></pre></td></tr></table></figure>
-<p><span class="math inline">\(\Downarrow\)</span> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// regular grammar</div><div class="line">&lt;EOL&gt;   ::=  &apos;\n&apos;</div><div class="line">&lt;NUM&gt;   ::= [&apos;0&apos;-&apos;9&apos;]+</div><div class="line">&lt;PLUS&gt;  ::= &quot;+&quot;</div><div class="line">&lt;MINUS&gt; ::= &quot;-&quot;</div><div class="line">// context free grammar</div><div class="line">&lt;start&gt; ::= &lt;exp&gt; &lt;EOL&gt;</div><div class="line">&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | &lt;NUM&gt;</div><div class="line">&lt;op&gt;    ::= &lt;PLUS&gt; | &lt;MINUS&gt;</div></pre></td></tr></table></figure></p>
-<p>Regular grammar tokens are defined in the header of <code>parser.mly</code>, like this <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">%token &lt;int&gt; NUM</div><div class="line">%token PLUS MINUS</div><div class="line">%token EOL</div><div class="line">%left  PLUS MINUS</div></pre></td></tr></table></figure></p>
-<p>and produced by <code>lexer.mll</code>, like this <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">rule token = parse</div><div class="line">    [&apos; &apos; &apos;\t&apos;]      &#123; token lexbuf &#125;</div><div class="line">  | &apos;\n&apos;            &#123; Parser.EOL&#125;</div><div class="line">  | [&apos;0&apos;-&apos;9&apos;]+ as i &#123; Parser.NUM(int_of_string i) &#125;</div><div class="line">  | &apos;+&apos;             &#123; Parser.PLUS &#125;</div><div class="line">  | &apos;-&apos;             &#123; Parser.MINUS &#125;</div><div class="line">  | eof             &#123; raise Eof &#125;</div></pre></td></tr></table></figure></p>
-<p>Context free grammar are put in the main part of the <code>parser.mly</code></p>
-<p>The AST part can be put in the <code>ast.ml</code> file directly. Some utility function for error handling and pretty printing can be put here.</p>
+<h1 id="polya-计数.">Polya 计数.</h1>
+<h2 id="群">群</h2>
+<p>非空集合<span class="math inline">\(G\)</span> 以及在上面的二元运算 <span class="math inline">\(\cdot\)</span>, 满足以下条件</p>
+<ol type="1">
+<li>运算封闭</li>
+<li>结合律成立</li>
+<li>存在单位元</li>
+<li>每个元素都存在逆元</li>
+</ol>
+<p>则称 <span class="math inline">\(\langle G, \cdot \rangle\)</span> 为<em>群</em>.</p>
+<p>由以上几条,可以证明的一些性质:</p>
+<p>设<span class="math inline">\(\langle G, \cdot \rangle\)</span> is a group, <span class="math inline">\(e\)</span> is the identity element. then:</p>
+<ol type="1">
+<li><span class="math inline">\(e^{-1} = e\)</span></li>
+<li><span class="math inline">\(e\)</span> is unique</li>
+<li>消去律成立, if <span class="math inline">\(a \cdot b = a \cdot c\)</span> or <span class="math inline">\(b \cdot a = c \cdot a\)</span> then <span class="math inline">\(b = c\)</span></li>
+<li><span class="math inline">\((a \cdot b)^{-1} =b^{-1} \cdot a^{-1}\)</span></li>
+</ol>
+<p>定义<em>子群</em>, 设 <span class="math inline">\(\langle G, \cdot \rangle\)</span> is a group, and <span class="math inline">\(H\)</span> is a non-empty subset of <span class="math inline">\(G\)</span>, if <span class="math inline">\(\langle H, \cdot \rangle\)</span> is a group, we call it <span class="math inline">\(G\)</span>’s <em>subgroup</em></p>
+<p>一些性质包括, 只要 <span class="math inline">\(H\)</span> 中运算封闭, <span class="math inline">\(\langle H, \cdot \rangle\)</span> 就是子群.</p>
+<h2 id="置换群">置换群</h2>
+<p>有限集合<span class="math inline">\(D\)</span> 上的 一一映射 成为 <span class="math inline">\(D\)</span> 上的置换. 不失一般性, <span class="math inline">\(D=\{1,2,\ldots, n\}\)</span></p>
+<p>一个置换 <span class="math inline">\(\sigma = \left ( \begin{array}{cccc}1&amp;2 &amp;\ldots &amp; n\\ \sigma(1) &amp;\sigma(2) &amp;\ldots &amp; \sigma(n) \end{array} \right )\)</span> 将1 映射到 <span class="math inline">\(\sigma(1)\)</span>, 以此类推.</p>
+<p><span class="math inline">\(D = \{1, 2,\ldots, n\}\)</span> 的所有置换构成一个群, 记为<span class="math inline">\(S_n\)</span>, <span class="math inline">\(\big|S_n\big| = n!\)</span></p>
+<p><span class="math inline">\((1,4,6)\)</span> 这种叫<em>轮换</em>, <span class="math inline">\(1\to4, 4\to 6, 6 \to 1\)</span>, 其他不变. 举个例子, 轮换的复合运算: <span class="math inline">\((1234)(1234) = (13)(24)\)</span></p>
+<p>任意置换都可以表示为不相交的轮换之积.</p>
+<p><span class="math inline">\(D\)</span> and <span class="math inline">\(R\)</span> are two finite sets, <span class="math inline">\(F = D \to R\)</span>, <span class="math inline">\(G\)</span> is a Permutation Group on D, for some <span class="math inline">\(f1_1, f_2 \in F\)</span>, if there exists <span class="math inline">\(\sigma \in G\)</span>, s.t. forall <span class="math inline">\(d \in D\)</span>, <span class="math display">\[ f_1(d) = f_2(\sigma(d))\]</span> We call <span class="math inline">\(f_1\)</span> and <span class="math inline">\(f_2\)</span> are <em><span class="math inline">\(G\)</span> equal</em> (<span class="math inline">\(G\)</span> 等价)</p>
+<p>两个映射 <span class="math inline">\(f_1\)</span>, <span class="math inline">\(f_2\)</span> 在 置换群<span class="math inline">\(G\)</span> 上等价, 如果存在一个定义域上的一一映射, 把定 义域的元素用这个映射换一下 <span class="math inline">\(f_1\)</span> 就是 <span class="math inline">\(f_2\)</span>.</p>
+<p>显然这个关系是<span class="math inline">\(F\)</span> 上的一个等价关系 (和 <span class="math inline">\(G\)</span> 好像并没有什么关系)?</p>
+<blockquote>
+<p>并不是和<span class="math inline">\(G\)</span> 没有关系哟. 如果给定一个置换群G, 那么就能把 <span class="math inline">\(F, (F = D \to R)\)</span> 划分成 多个等价类.</p>
+</blockquote>
+<p>对应到组合问题中, 比如一个着色方案, 一个分配方案, 实际上就是一个<span class="math inline">\(F = D \to R\)</span>, 着色方案的话, <span class="math inline">\(D\)</span> 是定点, <span class="math inline">\(R\)</span> 是颜色. 分配方案的话, <span class="math inline">\(D\)</span> 是小球, <span class="math inline">\(R\)</span> 是 <span class="math inline">\(盒子\)</span>.</p>
+<p>给定一个置换群<span class="math inline">\(G\)</span>, 等价类的个数就是实际的组合方案数.</p>
+<h2 id="burnside-引理">Burnside 引理</h2>
+<p>定义两个置换的<strong>共轭</strong>: <span class="math inline">\(G\)</span> is subgroup of <span class="math inline">\(S_n\)</span>, two elements <span class="math inline">\(s, t \in S_n\)</span>, if there exists a <span class="math inline">\(g \in G\)</span>, s.t. $s = g^{-1} t g $, then we say <span class="math inline">\(s\)</span> is a conjugate of <span class="math inline">\(t\)</span>, and that viceversa, or <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> of <span class="math inline">\(G\)</span> are conjugate.</p>
+<p>G-conjugate, G共轭是 <span class="math inline">\(S_n\)</span> 上的一个等价关系. G共轭当且仅当, 两个置换是同型的.</p>
+<p>定义<strong>同型</strong>:</p>
+<h2 id="映射的等价类">映射的等价类</h2>
+<p>Burnside引理 可以解决用m色对n个物体着色的方案计数问题, 但是计算量太大, 经过 Polya 改进 形成 Polya 计数定理后才得到广泛应用.</p>
 
       
     </div>
@@ -458,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/01/始まりの物語/" rel="next" title="始まりの物語">
-                <i class="fa fa-chevron-left"></i> 始まりの物語
+              <a href="/2017/12/11/randomized-algorithm/" rel="next" title="randomized algorithm">
+                <i class="fa fa-chevron-left"></i> randomized algorithm
               </a>
             
           </div>
@@ -468,8 +459,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/11/randomized-algorithm/" rel="prev" title="randomized algorithm">
-                randomized algorithm <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/13/string-match/" rel="prev" title="string match">
+                string match <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -631,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#definition"><span class="nav-text">Definition</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#syntax-definition"><span class="nav-text">Syntax Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sematics-definition"><span class="nav-text">Sematics Definition</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#implementation"><span class="nav-text">Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#translate-language-definition-to-code"><span class="nav-text">Translate language definition to code</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#polya-计数."><span class="nav-text">Polya 计数.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#群"><span class="nav-text">群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#置换群"><span class="nav-text">置换群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#burnside-引理"><span class="nav-text">Burnside 引理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射的等价类"><span class="nav-text">映射的等价类</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -790,9 +781,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://reveriel.com/2017/06/25/parser-in-OCaml/';
-          this.page.identifier = '2017/06/25/parser-in-OCaml/';
-          this.page.title = 'Write a Parser in OCaml';
+          this.page.url = 'http://reveriel.com/2017/12/12/combinatorics/';
+          this.page.identifier = '2017/12/12/combinatorics/';
+          this.page.title = 'combinatorics';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://reveriel.disqus.com/embed.js';

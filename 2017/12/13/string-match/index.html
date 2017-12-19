@@ -90,16 +90,16 @@
 
 
 
-<meta name="description" content="First we define the language, then translate it into OCaml code.">
+<meta name="description" content="问题, Pattern, \(P : \Sigma^m\), Text \(T : \Sigma^n\) \(n \ge m\), 找 P 在 T 中的位置. Hash 函数 \(hash\) , 求 \(hash(P)\), 与 \(T\) 的所有长度 \(m\) 的子串. 先比较 Hash, 如果 hash 值相等, 再精确比较.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Write a Parser in OCaml">
-<meta property="og:url" content="http://reveriel.com/2017/06/25/parser-in-OCaml/index.html">
+<meta property="og:title" content="string match">
+<meta property="og:url" content="http://reveriel.com/2017/12/13/string-match/index.html">
 <meta property="og:site_name" content="Reveirel">
-<meta property="og:description" content="First we define the language, then translate it into OCaml code.">
-<meta property="og:updated_time" content="2017-12-11T06:59:30.330Z">
+<meta property="og:description" content="问题, Pattern, \(P : \Sigma^m\), Text \(T : \Sigma^n\) \(n \ge m\), 找 P 在 T 中的位置. Hash 函数 \(hash\) , 求 \(hash(P)\), 与 \(T\) 的所有长度 \(m\) 的子串. 先比较 Hash, 如果 hash 值相等, 再精确比较.">
+<meta property="og:updated_time" content="2017-12-15T07:04:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Write a Parser in OCaml">
-<meta name="twitter:description" content="First we define the language, then translate it into OCaml code.">
+<meta name="twitter:title" content="string match">
+<meta name="twitter:description" content="问题, Pattern, \(P : \Sigma^m\), Text \(T : \Sigma^n\) \(n \ge m\), 找 P 在 T 中的位置. Hash 函数 \(hash\) , 求 \(hash(P)\), 与 \(T\) 的所有长度 \(m\) 的子串. 先比较 Hash, 如果 hash 值相等, 再精确比较.">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://reveriel.com/2017/06/25/parser-in-OCaml/"/>
+  <link rel="canonical" href="http://reveriel.com/2017/12/13/string-match/"/>
 
 
 
 
 
-  <title>Write a Parser in OCaml | Reveirel</title>
+  <title>string match | Reveirel</title>
   
 
 
@@ -305,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2017/06/25/parser-in-OCaml/">
+    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2017/12/13/string-match/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rev">
@@ -322,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Write a Parser in OCaml</h1>
+          <h1 class="post-title" itemprop="name headline">string match</h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-25T11:08:13+08:00">
-                2017-06-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-13T16:40:24+08:00">
+                2017-12-13
               </time>
             
 
@@ -353,9 +353,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/25/parser-in-OCaml/#comments" itemprop="discussionUrl">
+                <a href="/2017/12/13/string-match/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/25/parser-in-OCaml/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/12/13/string-match/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -383,57 +383,44 @@
       
 
       
-        <p>First we define the language, then translate it into OCaml code.</p>
+        <p>问题, Pattern, <span class="math inline">\(P : \Sigma^m\)</span>, Text <span class="math inline">\(T : \Sigma^n\)</span></p>
+<p><span class="math inline">\(n \ge m\)</span>, 找 P 在 T 中的位置.</p>
+<p>Hash 函数 <span class="math inline">\(hash\)</span> , 求 <span class="math inline">\(hash(P)\)</span>, 与 <span class="math inline">\(T\)</span> 的所有长度 <span class="math inline">\(m\)</span> 的子串. 先比较 Hash, 如果 hash 值相等, 再精确比较.</p>
 <a id="more"></a>
-<h1 id="definition">Definition</h1>
-<p>Two part is necessary, 1. Syntax Definition in Bacus-Naur Form to define the “Language”(which is, set of string). 2. And sematics definition to Describe the “Meaning”.</p>
-<h2 id="syntax-definition">Syntax Definition</h2>
-<p>Including lexing and parsing rules.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;start&gt; ::= &lt;exp&gt; &apos;\n&apos;</div><div class="line">&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | [&quot;0&quot;-&quot;9&quot;]+</div><div class="line">&lt;op&gt;    ::= &quot;+&quot; | &quot;-&quot;</div></pre></td></tr></table></figure>
-<h2 id="sematics-definition">Sematics Definition</h2>
-<p>This is the AST(Abstract Syntax Tree) definition, sine we want to write a frontend for a compiler.</p>
-<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> op  = <span class="type">Plus</span> | <span class="type">Minus</span> </div><div class="line"><span class="keyword">type</span> exp = <span class="type">Exp</span> <span class="keyword">of</span> exp * op * exp | <span class="type">Num</span> <span class="keyword">of</span> <span class="built_in">int</span></div></pre></td></tr></table></figure>
-<h1 id="implementation">Implementation</h1>
-<p>We need to implement four parts</p>
-<table>
-<thead>
-<tr class="header">
-<th>part</th>
-<th>file</th>
-<th>method</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>lexer</td>
-<td>lexer.mll</td>
-<td>ocamllex</td>
-</tr>
-<tr class="even">
-<td>parser</td>
-<td>parser.mly</td>
-<td>ocamlyacc</td>
-</tr>
-<tr class="odd">
-<td>AST</td>
-<td>ast.ml</td>
-<td>by hand, some lib for pretty printing</td>
-</tr>
-<tr class="even">
-<td>driver</td>
-<td>driver.ml</td>
-<td>by hand</td>
-</tr>
-</tbody>
-</table>
-<h2 id="translate-language-definition-to-code">Translate language definition to code</h2>
-<p>In our Bacus-Naur Form definition, those symbols quoted with <code>'</code> <code>&quot;</code> should be denoted as Lexeme simble. and defined in the <code>parser.mly</code> file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;start&gt; ::= &lt;exp&gt; &apos;\n&apos;</div><div class="line">&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | [&apos;0&apos;-&apos;9&apos;]+</div><div class="line">&lt;op&gt;    ::= &quot;+&quot; | &quot;-&quot;</div></pre></td></tr></table></figure>
-<p><span class="math inline">\(\Downarrow\)</span> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// regular grammar</div><div class="line">&lt;EOL&gt;   ::=  &apos;\n&apos;</div><div class="line">&lt;NUM&gt;   ::= [&apos;0&apos;-&apos;9&apos;]+</div><div class="line">&lt;PLUS&gt;  ::= &quot;+&quot;</div><div class="line">&lt;MINUS&gt; ::= &quot;-&quot;</div><div class="line">// context free grammar</div><div class="line">&lt;start&gt; ::= &lt;exp&gt; &lt;EOL&gt;</div><div class="line">&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | &lt;NUM&gt;</div><div class="line">&lt;op&gt;    ::= &lt;PLUS&gt; | &lt;MINUS&gt;</div></pre></td></tr></table></figure></p>
-<p>Regular grammar tokens are defined in the header of <code>parser.mly</code>, like this <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">%token &lt;int&gt; NUM</div><div class="line">%token PLUS MINUS</div><div class="line">%token EOL</div><div class="line">%left  PLUS MINUS</div></pre></td></tr></table></figure></p>
-<p>and produced by <code>lexer.mll</code>, like this <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">rule token = parse</div><div class="line">    [&apos; &apos; &apos;\t&apos;]      &#123; token lexbuf &#125;</div><div class="line">  | &apos;\n&apos;            &#123; Parser.EOL&#125;</div><div class="line">  | [&apos;0&apos;-&apos;9&apos;]+ as i &#123; Parser.NUM(int_of_string i) &#125;</div><div class="line">  | &apos;+&apos;             &#123; Parser.PLUS &#125;</div><div class="line">  | &apos;-&apos;             &#123; Parser.MINUS &#125;</div><div class="line">  | eof             &#123; raise Eof &#125;</div></pre></td></tr></table></figure></p>
-<p>Context free grammar are put in the main part of the <code>parser.mly</code></p>
-<p>The AST part can be put in the <code>ast.ml</code> file directly. Some utility function for error handling and pretty printing can be put here.</p>
+<p>要求是 hash 计算得快, 最好是 <span class="math inline">\(hash(T[i, i+m-1])\)</span> 可以从 <span class="math inline">\(hash(T[i-1, i+m-2])\)</span> 在 <span class="math inline">\(O(1)\)</span> 的时间内算出来.</p>
+<p>一种是 Rabin-Karp 的, hash 是多项式, <span class="math inline">\(p\)</span> 是一个素数.</p>
+<p><span class="math inline">\(hash([a_1, a_2, \ldots, a_m]) = a_1 + a_2 \cdot p + a_3 \cdot p^2 + \ldots + a_m \cdot p^{m-1}\)</span></p>
+<p>并行课本上的算法如下. 假设 <span class="math inline">\(\Sigma = \{0, 1\}\)</span>,</p>
+<blockquote>
+<p><span class="math display">\[ f(0) = \begin{bmatrix} 1 &amp; 0 \\ 1 &amp; 1 \end{bmatrix},
+f(1) = \begin{bmatrix} 1 &amp; 1 \\ 0 &amp; 1 \end{bmatrix}\]</span></p>
+</blockquote>
+<blockquote>
+<p>取一个小于 <span class="math inline">\(M\)</span> 的素数<span class="math inline">\(p\)</span>, <span class="math inline">\(\mathbb{Z}_p\)</span> 是整数环. <span class="math inline">\(f_p(X) = f(X) \mod p\)</span>,</p>
+</blockquote>
+<p>求 <span class="math inline">\(f_p(T[i, i+m-1])\)</span> ? 说实话, 书上根本没写清楚怎么算.</p>
+<p>猜测应该是矩阵相乘. <span class="math inline">\(f([a_1, a_2, \ldots, a_m]) = f(a_1) \times f(a_2) \times \ldots \times f(a_m)\)</span></p>
+<p>试一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</div><div class="line"></div><div class="line">f = [np.empty((<span class="number">2</span>,<span class="number">2</span>), dtype=np.int64)] * <span class="number">2</span></div><div class="line">f[<span class="number">0</span>] = np.array([(<span class="number">1</span>,<span class="number">0</span>), (<span class="number">1</span>,<span class="number">1</span>)])</div><div class="line">f[<span class="number">1</span>] = np.array([(<span class="number">1</span>,<span class="number">1</span>), (<span class="number">0</span>,<span class="number">1</span>)])</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hash</span><span class="params">(t)</span>:</span></div><div class="line">    <span class="keyword">return</span> reduce(<span class="keyword">lambda</span> x,y: x.dot(y), map(<span class="keyword">lambda</span> x: f[x], t))</div><div class="line"></div><div class="line">print(hash([<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>]))</div><div class="line">print(hash([<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>]))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[[2 3]</div><div class="line"> [3 5]]</div><div class="line">[[3 5]</div><div class="line"> [1 2]]</div></pre></td></tr></table></figure>
+<p>而且我们知道 <span class="math inline">\(f(0)^{-1} = \begin{bmatrix} 1&amp; 0\\ -1&amp; 1\end{bmatrix}\)</span> <span class="math inline">\(f(1)^{-1} = \begin{bmatrix} 1&amp; -1\\0&amp;1\end{bmatrix}\)</span></p>
+<p>串行执行的话, 使用这个hash, 算法复杂度是<span class="math inline">\(O(Text的长度)\)</span>, 我没有看出来上面的 <span class="math inline">\(f_p\)</span> 模 <span class="math inline">\(p\)</span> 的必要性. 暂且认为 <span class="math inline">\(\mod p\)</span> 的目的是防止结果溢出.</p>
+<blockquote>
+<p>课本接下来说, 为了并行处理. 希望 hash算法也并行化. 这要求 hash 函数(对于字符串 连接操作)满足<em>同态</em>, 即 <span class="math inline">\(hash([T, S]) = hash(X)\cdot hash(Y)\)</span></p>
+</blockquote>
+<p>显然上面的 <span class="math inline">\(hash\)</span> 是满足的要求的, 看书上又给出了什么吧:</p>
+<blockquote>
+<p>定义 <span class="math display">\[g_p(0) = f_p(0)^{-1} \begin{bmatrix} 1&amp; 0\\ p-1&amp; 1\end{bmatrix},
+g_p(1) = f_p(1)^{-1} \begin{bmatrix} 1&amp; p-1\\ 0&amp; 1\end{bmatrix}\]</span></p>
+</blockquote>
+<p>因为 <span class="math inline">\(\mathbb{Z}_p\)</span> 中<span class="math inline">\(p = -1\)</span>, 其实上面定义的<span class="math inline">\(g_p\)</span> 就是</p>
+<p><span class="math display">\[g_p(0) = f_p(0)^{-1} \cdot f_p(0)^{-1},
+ g_p(1) = f_p(1)^{-1} \cdot f_p(1)^{-1}\]</span></p>
+<blockquote>
+<p>$N_i = f_p(T[1,i]) $R_i = g_p(T[i]) g_p(T[i-1])g_p(T(1)) 容易看到 <span class="math inline">\(f_p(T[i, i+m-1]) = R_{i-1} N_{i+m-1}\)</span></p>
+</blockquote>
+<p>得出的结论就是..课本少写了一个等号(无语), 实际上<span class="math inline">\(g_p(\cdot) = f_p(\cdot)^{-1}\)</span></p>
+<p>并行算法就是先计算出所有的 <span class="math inline">\(R_i\)</span> and <span class="math inline">\(N_i\)</span>, 这两个都类似前缀和, 可以并行计算.</p>
 
       
     </div>
@@ -458,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/01/始まりの物語/" rel="next" title="始まりの物語">
-                <i class="fa fa-chevron-left"></i> 始まりの物語
+              <a href="/2017/12/12/combinatorics/" rel="next" title="combinatorics">
+                <i class="fa fa-chevron-left"></i> combinatorics
               </a>
             
           </div>
@@ -467,10 +454,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/11/randomized-algorithm/" rel="prev" title="randomized algorithm">
-                randomized algorithm <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -534,17 +517,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -621,22 +595,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#definition"><span class="nav-text">Definition</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#syntax-definition"><span class="nav-text">Syntax Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sematics-definition"><span class="nav-text">Sematics Definition</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#implementation"><span class="nav-text">Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#translate-language-definition-to-code"><span class="nav-text">Translate language definition to code</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -790,9 +748,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://reveriel.com/2017/06/25/parser-in-OCaml/';
-          this.page.identifier = '2017/06/25/parser-in-OCaml/';
-          this.page.title = 'Write a Parser in OCaml';
+          this.page.url = 'http://reveriel.com/2017/12/13/string-match/';
+          this.page.identifier = '2017/12/13/string-match/';
+          this.page.title = 'string match';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://reveriel.disqus.com/embed.js';
