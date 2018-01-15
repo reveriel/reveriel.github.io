@@ -90,16 +90,13 @@
 
 
 
-<meta name="description" content="概率算法 总结">
 <meta property="og:type" content="article">
-<meta property="og:title" content="randomized algorithm">
-<meta property="og:url" content="http://reveriel.com/2017/12/11/randomized-algorithm/index.html">
+<meta property="og:title" content="network security">
+<meta property="og:url" content="http://reveriel.com/2018/01/03/network-security/index.html">
 <meta property="og:site_name" content="Reveirel">
-<meta property="og:description" content="概率算法 总结">
-<meta property="og:updated_time" content="2018-01-08T14:15:17.831Z">
+<meta property="og:updated_time" content="2018-01-03T06:50:51.747Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="randomized algorithm">
-<meta name="twitter:description" content="概率算法 总结">
+<meta name="twitter:title" content="network security">
 
 
 
@@ -129,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://reveriel.com/2017/12/11/randomized-algorithm/"/>
+  <link rel="canonical" href="http://reveriel.com/2018/01/03/network-security/"/>
 
 
 
 
 
-  <title>randomized algorithm | Reveirel</title>
+  <title>network security | Reveirel</title>
   
 
 
@@ -305,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2017/12/11/randomized-algorithm/">
+    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2018/01/03/network-security/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rev">
@@ -322,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">randomized algorithm</h1>
+          <h1 class="post-title" itemprop="name headline">network security</h1>
         
 
         <div class="post-meta">
@@ -334,8 +331,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-11T11:51:56+08:00">
-                2017-12-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-03T14:50:51+08:00">
+                2018-01-03
               </time>
             
 
@@ -353,9 +350,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/11/randomized-algorithm/#comments" itemprop="discussionUrl">
+                <a href="/2018/01/03/network-security/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/12/11/randomized-algorithm/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/01/03/network-security/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -383,146 +380,7 @@
       
 
       
-        <h1 id="概率算法">概率算法</h1>
-<p>总结</p>
-<a id="more"></a>
-<h2 id="基本概念">基本概念</h2>
-<ul>
-<li>确定算法的平均执行时间: 一定输入规模的所有输入实例等概率出现时, 平均时间.</li>
-<li>概率算法期望执行时间: 在某一个输入实例上的期望时间</li>
-<li>概率算法的平均期望时间: 所有输入实例等概率的期望时间</li>
-<li>概率算法的最坏期望时间: 最坏的输入实例上的期望时间</li>
-</ul>
-<h2 id="概率算法分类">概率算法分类</h2>
-<ul>
-<li>Numerical
-<ul>
-<li>数值积分</li>
-</ul></li>
-<li>Monte Carlo
-<ul>
-<li>给出一个答案，未必正确</li>
-</ul></li>
-<li>Las Vegas
-<ul>
-<li>答案必定正确，耗时任意长, 可能_没有答案_. 比如吧 MenteCarlo 算法反复执行, 直至正确.</li>
-</ul></li>
-<li>Sherwood
-<ul>
-<li>总是给出正确的答案, 把一个确定性算法随机化, 可以降低算法的最坏时间复杂度</li>
-</ul></li>
-</ul>
-<h2 id="数值积分">数值积分</h2>
-<ul>
-<li>HitorMiss 算法
-<ul>
-<li>面积法, 长方形下函数面积</li>
-<li>在长方形区域取样, 计算有多少比例的点在函数下.</li>
-</ul></li>
-<li>Crude 算法
-<ul>
-<li>积分区间函取值的平均.</li>
-</ul></li>
-<li>梯形积分</li>
-</ul>
-<h2 id="概率計数">概率計数</h2>
-<h3 id="求集合的勢">求集合的勢</h3>
-<p>设 <span class="math inline">\(|X| = n\)</span> , 有放回地随机抽元素, 设 <span class="math inline">\(k\)</span> 是出现第一次重复之前所选的元素数目. 则当 <span class="math inline">\(n\)</span> 足够大时, <span class="math inline">\(k\)</span> 的期望趋近于 <span class="math inline">\(\beta \sqrt{n}\)</span> ,</p>
-<p><span class="math inline">\(\beta = \sqrt{\pi / 2} \approx 1.253\)</span></p>
-<p><span class="math inline">\(\beta\sqrt{n} = k\)</span>,</p>
-<p>时间复杂度 <span class="math inline">\(\Theta(\sqrt{n})\)</span> , 空间复杂度 <span class="math inline">\(\Theta(\sqrt{n})\)</span>.</p>
-<h3 id="向量中不同对象数目的估计">向量中不同对象数目的估计</h3>
-<p>例如,磁带上记录有莎士比亚全集, 统计其中使用了多少不同的单词. <span class="math inline">\(N\)</span> 是总单词书, <span class="math inline">\(n\)</span> 是不同词个数.</p>
-<p>设 <span class="math inline">\(U\)</span> 是单词序列的集合, 设 <span class="math inline">\(m = 5 + \lceil lg M \rceil\)</span></p>
-<p>let <span class="math inline">\(h : U \mapsto \{0,1\}^m\)</span> be a hash function. 将单词映射为长度为 <span class="math inline">\(m\)</span> 的串.</p>
-<p><span class="math inline">\(y \in \{0,1\}^k\)</span>, <span class="math inline">\(y[i]\)</span> denotes the <span class="math inline">\(i\)</span>th bit.</p>
-<p>Define $ (y, b), b{0,1}$ 表示满足 <span class="math inline">\(y[i] = b\)</span> 的最小的 <span class="math inline">\(i\)</span>, 如果不存在, 返回 <span class="math inline">\(k+1\)</span></p>
-<p>算法 WordCount() 用一个长为 <span class="math inline">\(m+1\)</span> 的向量 <span class="math inline">\(y\)</span> 统计所有单词的哈希. 单词 <span class="math inline">\(x\)</span>, set <span class="math inline">\(y[\pi(h(x), 1)]\)</span> to 1</p>
-<p>==TODO==</p>
-<p>时间 <span class="math inline">\(O(n)\)</span> , 空间 <span class="math inline">\(O(\lg{}n)\)</span></p>
-<h2 id="sherwood-算法">Sherwood 算法</h2>
-<p>Sherwood 算法, 平滑不同输入实例的执行时间. 把一个确定性算法随机化, 可以降低算法的最坏时间复杂度.</p>
-<p>一般 Sherwood 算法的组成:</p>
-<ol type="1">
-<li>将输入变换到一个随机实例</li>
-<li>用确定算法得到随机实例的解</li>
-<li>将随机实例的解变换回原输入的解</li>
-</ol>
-<p>例如快排 , 在特定输入下时间复杂度<span class="math inline">\(O(n^2)\)</span>, 可以吧把输入变换到一个随机实例上.</p>
-<p><strong>例</strong>: 离散对数的计算.</p>
-<p>​ $ a = g^x p$ , 已知p, g, a, 求 x, 记为 <span class="math inline">\(\log_{g,p} a\)</span></p>
-<p>确定算法: <span class="math inline">\(\forall x \in \mathbb{Z}_p\)</span> 计算所有的 <span class="math inline">\(g^x\)</span> 与 a 比较. 最坏为 <span class="math inline">\(O(p)\)</span></p>
-<p><strong>例</strong>: 搜索有序表.找x</p>
-<p>随机找一个开始. 如果大于 x, 重来, 如果小于 x, 从这里开始顺序查找.</p>
-<p>找 (前) <span class="math inline">\(\sqrt{n}\)</span> 个元素, 从小于 x 且最接近 x 的开始顺序查找. (对有序表的数据结构有要求)</p>
-<h2 id="las-vegas-算法">Las Vegas 算法</h2>
-<p>时间上界可能不存在, (像扔硬币, 如果结果不是正面就再扔).</p>
-<p>假设 try(x) 成功的概率为 p(x), 成功的期望时间s(x), 失败时期望时间e(x)</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">obstinate() &#123;</div><div class="line">  <span class="keyword">while</span> (!<span class="keyword">try</span>(x))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>obstinate(x) 一定会成功, 设期望时间为t(x)</p>
-<p><span class="math inline">\(t = ps + (1-p)(e+t)\)</span></p>
-<p><span class="math inline">\(t = s + \frac{1-p}{p}e\)</span></p>
-<h3 id="八皇后">八皇后</h3>
-<h3 id="模-p-平方根">模 p 平方根</h3>
-<p>说实话, 课程PPT 实在是太糟糕了.</p>
-<p>定义 <span class="math inline">\(p\)</span> is an (odd?, in course PPT, no problem, only ‘2’ is even) prime, if <span class="math inline">\(x \in [1, p-1]\)</span>, and for some y,</p>
-<p><span class="math display">\[ x = y^2 \mod p\]</span></p>
-<p>x is a <em>quadratic residue</em> modulo <span class="math inline">\(p\)</span>, and y is the square root of x.</p>
-<blockquote>
-<p>wiki: an interger <span class="math inline">\(q\)</span> is called a <em>quadratic reside</em> modulo <span class="math inline">\(n\)</span> if it is congruent to a perfect square module <span class="math inline">\(n\)</span></p>
-</blockquote>
-<p><strong>Theorem</strong>: every quadratic residue module <span class="math inline">\(p\)</span> has at least two different square root.</p>
-<p>proof: easy, if <span class="math inline">\(x_0^2 = y \mod p\)</span> then <span class="math inline">\((p-x_0)^2 = y \mod p\)</span>.</p>
-<p><strong>Theorem</strong>: every quadratic residue module <span class="math inline">\(p\)</span> has at most two different square root.</p>
-<p>proof:</p>
-<p><span class="math display">\[
-\begin{align} 
-a^2 = b^2 \mod p \\
-a^2 - b^2 \mod p \\
- p | (a+b) (a-b) \\
- \end{align}
-\]</span> <strong>Theorem</strong>: half of <span class="math inline">\(\{1,2,\ldots, p-1\}\)</span>, is quadratic residue module <span class="math inline">\(p\)</span>.</p>
-<p>proof: every quadratic residue modulo <span class="math inline">\(p\)</span> has two square root,</p>
-<p>[1, p-1] (f x : x*x maps two from range to one in the image, and no overlap)</p>
-<blockquote>
-<p>I’ll just write <span class="math inline">\(=_p\)</span> instead of <span class="math inline">\(\mod p\)</span></p>
-</blockquote>
-<p><strong>Theorem</strong> <span class="math inline">\(p\)</span> is an odd prime, <span class="math inline">\(x^{(p-1)/2} =_p \pm 1\)</span> and <span class="math inline">\(x\)</span> is a quadratic residue modulo <span class="math inline">\(p\)</span> iff !!! PPT error!!</p>
-<p>Maybe its: <span class="math inline">\(x^{(p-1)/2} =_p \pm 1\)</span> iff <span class="math inline">\(x\)</span> is a quadratic residue modulo <span class="math inline">\(p\)</span>? I think so. proof by <span class="math inline">\(x^{(p-1)} =_p 1\)</span>, the Fermat Theorem</p>
-<p>This can be used to check if a number is a quadratic residue.</p>
-<p><strong>Question</strong>: How to compute <span class="math inline">\(x\)</span>’s square roots given it is a quadratic residue?</p>
-<ul>
-<li>if <span class="math inline">\(p = 3 \mod 4\)</span>, they are <span class="math inline">\(\pm x^{(p+1)/4}\)</span></li>
-<li>if <span class="math inline">\(p = 1 \mod 4\)</span>, there is no effeient determinat algorithm</li>
-</ul>
-<p>Las Vegas algorithm:</p>
-<p>We use <span class="math inline">\(\sqrt{x}\)</span> to denotes the smaller one of its square roots</p>
-<p style="color:red">
-TODO
-</p>
-<h3 id="整数因数分解">整数因数分解</h3>
-<p><span class="math inline">\(n\)</span>, 求 <span class="math inline">\(n = p_1^{m_1} p_2^{m_2} \ldots p_k^{m_k}\)</span></p>
-<p>首先是素数判定, prime(n), 如果是合数, split(n), 找到 <span class="math inline">\(n\)</span> 的一个非平凡因数.</p>
-<h4 id="naive-way-to-to-split.">naive way to to split.</h4>
-<p>test all number from 2 to <span class="math inline">\(\sqrt{x}\)</span>.</p>
-<h4 id="dixon">Dixon</h4>
-<p>这里我们把 二次剩余, quadratic residue 推广到合数.</p>
-<p>一个模 <span class="math inline">\(p\)</span> 的二次剩余, 当 <span class="math inline">\(p\)</span> 为素数时, 恰好有两个不同的平方根; 当 <span class="math inline">\(p\)</span> 为合数, 且至少有**两个奇素数因子时, 不是这样. 例如 <span class="math inline">\(8^2 = 13^2 = 22^2 = 27^2 = 29 \mod 35\)</span></p>
-<p><strong>Theorem</strong>: If <span class="math inline">\(x\)</span> is a quadratic residue of <span class="math inline">\(q\)</span>, then <span class="math inline">\(x\)</span> and <span class="math inline">\(q\)</span> are relatively prime</p>
-<p><strong>Theorem</strong>: If <span class="math inline">\(n= pq\)</span>, <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> are two different primes, then every quadratic residue of <span class="math inline">\(n\)</span> has exactly 4 square roots.</p>
-<h3 id="素数测定">素数测定</h3>
-<ul>
-<li>​</li>
-</ul>
-<h2 id="monte-carlo-算法">Monte Carlo 算法</h2>
-<p>Monte Carlo 算法偶尔会犯错, 但无论对何实例都能以高概率找到正确解(?), 当算法出错时, 没有警告信息.</p>
-<p><strong>Def</strong> 设 <span class="math inline">\(p \in (\frac{1}{2}, 1)\)</span> if an MC algorithm 以不小于 p 的概率返回一个正确解, 则该MC算法称为 p-正确. 算法的优势(advantage) 为 <span class="math inline">\(p - \frac{1}{2}\)</span></p>
-<p><strong>Def</strong> 若一个MC 算法对同一个实例不会给出两个不同的正确解, 则称该算法为 consistent.</p>
-<p><strong>Def</strong> <strong>偏真算法</strong>, 设 MC(x) 为一个解判定问题的算法. 对于任何 x, 如果 MC(x) 返回 true 时 永远是正确的, 返回 false 时 可能是错的.</p>
-<p><strong>Def</strong> <strong>偏<span class="math inline">\(y_0\)</span>算法</strong>, 更一般的, 返回结果是 <span class="math inline">\(y_0\)</span> 就肯定是对的.</p>
-<h3 id="主元素问题">主元素问题</h3>
-<h1 id="参考">参考</h1>
-<p><a href="https://wenku.baidu.com/view/26caaadb50e2524de5187ed0.html" target="_blank" rel="external">中科大算法分析与设计的总结 | 百度文库</a></p>
+        
 
       
     </div>
@@ -547,8 +405,8 @@ TODO
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/25/parser-in-OCaml/" rel="next" title="Write a Parser in OCaml">
-                <i class="fa fa-chevron-left"></i> Write a Parser in OCaml
+              <a href="/2018/01/01/DWT/" rel="next" title="DWT">
+                <i class="fa fa-chevron-left"></i> DWT
               </a>
             
           </div>
@@ -557,8 +415,8 @@ TODO
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/12/combinatorics/" rel="prev" title="combinatorics">
-                combinatorics <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/05/paralell-computing/" rel="prev" title="paralell computing">
+                paralell computing <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -623,17 +481,8 @@ TODO
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -710,22 +559,6 @@ TODO
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率算法"><span class="nav-text">概率算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概率算法分类"><span class="nav-text">概率算法分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数值积分"><span class="nav-text">数值积分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概率計数"><span class="nav-text">概率計数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#求集合的勢"><span class="nav-text">求集合的勢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向量中不同对象数目的估计"><span class="nav-text">向量中不同对象数目的估计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sherwood-算法"><span class="nav-text">Sherwood 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#las-vegas-算法"><span class="nav-text">Las Vegas 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#八皇后"><span class="nav-text">八皇后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模-p-平方根"><span class="nav-text">模 p 平方根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整数因数分解"><span class="nav-text">整数因数分解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#naive-way-to-to-split."><span class="nav-text">naive way to to split.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dixon"><span class="nav-text">Dixon</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#素数测定"><span class="nav-text">素数测定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#monte-carlo-算法"><span class="nav-text">Monte Carlo 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主元素问题"><span class="nav-text">主元素问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -879,9 +712,9 @@ TODO
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://reveriel.com/2017/12/11/randomized-algorithm/';
-          this.page.identifier = '2017/12/11/randomized-algorithm/';
-          this.page.title = 'randomized algorithm';
+          this.page.url = 'http://reveriel.com/2018/01/03/network-security/';
+          this.page.identifier = '2018/01/03/network-security/';
+          this.page.title = 'network security';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://reveriel.disqus.com/embed.js';

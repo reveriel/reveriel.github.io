@@ -90,16 +90,16 @@
 
 
 
-<meta name="description" content="先是在wiki上找了一下组合数学的词条. 发现蕴含的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
+<meta name="description" content="先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="combinatorics">
 <meta property="og:url" content="http://reveriel.com/2017/12/12/combinatorics/index.html">
 <meta property="og:site_name" content="Reveirel">
-<meta property="og:description" content="先是在wiki上找了一下组合数学的词条. 发现蕴含的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
-<meta property="og:updated_time" content="2017-12-25T10:42:42.647Z">
+<meta property="og:description" content="先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
+<meta property="og:updated_time" content="2018-01-15T08:25:58.915Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="combinatorics">
-<meta name="twitter:description" content="先是在wiki上找了一下组合数学的词条. 发现蕴含的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
+<meta name="twitter:description" content="先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
 
 
 
@@ -383,8 +383,60 @@
       
 
       
-        <p>先是在wiki上找了一下组合数学的词条. 发现蕴含的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.</p>
+        <p>先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.</p>
 <a id="more"></a>
+<h2 id="鸽巢原理">鸽巢原理</h2>
+<p><strong>定理</strong>: 把 n+1 个物体放在 n 个盒子里, 至少有一个盒子里有两个以上的物体.</p>
+<p><strong>定理</strong>: 鸽巢定理推广. <span class="math inline">\(q_1, q_2, \ldots, q_n \in \mathbb{Z^+}\)</span> , 把 <span class="math inline">\(\sum_i q_i - n + 1\)</span> 个物体放入 <span class="math inline">\(n\)</span> 个盒子, 第一个盒子至少 <span class="math inline">\(q_1\)</span> 个物体, 或者第二个盒子中至少有 <span class="math inline">\(q_2\)</span> 个物体, … , 或者第 n 个盒子中至少有 <span class="math inline">\(q_n\)</span> 个物体.</p>
+<p>这两个定理用反证法很容易证明.</p>
+<p>课本前半部分都是一些很古典的组合数学问题. 用物体, 盒子等定义不明的语言描述.</p>
+<p>这里试着用集合论语言描述一下.</p>
+<p><strong>物体</strong>集合 O (object), 可数集合</p>
+<p><strong>盒子/标签</strong> 集合 T (type), 可数集合.</p>
+<p>一个<strong>方案/安排</strong> a (arrangement), 是一个映射 <span class="math inline">\(a \in O \to C\)</span>, <span class="math inline">\(O \to C\)</span> 表示所有值域为 <span class="math inline">\(O\)</span>, 定义域为 <span class="math inline">\(C\)</span> 的映射的集合.</p>
+<p>所有方案<span class="math inline">\(A = O \to C\)</span>, 许多问题问的就是 <span class="math inline">\(|A|\)</span>.</p>
+<p>鸽巢定理: <span class="math inline">\(|O| = n+1\)</span>, <span class="math inline">\(|T| = n\)</span>, 记 <span class="math inline">\(A = O \to T\)</span> <span class="math inline">\(\forall a \in A\)</span> , <span class="math inline">\(\exists t_0 \in T\)</span>, <span class="math inline">\(|a^{-1}(t_0)| &gt; 1\)</span></p>
+<p>这里用映射的逆表示从值域映射到定义域集合的一个映射.</p>
+<p>不得不说, 这么写的话, 定理的含义模糊了很多. 定理的成立也不那么明显了.</p>
+<h3 id="ramsey-数">Ramsey 数</h3>
+<p>略</p>
+<h2 id="排列与组合">排列与组合</h2>
+<h3 id="加法乘法原则">加法乘法原则</h3>
+<p><strong>加法原则</strong>: 事件 A 有 m 种选取方式, 事件 B 有 n 种选取方式, 则选择 A 或 B, 有 m + n 中选取方式.</p>
+<blockquote>
+<p>这有什么意义? 太显然了.. 一个事件A 有 m 种选取方式是什么意思? 这里并不涉及上面提到的 Object 和 Type. (因为一时想不到答案.. 走神看QQ去了..). 加法原则可以看做是单纯的集合相加. 看下面的乘法原则吧.</p>
+</blockquote>
+<p><strong>乘法原则</strong>: 事件 A 有 m 种选取方式, 事件 B 有 n 种选取方式, 选取 A 然后选取 B 有 mn 中选取方式</p>
+<blockquote>
+<p>这不也仅仅是集合相乘吗..</p>
+</blockquote>
+<p>减法原则, 除法原则</p>
+<h3 id="集合的排列">集合的排列</h3>
+<p>n 元集合 S 的一个 r 排列是指从 S 中选 r 个元素, 依次排列. 方案数记为 <span class="math inline">\(P(n,r)\)</span></p>
+<p><span class="math display">\[P(n, r) = \frac{n!}{(n-r)!}\]</span></p>
+<h3 id="集合组合">集合组合</h3>
+<p>n 元集合 S 的 r 组合是指从 S 中选取 r 个元素的无序选择. 方案数记为 <span class="math inline">\(\binom{n}{r}\)</span>. or <span class="math inline">\(C_n^r\)</span></p>
+<p><span class="math display">\[\binom{n}{r} = \frac{n!}{r!(n-r)!}\]</span></p>
+<blockquote>
+<p>这个是 S 集合的大小为 r 的子集的个数</p>
+</blockquote>
+<h3 id="多重集合的排列">多重集合的排列</h3>
+<p>多重集合里面可能会有相同元素, 比如 <span class="math inline">\(M = \{a,a,a,b,c,c,d,d,d,d\}\)</span> = <span class="math inline">\(\{3\cdot a, 1\cdot b, 2 \cdot c, 4 \cdot d\}\)</span></p>
+<p>一般把多重集合记为 <span class="math inline">\(M = \{k_1\cdot a_1, k_2\cdot a_2, \ldots, k_n \cdot a_n\}\)</span>,</p>
+<p><strong>定理</strong> 多重集合 <span class="math inline">\(M = \{\infty\cdot a_1, \infty\cdot a_2, \ldots, \infty \cdot a_k\}\)</span> 的 r 排列数为 <span class="math inline">\(k ^ r\)</span></p>
+<blockquote>
+<p>这个..勉勉强强吧</p>
+</blockquote>
+<p><strong>定理</strong> 多重集合<span class="math inline">\(M = \{k_1\cdot a_1, k_2\cdot a_2, \ldots, k_n \cdot a_n\}\)</span> 的全排列数为</p>
+<p><span class="math display">\[\frac{(k_1 + k_2 + \ldots + k_n)!}{k_1!k_2!\ldots k_n! }\]</span></p>
+<h3 id="多重集合的组合">多重集合的组合</h3>
+<p><strong>定理</strong> 多重集合 <span class="math inline">\(M = \{\infty\cdot a_1, \infty\cdot a_2, \ldots, \infty \cdot a_k\}\)</span> 的 r 组合数为 <span class="math inline">\(\binom{k+r-1}{r}\)</span>, 另一种描述 将 r 个相同的求放入 k 个不同的盒中.</p>
+<p><strong>定理</strong> 多重集合 <span class="math inline">\(M = \{\infty\cdot a_1, \infty\cdot a_2, \ldots, \infty \cdot a_k\}\)</span> 要求 <span class="math inline">\(a_1, \ldots, a_k\)</span> 至少出现一次的 <span class="math inline">\(r\)</span> 组合数为 <span class="math inline">\(\binom{r-1}{k-1}\)</span></p>
+<blockquote>
+<p>高中时的“隔板法”</p>
+</blockquote>
+<h2 id="二项式定理">二项式定理</h2>
+<p><strong>二项式定理</strong> $(x + y)^n = _{r=0}^{n}  x^{n-r} y ^r $</p>
 <h1 id="polya-计数">Polya 计数</h1>
 <h2 id="群">群</h2>
 <p>非空集合<span class="math inline">\(G\)</span> 以及在上面的二元运算 <span class="math inline">\(\cdot\)</span>, 满足以下条件</p>
@@ -400,14 +452,16 @@
 <ol type="1">
 <li><span class="math inline">\(e^{-1} = e\)</span></li>
 <li><span class="math inline">\(e\)</span> is unique</li>
-<li>消去律成立, if <span class="math inline">\(a \cdot b = a \cdot c\)</span> or <span class="math inline">\(b \cdot a = c \cdot a\)</span> then <span class="math inline">\(b = c\)</span></li>
+<li>消去律成立, if <span class="math inline">\(a \cdot b = a \cdot c\)</span> or <span class="math inline">\(b \cdot a = c \cdot a\)</span> then <span class="math inline">\(b = c​\)</span></li>
 <li><span class="math inline">\((a \cdot b)^{-1} =b^{-1} \cdot a^{-1}\)</span></li>
 </ol>
 <p>定义<em>子群</em>, 设 <span class="math inline">\(\langle G, \cdot \rangle\)</span> is a group, and <span class="math inline">\(H\)</span> is a non-empty subset of <span class="math inline">\(G\)</span>, if <span class="math inline">\(\langle H, \cdot \rangle\)</span> is a group, we call it <span class="math inline">\(G\)</span>’s <em>subgroup</em></p>
 <p>一些性质包括, 只要 <span class="math inline">\(H\)</span> 中运算封闭, <span class="math inline">\(\langle H, \cdot \rangle\)</span> 就是子群.</p>
 <h2 id="置换群">置换群</h2>
 <p>有限集合<span class="math inline">\(D\)</span> 上的 一一映射 成为 <span class="math inline">\(D\)</span> 上的置换. 不失一般性, <span class="math inline">\(D=\{1,2,\ldots, n\}\)</span></p>
-<p>一个置换 <span class="math inline">\(\sigma = \left ( \begin{array}{cccc}1&amp;2 &amp;\ldots &amp; n\\ \sigma(1) &amp;\sigma(2) &amp;\ldots &amp; \sigma(n) \end{array} \right )\)</span> 将1 映射到 <span class="math inline">\(\sigma(1)\)</span>, 以此类推.</p>
+<p>一个置换</p>
+<p><span class="math inline">\(\sigma = \left ( \begin{array}{cccc}1&amp;2 &amp;\ldots &amp; n\\ \sigma(1) &amp;\sigma(2) &amp;\ldots &amp; \sigma(n)\end{array} \right )\)</span></p>
+<p>将1 映射到 <span class="math inline">\(\sigma(1)\)</span>, 以此类推.</p>
 <p><span class="math inline">\(D = \{1, 2,\ldots, n\}\)</span> 的所有置换构成一个群, 记为<span class="math inline">\(S_n\)</span>, <span class="math inline">\(\big|S_n\big| = n!\)</span></p>
 <p><span class="math inline">\((1,4,6)\)</span> 这种叫<em>轮换</em>, <span class="math inline">\(1\to4, 4\to 6, 6 \to 1\)</span>, 其他不变. 举个例子, 轮换的复合运算: <span class="math inline">\((1234)(1234) = (13)(24)\)</span></p>
 <p>任意置换都可以表示为不相交的轮换之积.</p>
@@ -420,11 +474,12 @@
 <p>对应到组合问题中, 比如一个着色方案, 一个分配方案, 实际上就是一个<span class="math inline">\(F = D \to R\)</span>, 着色方案的话, <span class="math inline">\(D\)</span> 是定点, <span class="math inline">\(R\)</span> 是颜色. 分配方案的话, <span class="math inline">\(D\)</span> 是小球, <span class="math inline">\(R\)</span> 是盒子.</p>
 <p>给定一个置换群<span class="math inline">\(G\)</span>, 等价类的个数就是实际的组合方案数.</p>
 <h2 id="burnside-引理">Burnside 引理</h2>
-<p>定义两个置换的<strong>共轭</strong>: <span class="math inline">\(G\)</span> is subgroup of <span class="math inline">\(S_n\)</span>, two elements <span class="math inline">\(s, t \in S_n\)</span>, if there exists a <span class="math inline">\(g \in G\)</span>, s.t. $s = g^{-1} t g $, then we say <span class="math inline">\(s\)</span> is a conjugate of <span class="math inline">\(t\)</span>, and that viceversa, or <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> of <span class="math inline">\(G\)</span> are conjugate.</p>
+<p>定义两个置换的<strong>共轭</strong>:</p>
+<p><span class="math inline">\(G\)</span> is subgroup of <span class="math inline">\(S_n\)</span>, two elements <span class="math inline">\(s, t \in S_n\)</span>, if there exists a <span class="math inline">\(g \in G\)</span>, s.t. $s = g^{-1} t g $, then we say <span class="math inline">\(s\)</span> is a conjugate of <span class="math inline">\(t\)</span>, and that viceversa, or <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> of <span class="math inline">\(G\)</span> are conjugate.</p>
 <p>G-conjugate, G共轭是 <span class="math inline">\(S_n\)</span> 上的一个等价关系. G共轭当且仅当, 两个置换是同型的.</p>
 <p>定义<strong>同型</strong>:</p>
 <h2 id="映射的等价类">映射的等价类</h2>
-<p>Burnside引理 可以解决用m色对n个物体着色的方案计数问题, 但是计算量太大, 经过 Polya 改进 形成 Polya 计数定理后才得到广泛应用.</p>
+<p>Burnside引理 可以解决用m色对n个物体着色的方案计数问题, 但是计算量太大, 经过 Polya 改进形成 Polya 计数定理后才得到广泛应用.</p>
 
       
     </div>
@@ -554,7 +609,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -622,7 +677,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#polya-计数"><span class="nav-text">Polya 计数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#群"><span class="nav-text">群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#置换群"><span class="nav-text">置换群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#burnside-引理"><span class="nav-text">Burnside 引理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射的等价类"><span class="nav-text">映射的等价类</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#鸽巢原理"><span class="nav-text">鸽巢原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ramsey-数"><span class="nav-text">Ramsey 数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排列与组合"><span class="nav-text">排列与组合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加法乘法原则"><span class="nav-text">加法乘法原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合的排列"><span class="nav-text">集合的排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合组合"><span class="nav-text">集合组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重集合的排列"><span class="nav-text">多重集合的排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重集合的组合"><span class="nav-text">多重集合的组合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二项式定理"><span class="nav-text">二项式定理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#polya-计数"><span class="nav-text">Polya 计数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#群"><span class="nav-text">群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#置换群"><span class="nav-text">置换群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#burnside-引理"><span class="nav-text">Burnside 引理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射的等价类"><span class="nav-text">映射的等价类</span></a></li></ol></div>
             
 
           </div>
@@ -642,7 +697,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
