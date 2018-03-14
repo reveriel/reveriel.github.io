@@ -14,19 +14,11 @@
 
 
 
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
 
 
 
 
-  
-  
-  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
 
 
 
@@ -49,10 +41,6 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
 
 
 
@@ -61,45 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.5" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.5">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.5">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.5">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT" />
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.5" color="#222">
 
 
 
 
 
 
-
-
-
-
-<meta name="description" content="先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="combinatorics">
-<meta property="og:url" content="http://reveriel.com/2017/12/12/combinatorics/index.html">
-<meta property="og:site_name" content="Reveirel">
-<meta property="og:description" content="先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
-<meta property="og:updated_time" content="2018-01-15T08:25:58.915Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="combinatorics">
-<meta name="twitter:description" content="先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
 
 
 
@@ -108,15 +76,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    version: '5.1.3',
-    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
-    fancybox: true,
+    version: '6.0.5',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: 'undefined',
-      author: 'Author'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -128,31 +94,87 @@
 </script>
 
 
-
-  <link rel="canonical" href="http://reveriel.com/2017/12/12/combinatorics/"/>
-
-
-
-
-
-  <title>combinatorics | Reveirel</title>
   
 
 
 
 
+  
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+<meta name="description" content="先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="组合数学课">
+<meta property="og:url" content="http://reveriel.com/2017/12/12/combinatorics/index.html">
+<meta property="og:site_name" content="Reveirel">
+<meta property="og:description" content="先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-17T10:08:38.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="组合数学课">
+<meta name="twitter:description" content="先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.">
+
+
+
+
+
+
+  <link rel="canonical" href="http://reveriel.com/2017/12/12/combinatorics/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>组合数学课 | Reveirel</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-64244932-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-64244932-1', 'auto');
-  ga('send', 'pageview');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-64244932-1');
 </script>
 
 
 
 
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -167,7 +189,7 @@
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> <div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -201,89 +223,45 @@
         
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
         </li>
       
         
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
         </li>
       
         
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
       
     </ul>
   
 
   
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="Searching..." spellcheck="false"
-             type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
 </nav>
+
+
+  
 
 
 
  </div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
@@ -298,6 +276,8 @@
 
   
   
+  
+
   
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -322,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">combinatorics</h1>
+          <h1 class="post-title" itemprop="name headline">组合数学课</h1>
         
 
         <div class="post-meta">
@@ -334,11 +314,10 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-12T17:30:32+08:00">
-                2017-12-12
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-12T17:30:32+08:00">2017-12-12</time>
             
 
+            
             
 
             
@@ -377,7 +356,7 @@
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -437,8 +416,82 @@
 </blockquote>
 <h2 id="二项式定理">二项式定理</h2>
 <p><strong>二项式定理</strong> $(x + y)^n = _{r=0}^{n}  x^{n-r} y ^r $</p>
-<h1 id="polya-计数">Polya 计数</h1>
-<h2 id="群">群</h2>
+<p><strong>二项式定理</strong> <span class="math inline">\(,(1+x)^{\alpha} = \sum_{r=0}^{\infty}\binom{\alpha}{r} x^r\)</span> for all <span class="math inline">\(\alpha \in \mathbb{R}\)</span> , <span class="math inline">\(\binom{\alpha}{r} = \frac{\alpha(\alpha -1)\ldots(\alpha-r+1)}{r!}\)</span></p>
+<ol type="1">
+<li>当 <span class="math inline">\(\alpha= - n\)</span>,</li>
+</ol>
+<p><span class="math display">\[\begin{align} \binom{\alpha}{r} &amp; = \binom{-n}{r}  \\ &amp;= \frac{(-n)(-n-1)\ldots(-n-r-1)}{r!} \\ &amp;= (-1)^r\binom{n+r-1}{r} \end{align}\]</span></p>
+<p>so, <span class="math inline">\((1+x)^{-n} = \sum_{r=0}^{\infty}(-1)^r \binom{n+r-1}{r} x^r\)</span></p>
+<ol start="2" type="1">
+<li>当 <span class="math inline">\(\alpha = \frac{1}{2}\)</span>,</li>
+</ol>
+<p><span class="math display">\[\begin{align}\binom{\alpha}{r} &amp;= \binom{\frac{1}{2}}{r} \\ &amp;=\frac{\frac{1}{2}(\frac{1}{2}-1)\ldots(\frac{1}{2}-r+1)}{r!}\\&amp;=(-1)^{r-1}\cdot\frac{1}{r2^{2r-1}}\binom{2r-2}{r-1} \end{align}\]</span></p>
+<p>so, <span class="math display">\[(1+x)^\frac{1}{2} = \sum_{r=0}^{\infty}(-1)^{r-1}\frac{1}{r2^{2r-1}}\binom{2r-2}{r-1}x^r\]</span></p>
+<p><span class="math inline">\(\binom{n}{r}\)</span> 的一些基本性质:</p>
+<ol type="1">
+<li>对称</li>
+<li>递推关系</li>
+<li>单峰(中间最大)</li>
+<li>可以看做在杨辉三角中, 从顶点走到<span class="math inline">\(\binom{n}{r}\)</span> 点的所有路径数.</li>
+</ol>
+<p>恒等式:</p>
+<ol type="1">
+<li><span class="math inline">\(\binom{n}{0} + \binom{n}{1} + \ldots + \binom{n}{n} = 2^n\)</span></li>
+<li><span class="math inline">\(\binom{n}{i}\)</span> 所有偶数项求和等于所有奇数项</li>
+<li><span class="math inline">\(1\binom{n}{1} + 2\binom{n}{2} + 3\binom{n}{3} + \ldots + n\binom{n}{n} = n2^{n-1}\)</span>, 证明: <span class="math inline">\((1+x)^n\)</span> 在 <span class="math inline">\(x=1\)</span> 处求导.</li>
+<li><span class="math inline">\(\sum_{k=0}^{n}\binom{n}{k}^2 = \binom{2n}{n}\)</span></li>
+<li><span class="math inline">\(\binom{0}{k}+\binom{1}{k} + \ldots + \binom{n}{k} = \binom{n+1}{k+1}\)</span>, 组合意义,</li>
+<li><span class="math inline">\(\sum_{k=0}^{n}\binom{n}{k}^2 = \binom{n}{0}\binom{n}{n} + \binom{n}{1}\binom{n}{n-1} + \ldots + \binom{n}{n}\binom{n}{0}= \binom{2n}{n}\)</span>, 组合意义</li>
+<li><span class="math inline">\(\sum_{i=0}^{r}\binom{m}{i}\binom{n}{r-i} = \binom{m+n}{r}\)</span> , Vandermonde 恒等式, 上式的推广</li>
+<li><span class="math inline">\(\sum_{i=0}^{m}\binom{m}{i}\binom{n}{r+i} = \binom{m+n}{m+r}\)</span>,</li>
+</ol>
+<p>多项式定理</p>
+<p><span class="math inline">\((x_1+ x_2+ \ldots + x_t)^n = \sum\binom{n}{n_1n_2\ldots n_t}x_1^{n_1}x_2^{n_2}\ldots x_t^{n_t}\)</span></p>
+<p>多项式系数 <span class="math inline">\(\binom{n}{n_1n_2\ldots n_t} = \frac{n!}{n_1!n_2!\ldots n_t!}\)</span></p>
+<h2 id="容斥定理">容斥定理</h2>
+<p><span class="math inline">\(S\)</span> 是有限集合, <span class="math inline">\(P_1 ,P_2,\ldots,P_m\)</span> 是有关 <span class="math inline">\(S\)</span> 元素的性质, <span class="math inline">\(A_i\)</span> 是 <span class="math inline">\(S\)</span> 中具有 <span class="math inline">\(P_i\)</span> 性质的元素组成的集合, 则 <span class="math inline">\(S\)</span> 中不具有性质 <span class="math inline">\(P_1,\ldots,P_m\)</span> 的元素个数为:</p>
+<p><span class="math display">\[ |\overline{A_1} \cap \overline{A_2} \cap \ldots \cap \overline{A_m}| = |S| - \sum|A_i| + \sum|A_i\cap A_j| - \sum|A_i\cap A_j \cap A_k| + \ldots + (-1)^m |A_1\cap A_2 \cap \ldots \cap A_m|\]</span></p>
+<h3 id="错排问题">错排问题</h3>
+<p>1,2,…,n, 的一个错排指满足每个数不在原位置的全排列.</p>
+<p>错排数<span class="math inline">\(D_n = n!(1 - \frac{1}{1!}+\frac{1}{2!}-\frac{1}{3!}+\ldots+(-1)^n\frac{1}{n!})\)</span></p>
+<p>证明方法1. 容斥定理 $P_i $ 为 i 在原位置上. 2. 递推公式</p>
+<h3 id="有禁止模式的排列问题">有禁止模式的排列问题</h3>
+<p>容斥原理, <span class="math inline">\(P_i\)</span> 为有某个禁止模式的排列</p>
+<h2 id="生成函数">生成函数</h2>
+<p><strong>定义</strong></p>
+<p><span class="math inline">\(A(x) = a_0 + a_1x + a_2x^2 + \ldots\)</span> 为序列 <span class="math inline">\(a_0, a_1, a_2, \ldots\)</span> 的生成函数.</p>
+<p><strong>加法</strong>, 对应项相加 <span class="math inline">\(A(x)+B(x) \equiv \sum_{k=0}^\infty (a_k + b_k)x^k\)</span></p>
+<p><strong>乘法</strong>, 相乘后合并同次项 <span class="math inline">\(A(x)B(x) \equiv \sum_{k=0}^{\infty} (a_kb_0+a_{k-1}b_1+ \ldots + a_0b_k)x^k\)</span></p>
+<p>加法零元: 0, 0, 0, …</p>
+<p>乘法单位元: 1, 0, 0, …</p>
+<p>形式多项式集合 <span class="math inline">\(R[[x]]\)</span> 构成一个整环.</p>
+<p><strong>求导</strong></p>
+<h3 id="生成函数的性质">生成函数的性质</h3>
+<p>一些计算规则和例子</p>
+<p><span class="math inline">\(b_k = \sum_{i=0}^k a_i\)</span> <span class="math inline">\(\iff\)</span> <span class="math inline">\(B(x) = \frac{A(x)}{1-x}\)</span></p>
+<p><span class="math inline">\(b_k=\sum_{i=k}^\infty a_i \iff B(x) = \frac{A(1)-xA(x)}{1-x}\)</span></p>
+<p><span class="math inline">\(b_k = ka_k \iff B(x) = xA&#39;(x)\)</span></p>
+<p><span class="math inline">\(b_k=\frac{a_k}{k+1} \iff B(x) = \frac{1}{x}\int_0^xA(t)\,\mathrm{d}t\)</span></p>
+<h3 id="组合型分配问题的生成函数">组合型分配问题的生成函数</h3>
+<p><span class="math inline">\(\{\infty a_1, \infty a_2, \ldots, \infty a_n\}\)</span>, 的 <span class="math inline">\(k\)</span> 组合数</p>
+<p>其生成函数 <span class="math inline">\(A(x) = (\sum_{i=0}^\infty x^i )^n\)</span> , 每个因子 <span class="math inline">\(\sum_{i=0}^\infty x^i\)</span> 表示一个 a_i 可取的个数, 生成函数的 <span class="math inline">\(k\)</span> 次项就是 <span class="math inline">\(k\)</span> 组合数.</p>
+<p><span class="math inline">\(A(x) = \frac{1}{(1-x)^n}\)</span>, <span class="math inline">\(a_k = \binom{n-1+k}{k}\)</span></p>
+<h3 id="排列型分配问题的指数型生成函数">排列型分配问题的指数型生成函数</h3>
+<p>指数型生成函数.</p>
+<p>数列 <span class="math inline">\(a_i\)</span>, 的指数型生成函数为 <span class="math inline">\(\sum_{k=0}^\infty a_k \frac{x^k}{k!}\)</span></p>
+<h3 id="正整数拆分">正整数拆分</h3>
+<h2 id="递推关系">递推关系</h2>
+<h3 id="常系数线性齐次递推关系">常系数线性齐次递推关系</h3>
+<h3 id="常系数线性非齐次">常系数线性非齐次</h3>
+<h3 id="迭代归纳法">迭代归纳法</h3>
+<h3 id="生成函数求解递推关系">生成函数求解递推关系</h3>
+<h2 id="特殊计数序列">特殊计数序列</h2>
+<p>fibonacci</p>
+<p>catalan</p>
+<p>集合划分 stirling</p>
+<p><strong>分配问题</strong></p>
+<h2 id="polya-计数">Polya 计数</h2>
+<h3 id="群">群</h3>
 <p>非空集合<span class="math inline">\(G\)</span> 以及在上面的二元运算 <span class="math inline">\(\cdot\)</span>, 满足以下条件</p>
 <ol type="1">
 <li>运算封闭</li>
@@ -457,7 +510,7 @@
 </ol>
 <p>定义<em>子群</em>, 设 <span class="math inline">\(\langle G, \cdot \rangle\)</span> is a group, and <span class="math inline">\(H\)</span> is a non-empty subset of <span class="math inline">\(G\)</span>, if <span class="math inline">\(\langle H, \cdot \rangle\)</span> is a group, we call it <span class="math inline">\(G\)</span>’s <em>subgroup</em></p>
 <p>一些性质包括, 只要 <span class="math inline">\(H\)</span> 中运算封闭, <span class="math inline">\(\langle H, \cdot \rangle\)</span> 就是子群.</p>
-<h2 id="置换群">置换群</h2>
+<h3 id="置换群">置换群</h3>
 <p>有限集合<span class="math inline">\(D\)</span> 上的 一一映射 成为 <span class="math inline">\(D\)</span> 上的置换. 不失一般性, <span class="math inline">\(D=\{1,2,\ldots, n\}\)</span></p>
 <p>一个置换</p>
 <p><span class="math inline">\(\sigma = \left ( \begin{array}{cccc}1&amp;2 &amp;\ldots &amp; n\\ \sigma(1) &amp;\sigma(2) &amp;\ldots &amp; \sigma(n)\end{array} \right )\)</span></p>
@@ -473,16 +526,20 @@
 </blockquote>
 <p>对应到组合问题中, 比如一个着色方案, 一个分配方案, 实际上就是一个<span class="math inline">\(F = D \to R\)</span>, 着色方案的话, <span class="math inline">\(D\)</span> 是定点, <span class="math inline">\(R\)</span> 是颜色. 分配方案的话, <span class="math inline">\(D\)</span> 是小球, <span class="math inline">\(R\)</span> 是盒子.</p>
 <p>给定一个置换群<span class="math inline">\(G\)</span>, 等价类的个数就是实际的组合方案数.</p>
-<h2 id="burnside-引理">Burnside 引理</h2>
+<h3 id="burnside-引理">Burnside 引理</h3>
 <p>定义两个置换的<strong>共轭</strong>:</p>
 <p><span class="math inline">\(G\)</span> is subgroup of <span class="math inline">\(S_n\)</span>, two elements <span class="math inline">\(s, t \in S_n\)</span>, if there exists a <span class="math inline">\(g \in G\)</span>, s.t. $s = g^{-1} t g $, then we say <span class="math inline">\(s\)</span> is a conjugate of <span class="math inline">\(t\)</span>, and that viceversa, or <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> of <span class="math inline">\(G\)</span> are conjugate.</p>
 <p>G-conjugate, G共轭是 <span class="math inline">\(S_n\)</span> 上的一个等价关系. G共轭当且仅当, 两个置换是同型的.</p>
 <p>定义<strong>同型</strong>:</p>
-<h2 id="映射的等价类">映射的等价类</h2>
+<h3 id="映射的等价类">映射的等价类</h3>
 <p>Burnside引理 可以解决用m色对n个物体着色的方案计数问题, 但是计算量太大, 经过 Polya 改进形成 Polya 计数定理后才得到广泛应用.</p>
+<h2 id="组合设计">组合设计</h2>
 
       
     </div>
+
+    
+
     
     
     
@@ -542,9 +599,6 @@
           </div>
           
 
-
-          
-
   
     <div class="comments" id="comments">
       <div id="disqus_thread">
@@ -573,8 +627,6 @@
 
   <aside id="sidebar" class="sidebar">
     
-      <div id="sidebar-dimmer"></div>
-    
     <div class="sidebar-inner">
 
       
@@ -602,66 +654,72 @@
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives/">
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
               
-                  <span class="site-state-item-count">13</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
 
-            
-
-            
               
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
 
           
 
-          <div class="links-of-author motion-element">
-            
+          
+            <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
-                  <a href="https://github.com/reveriel" target="_blank" title="GitHub">
-                    
-                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  <a href="https://github.com/reveriel" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="https://pixiv.me/reveirell" target="_blank" title="Pixiv">
-                    
-                      <i class="fa fa-fw fa-paint-brush"></i>Pixiv</a>
+                  <a href="https://pixiv.me/reveirell" target="_blank" title="Pixiv"><i class="fa fa-fw fa-paint-brush"></i>Pixiv</a>
+                  
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="http://weibo.com/reveriel" target="_blank" title="Weibo">
-                    
-                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  <a href="http://weibo.com/reveriel" target="_blank" title="Weibo"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  
                 </span>
               
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
             
-          </div>
-
           
-          
-
-          
-          
-
           
 
         </div>
@@ -677,7 +735,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#鸽巢原理"><span class="nav-text">鸽巢原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ramsey-数"><span class="nav-text">Ramsey 数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排列与组合"><span class="nav-text">排列与组合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加法乘法原则"><span class="nav-text">加法乘法原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合的排列"><span class="nav-text">集合的排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合组合"><span class="nav-text">集合组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重集合的排列"><span class="nav-text">多重集合的排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重集合的组合"><span class="nav-text">多重集合的组合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二项式定理"><span class="nav-text">二项式定理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#polya-计数"><span class="nav-text">Polya 计数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#群"><span class="nav-text">群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#置换群"><span class="nav-text">置换群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#burnside-引理"><span class="nav-text">Burnside 引理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射的等价类"><span class="nav-text">映射的等价类</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#鸽巢原理"><span class="nav-number">1.</span> <span class="nav-text">鸽巢原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ramsey-数"><span class="nav-number">1.1.</span> <span class="nav-text">Ramsey 数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排列与组合"><span class="nav-number">2.</span> <span class="nav-text">排列与组合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加法乘法原则"><span class="nav-number">2.1.</span> <span class="nav-text">加法乘法原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合的排列"><span class="nav-number">2.2.</span> <span class="nav-text">集合的排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合组合"><span class="nav-number">2.3.</span> <span class="nav-text">集合组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重集合的排列"><span class="nav-number">2.4.</span> <span class="nav-text">多重集合的排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重集合的组合"><span class="nav-number">2.5.</span> <span class="nav-text">多重集合的组合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二项式定理"><span class="nav-number">3.</span> <span class="nav-text">二项式定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容斥定理"><span class="nav-number">4.</span> <span class="nav-text">容斥定理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#错排问题"><span class="nav-number">4.1.</span> <span class="nav-text">错排问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有禁止模式的排列问题"><span class="nav-number">4.2.</span> <span class="nav-text">有禁止模式的排列问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成函数"><span class="nav-number">5.</span> <span class="nav-text">生成函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成函数的性质"><span class="nav-number">5.1.</span> <span class="nav-text">生成函数的性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合型分配问题的生成函数"><span class="nav-number">5.2.</span> <span class="nav-text">组合型分配问题的生成函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排列型分配问题的指数型生成函数"><span class="nav-number">5.3.</span> <span class="nav-text">排列型分配问题的指数型生成函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正整数拆分"><span class="nav-number">5.4.</span> <span class="nav-text">正整数拆分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递推关系"><span class="nav-number">6.</span> <span class="nav-text">递推关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常系数线性齐次递推关系"><span class="nav-number">6.1.</span> <span class="nav-text">常系数线性齐次递推关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常系数线性非齐次"><span class="nav-number">6.2.</span> <span class="nav-text">常系数线性非齐次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代归纳法"><span class="nav-number">6.3.</span> <span class="nav-text">迭代归纳法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成函数求解递推关系"><span class="nav-number">6.4.</span> <span class="nav-text">生成函数求解递推关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊计数序列"><span class="nav-number">7.</span> <span class="nav-text">特殊计数序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#polya-计数"><span class="nav-number">8.</span> <span class="nav-text">Polya 计数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#群"><span class="nav-number">8.1.</span> <span class="nav-text">群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#置换群"><span class="nav-number">8.2.</span> <span class="nav-text">置换群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#burnside-引理"><span class="nav-number">8.3.</span> <span class="nav-text">Burnside 引理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#映射的等价类"><span class="nav-number">8.4.</span> <span class="nav-text">映射的等价类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合设计"><span class="nav-number">9.</span> <span class="nav-text">组合设计</span></a></li></ol></div>
             
 
           </div>
@@ -704,17 +762,28 @@
   <span class="author" itemprop="copyrightHolder">Rev</span>
 
   
+
+  
 </div>
 
 
 
 
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.5</div>
 
 
 
 
         
+
 
 
 
@@ -729,8 +798,6 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -755,7 +822,11 @@
 
 
 
-  
+
+
+
+
+
 
 
 
@@ -775,16 +846,6 @@
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
     <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
@@ -793,18 +854,13 @@
     <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.5"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.5"></script>
 
 
 
@@ -812,42 +868,43 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.5"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.5"></script>
 
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.5"></script>
 
 
 
   
 
-
+  
+    <script id="dsq-count-scr" src="https://reveriel.disqus.com/count.js" async></script>
   
 
-    
-      <script id="dsq-count-scr" src="https://reveriel.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://reveriel.com/2017/12/12/combinatorics/';
-          this.page.identifier = '2017/12/12/combinatorics/';
-          this.page.title = 'combinatorics';
-        };
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://reveriel.com/2017/12/12/combinatorics/';
+        this.page.identifier = '2017/12/12/combinatorics/';
+        this.page.title = '组合数学课';
+      };
+      function loadComments () {
         var d = document, s = d.createElement('script');
         s.src = 'https://reveriel.disqus.com/embed.js';
         s.setAttribute('data-timestamp', '' + +new Date());
         (d.head || d.body).appendChild(s);
-      </script>
-    
-
+      }
+      
+        loadComments();
+      
+    </script>
   
+
 
 
 
@@ -871,326 +928,7 @@
 
 
 
-
-
   
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
 
 
 
@@ -1207,32 +945,18 @@
 
   
   
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
   
-  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
-  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+  
 
+  
+
+  
+
+  
 
   
 
