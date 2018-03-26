@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Web Server using NodeJS]]></title>
+    <url>%2F2018%2F03%2F26%2FWeb-Server-using-NodeJS%2F</url>
+    <content type="text"><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Inference on Embeded Systems]]></title>
+    <url>%2F2018%2F03%2F14%2FInference-on-Embeded-Systems%2F</url>
+    <content type="text"><![CDATA[Sparsification and Separation. key Contributions: * A sparse coding-based approach to optimize depp learning inference execution. * Convolution kernel separation technique * The first to do Deep Learning Model on severely constrained wearable hardware. * implement a prototype, * experiment with for CNN and DNN models, 11.3x improvements in memory and 13.3x inexecution time. accuracy loss 5% background: DNN, CNN(DNN with some convolutional layers) local computation: privacy, independent of network condition. Design Goals: * No re-training * No Cloud Offloading * Low-resource platforms. only a few MBs of RAM. * Minimize Model Changes Three technique: * Layer Compression Compiler, for Fully-connected layers * Sparse Inference Runtime, load active layers only * Convolution Separation Runtime, for Convolutional layers. Fully-connected layers: \(f(\mathbf{b} + \mathbf{W} \cdot \mathbf{x})\) Convolutional Layers: \(f(\sum\mathbf{x} \ast \mathcal{K} + \mathbf{b} )\) Weight Factorization: \(W \cdot x\) , \(W\) is m x n, if we factorize \(M = U \cdot V\), \(U\) and \(V\) is m x k, then compressed. Previous work use SVD. This paper improved this by using Dictionary Learning. factorized \(M = B \cdot A\), \(A\) is a sparse matrix. Convolutional Layers: d x d convolutional kernels factorized to d x k and k x d, use SVD. choose k for specified accuracy, memory, and computation time: for each layer, use binary search to find one. evaluation:]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[File Server on Ubuntu]]></title>
+    <url>%2F2018%2F03%2F14%2FFile-Server-on-Ubuntu%2F</url>
+    <content type="text"><![CDATA[Install samba. configure it. Use Samba on the LAN, FTP over the Internet. File Server | Ubuntu documentation 其实把东西记在博客里一点也不方便. 后来某天想要在树莓派上设置Samba时, 还以为是记在 Note 里面的. 找不到这篇笔记, 才 想起是放在了这里.. /etc/samba/smb.conf Official doc for ubt17 is not released yet. I made some change in the [homes] section. 1234567[homes] comment = Home Directories browseable = yes read only = no create mask = 0775 directory mask = 0775 valid users = %S then sudo service smdb restart &amp;&amp; service nmbd restart add user to sambda smbpasswd -a &lt;user-name&gt;]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Network Simulator: ns-3]]></title>
+    <url>%2F2018%2F03%2F14%2FNetwork-Simulator-ns-3%2F</url>
+    <content type="text"><![CDATA[ns-3 is a Network simulator, preparation Normally you need to download the source and build it. Compile failed on MacOS, So I have to use Ubuntu. Download ns-allinone-3.27.tar.bz2. Then tar xf it, and build it: 1./build.py --enable-examples --enable-tests or ./waf -d optimized --enable-examples --enable-tests configure run example ./waf --run hello-simulator in example/tutorial Concepts four basic Concepts: Node: a machine, pc, router, switch Application: program Channel: between nodes csma, p2p, wifi NetDevice: Network interface Card and driver. Topology Helper: attach NetDevice to Node and Channel, do configuration NodeContainer create, access and manage Node objects]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[ML-oxford]]></title>
     <url>%2F2018%2F01%2F12%2FML-oxford%2F</url>
     <content type="text"><![CDATA[linear \(\hat{y} = \mathrm{X} \theta\) \(X = \begin{bmatrix} x_{11}\end{bmatrix}\) \(J(\theta) = (y - X\theta)^T (y - X\theta) = \sum_{i=1}^{n}(y_i - x_i^T\theta)^2\) matrix differentiation.]]></content>
