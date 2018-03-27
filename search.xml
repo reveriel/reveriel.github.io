@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Web Server using NodeJS]]></title>
     <url>%2F2018%2F03%2F26%2FWeb-Server-using-NodeJS%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <content type="text"><![CDATA[Write a http web server, run it on RPi. folder pi3:/workspace/webserver]]></content>
   </entry>
   <entry>
     <title><![CDATA[Inference on Embeded Systems]]></title>
@@ -13,7 +13,7 @@
   <entry>
     <title><![CDATA[File Server on Ubuntu]]></title>
     <url>%2F2018%2F03%2F14%2FFile-Server-on-Ubuntu%2F</url>
-    <content type="text"><![CDATA[Install samba. configure it. Use Samba on the LAN, FTP over the Internet. File Server | Ubuntu documentation 其实把东西记在博客里一点也不方便. 后来某天想要在树莓派上设置Samba时, 还以为是记在 Note 里面的. 找不到这篇笔记, 才 想起是放在了这里.. /etc/samba/smb.conf Official doc for ubt17 is not released yet. I made some change in the [homes] section. 1234567[homes] comment = Home Directories browseable = yes read only = no create mask = 0775 directory mask = 0775 valid users = %S then sudo service smdb restart &amp;&amp; service nmbd restart add user to sambda smbpasswd -a &lt;user-name&gt;]]></content>
+    <content type="text"><![CDATA[Install samba. configure it. Use Samba on the LAN, FTP over the Internet. File Server | Ubuntu documentation 其实把东西记在博客里一点也不方便. 后来某天想要在树莓派上设置Samba时, 还以为是记在 Note 里面的. 找不到这篇笔记, 才 想起是放在了这里.. /etc/samba/smb.conf Official doc for ubt17 is not released yet. I made some change in the [homes] section. 1234567[homes] comment = Home Directories browseable = yes read only = no create mask = 0775 directory mask = 0775 valid users = %S then sudo service smdb restart &amp;&amp; service nmbd restart This works fine on Ubt17, but failed on my RPi(8 jessie, Raspbian), use this sudo /etc/init.d/samba restart on RPi add user to sambda smbpasswd -a &lt;user-name&gt; Connect to SMB on macOS Finder &gt; Go &gt; Connect to Server… enter an URL 1smb://&lt;ip&gt;/&lt;folder&gt; Enter your user-name (on the file server) and the passwd you’ve just set. Now You can edit files on the server just like editing your local files!]]></content>
       <tags>
         <tag>linux</tag>
       </tags>
