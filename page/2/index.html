@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2018/01/01/DWT/">
+    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2018/01/05/paralell-computing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rev">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/01/DWT/" itemprop="url">DWT</a></h1>
+                <a class="post-title-link" href="/2018/01/05/paralell-computing/" itemprop="url">paralell computing</a></h1>
         
 
         <div class="post-meta">
@@ -313,7 +313,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-01T08:59:28+08:00">2018-01-01</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-05T15:21:33+08:00">2018-01-05</time>
             
 
             
@@ -331,9 +331,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/01/01/DWT/#comments" itemprop="discussionUrl">
+                <a href="/2018/01/05/paralell-computing/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/01/01/DWT/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/01/05/paralell-computing/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -363,7 +363,26 @@
       
         
           
-            <p>离散小波变化.</p>
+            <h1 id="paralell">paralell</h1>
+<p>data dependency</p>
+<p>statement S, T,</p>
+<p><strong>define</strong> <span class="math inline">\(S \,\delta\, T\)</span>: <span class="math inline">\(T\)</span> depends on <span class="math inline">\(S\)</span>, <span class="math inline">\(S\)</span> must be executed before <span class="math inline">\(T\)</span></p>
+<p><span class="math inline">\(S\,\delta\,T\)</span> if and only if one of the cases are true.</p>
+<p><span class="math inline">\(x\)</span> is a variable</p>
+<ol type="1">
+<li><p><strong>flow dependency</strong>: <span class="math inline">\(S\,\delta^f\,T\)</span>, if <span class="math inline">\(x \in OUT(S)\)</span>, and <span class="math inline">\(x \in IN(T)\)</span>. and <span class="math inline">\(x\)</span> is readed in <span class="math inline">\(T\)</span></p>
+<p>S: x = a + b</p>
+<p>T: y = x</p>
+<p>Read after wrtie.</p></li>
+<li><p><strong>reverse dependency</strong>: <span class="math inline">\(S\,\delta^a\,T\)</span>, if <span class="math inline">\(x \in IN(S)\)</span> and <span class="math inline">\(x \in OUT(T)\)</span>. and <span class="math inline">\(S\)</span> read <span class="math inline">\(x\)</span> before <span class="math inline">\(T\)</span> write to <span class="math inline">\(x\)</span></p>
+<p>S: r = x</p>
+<p>T: x = a + b</p>
+<p>Write after read.</p></li>
+<li><p><strong>output dependency</strong>: <span class="math inline">\(S\,\delta^o\,T\)</span>, if <span class="math inline">\(x \in OUT(S)\)</span> and <span class="math inline">\(x \in OUT(T)\)</span>. <span class="math inline">\(S\)</span> write to <span class="math inline">\(x\)</span> before <span class="math inline">\(T\)</span> write to <span class="math inline">\(x\)</span>.</p>
+<p>S: x = a</p>
+<p>T: x = b</p>
+<p>Write after write.</p></li>
+</ol>
 
           
         
@@ -1317,7 +1336,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

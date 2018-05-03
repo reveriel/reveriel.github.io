@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="Reveirel">
 <meta property="og:description" content="Install samba. configure it. Use Samba on the LAN, FTP over the Internet. File Server | Ubuntu documentation 其实把东西记在博客里一点也不方便. 后来某天想要在树莓派上设置Samba时, 还以为是记在 Note 里面的. 找不到这篇笔记, 才 想起是放在了这里..">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-26T14:46:21.953Z">
+<meta property="og:updated_time" content="2018-04-28T02:07:23.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="File Server on Ubuntu">
 <meta name="twitter:description" content="Install samba. configure it. Use Samba on the LAN, FTP over the Internet. File Server | Ubuntu documentation 其实把东西记在博客里一点也不方便. 后来某天想要在树莓派上设置Samba时, 还以为是记在 Note 里面的. 找不到这篇笔记, 才 想起是放在了这里..">
@@ -372,9 +372,11 @@
 <p><code>/etc/samba/smb.conf</code></p>
 <p>Official doc for ubt17 is not released yet.</p>
 <p>I made some change in the [homes] section.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[homes]</div><div class="line">  comment = Home Directories</div><div class="line">  browseable = yes</div><div class="line">  read only = no</div><div class="line">  create mask = 0775</div><div class="line">  directory mask = 0775</div><div class="line">  valid users = %S</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[homes]</span><br><span class="line">  comment = Home Directories</span><br><span class="line">  browseable = yes</span><br><span class="line">  read only = no</span><br><span class="line">  create mask = 0775</span><br><span class="line">  directory mask = 0775</span><br><span class="line">  valid users = %S</span><br></pre></td></tr></table></figure>
 <p>then</p>
 <pre><code>sudo service smdb restart &amp;&amp; service nmbd restart</code></pre>
+<p>failed… Use this.</p>
+<pre><code>sudo systemctl restart smbd.service nmbd.service</code></pre>
 <blockquote>
 <p>This works fine on Ubt17, but failed on my RPi(8 jessie, Raspbian), use this <code>sudo /etc/init.d/samba restart</code> on RPi</p>
 </blockquote>
@@ -383,9 +385,10 @@
 <h2 id="connect-to-smb-on-macos">Connect to SMB on macOS</h2>
 <p>Finder &gt; Go &gt; Connect to Server…</p>
 <p>enter an URL</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">smb://&lt;ip&gt;/&lt;folder&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smb://&lt;ip&gt;/&lt;folder&gt;</span><br></pre></td></tr></table></figure>
 <p>Enter your user-name (on the file server) and the passwd you’ve just set.</p>
 <p>Now You can edit files on the server just like editing your local files!</p>
+<p>然后安装个 transmission, 把服务器作为 BT 下载器, 也是美滋滋~</p>
 
       
     </div>
@@ -540,7 +543,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

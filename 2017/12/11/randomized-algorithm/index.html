@@ -437,7 +437,7 @@
 <h2 id="las-vegas-算法">Las Vegas 算法</h2>
 <p>时间上界可能不存在, (像扔硬币, 如果结果不是正面就再扔).</p>
 <p>假设 try(x) 成功的概率为 p(x), 成功的期望时间s(x), 失败时期望时间e(x)</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">obstinate() &#123;</div><div class="line">  <span class="keyword">while</span> (!<span class="keyword">try</span>(x))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">obstinate() &#123;</span><br><span class="line">  <span class="keyword">while</span> (!<span class="keyword">try</span>(x))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>obstinate(x) 一定会成功, 设期望时间为t(x)</p>
 <p><span class="math inline">\(t = ps + (1-p)(e+t)\)</span></p>
 <p><span class="math inline">\(t = s + \frac{1-p}{p}e\)</span></p>
@@ -650,7 +650,11 @@ TODO
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

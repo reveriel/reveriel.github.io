@@ -395,13 +395,13 @@
 <h3 id="warning">Warning!</h3>
 <p>默认 markdown 编译器是 hexo-renderer-marked, 对于<code>\\</code> <code>*</code> <code>_</code> 的翻译有 bug,</p>
 <p>BUG: 混合 <code>_</code> and <code>$</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$a_1,  a_2$</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$a_1,  a_2$</span><br></pre></td></tr></table></figure>
 <p><span class="math inline">\(a_1, a_2\)</span></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$a_0 a_&#123;n-1&#125;$</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$a_0 a_&#123;n-1&#125;$</span><br></pre></td></tr></table></figure>
 <p><span class="math inline">\(a_0 a_{n-1}\)</span></p>
 <p>换一个renderer，在 <a href="https://hexo.io/plugins/" target="_blank" rel="noopener">hexo 插件页</a>上有几个选择。 hexo-renderer-pandoc, 没问题了。</p>
 <p>还有一个 <a href="https://github.com/hexojs/hexo-renderer-markdown-it/" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>, 没试.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$a\_0 a\_&#123;n - 1&#125; $</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$a\_0 a\_&#123;n - 1&#125; $</span><br></pre></td></tr></table></figure>
 <p>$a_0 a_{n - 1} $</p>
 <p><span class="math inline">\(a\_0\)</span></p>
 <h3 id="tables">Tables</h3>
@@ -433,7 +433,7 @@
 </table>
 <h3 id="代码">代码</h3>
 <p>incline <code>code</code></p>
-<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">(*  invariant:          *)</span></div><div class="line"><span class="comment">(*  x,y = exgcd(a,b)    *)</span></div><div class="line"><span class="comment">(*  ax + by = gcd(a,b)  *)</span> </div><div class="line"><span class="keyword">let</span> <span class="keyword">rec</span> exgcd(a,b) : <span class="built_in">int</span> * <span class="built_in">int</span> =</div><div class="line">  <span class="keyword">if</span> a <span class="keyword">mod</span> b = <span class="number">0</span></div><div class="line">  <span class="keyword">then</span> <span class="number">0</span>, <span class="number">1</span></div><div class="line">  <span class="keyword">else</span> <span class="keyword">let</span> x,y = exgcd(b, a <span class="keyword">mod</span> b) <span class="keyword">in</span></div><div class="line">  y, x - y * (a/b);;</div></pre></td></tr></table></figure>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">(*  invariant:          *)</span></span><br><span class="line"><span class="comment">(*  x,y = exgcd(a,b)    *)</span></span><br><span class="line"><span class="comment">(*  ax + by = gcd(a,b)  *)</span> </span><br><span class="line"><span class="keyword">let</span> <span class="keyword">rec</span> exgcd(a,b) : <span class="built_in">int</span> * <span class="built_in">int</span> =</span><br><span class="line">  <span class="keyword">if</span> a <span class="keyword">mod</span> b = <span class="number">0</span></span><br><span class="line">  <span class="keyword">then</span> <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">let</span> x,y = exgcd(b, a <span class="keyword">mod</span> b) <span class="keyword">in</span></span><br><span class="line">  y, x - y * (a/b);;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -584,7 +584,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

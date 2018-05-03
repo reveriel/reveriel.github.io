@@ -100,28 +100,27 @@
 
 
   
-  <meta name="keywords" content="tools," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
-<meta name="description" content="ns-3 is a Network simulator,">
-<meta name="keywords" content="tools">
+<meta name="description" content="Termbox 之前就在 haskell 库里面看到过, 现在又在 lua 里面看到了. 似乎各个语言中都有这个库. 字符界面的 API 感觉挺酷的, 而且在实现简单程序 demo 时也可以考虑使用字符界面而不是GUI. 看一看这个 API 是怎么设计的吧.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Network Simulator: ns-3">
-<meta property="og:url" content="http://reveriel.com/2018/03/14/Network-Simulator-ns-3/index.html">
+<meta property="og:title" content="Termbox, an API for text-based UI">
+<meta property="og:url" content="http://reveriel.com/2018/04/23/Termbox-an-API-for-text-based-UI/index.html">
 <meta property="og:site_name" content="Reveirel">
-<meta property="og:description" content="ns-3 is a Network simulator,">
+<meta property="og:description" content="Termbox 之前就在 haskell 库里面看到过, 现在又在 lua 里面看到了. 似乎各个语言中都有这个库. 字符界面的 API 感觉挺酷的, 而且在实现简单程序 demo 时也可以考虑使用字符界面而不是GUI. 看一看这个 API 是怎么设计的吧.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-03T07:23:32.153Z">
+<meta property="og:updated_time" content="2018-04-23T15:52:06.636Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Network Simulator: ns-3">
-<meta name="twitter:description" content="ns-3 is a Network simulator,">
+<meta name="twitter:title" content="Termbox, an API for text-based UI">
+<meta name="twitter:description" content="Termbox 之前就在 haskell 库里面看到过, 现在又在 lua 里面看到了. 似乎各个语言中都有这个库. 字符界面的 API 感觉挺酷的, 而且在实现简单程序 demo 时也可以考虑使用字符界面而不是GUI. 看一看这个 API 是怎么设计的吧.">
 
 
 
 
 
 
-  <link rel="canonical" href="http://reveriel.com/2018/03/14/Network-Simulator-ns-3/"/>
+  <link rel="canonical" href="http://reveriel.com/2018/04/23/Termbox-an-API-for-text-based-UI/"/>
 
 
 
@@ -130,7 +129,7 @@
     sidebar: "",
   };
 </script>
-  <title>Network Simulator: ns-3 | Reveirel</title>
+  <title>Termbox, an API for text-based UI | Reveirel</title>
   
 
 
@@ -286,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2018/03/14/Network-Simulator-ns-3/">
+    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2018/04/23/Termbox-an-API-for-text-based-UI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rev">
@@ -303,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Network Simulator: ns-3</h1>
+          <h1 class="post-title" itemprop="name headline">Termbox, an API for text-based UI</h1>
         
 
         <div class="post-meta">
@@ -315,7 +314,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-14T13:21:21+08:00">2018-03-14</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-23T22:20:34+08:00">2018-04-23</time>
             
 
             
@@ -333,9 +332,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/03/14/Network-Simulator-ns-3/#comments" itemprop="discussionUrl">
+                <a href="/2018/04/23/Termbox-an-API-for-text-based-UI/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/14/Network-Simulator-ns-3/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/04/23/Termbox-an-API-for-text-based-UI/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -363,96 +362,22 @@
       
 
       
-        <p>ns-3 is a Network simulator,</p>
+        <p><a href="https://github.com/nsf/termbox" target="_blank" rel="noopener">Termbox</a> 之前就在 haskell 库里面看到过, 现在又在 lua 里面看到了. 似乎各个语言中都有这个库.</p>
+<p>字符界面的 API 感觉挺酷的, 而且在实现简单程序 demo 时也可以考虑使用字符界面而不是GUI.</p>
+<p>看一看这个 API 是怎么设计的吧.</p>
 <a id="more"></a>
-<p>working directory: <code>nico:workspace/ns3</code></p>
-<h1 id="preparation">preparation</h1>
-<p>Normally you need to download the source and build it. Compile failed on MacOS, So I have to use Ubuntu.</p>
-<p>Download <code>ns-allinone-3.27.tar.bz2</code>. Then <code>tar xf</code> it, and build it:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./build.py --enable-examples --enable-tests</span><br></pre></td></tr></table></figure>
-<p>or</p>
-<pre><code>./waf -d optimized --enable-examples --enable-tests configure</code></pre>
-<p>run example</p>
-<pre><code>./waf --run hello-simulator</code></pre>
-<p>in example/tutorial</p>
-<h1 id="concepts">Concepts</h1>
-<p>four basic Concepts:</p>
+<p>Viewing terminals as a table of fixed-size cells and input being a stream of structured messages.</p>
+<p>把终端看成一个长方形数组, 要求等宽字体 (CJK 会有点问题).</p>
+<p>先别看 termbox 是怎么设计的. 想想自己会怎么设计?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">global window &#123; width, height &#125;</span><br><span class="line">clear()</span><br><span class="line">draw()</span><br><span class="line">set(x, y, char)</span><br></pre></td></tr></table></figure>
+<p>最基本的操作就这些了. 再看 termbox 的设计.</p>
 <ul>
-<li><code>Node</code>: a machine, pc, router, switch</li>
-<li><code>Application</code>: program</li>
-<li><code>Channel</code>: between nodes
-<ul>
-<li>csma, p2p, wifi</li>
-</ul></li>
-<li><code>NetDevice</code>: Network interface Card and driver.</li>
-<li><code>Topology Helper</code>: attach NetDevice to Node and Channel, do configuration
-<ul>
-<li><code>NodeContainer</code> create, access and manage <code>Node</code> objects</li>
-</ul></li>
+<li><a href="http://tset.de/termfx/README.html" target="_blank" rel="noopener">termfx | lua</a></li>
+<li><a href="https://godoc.org/github.com/nsf/termbox-go" target="_blank" rel="noopener">termbox | go</a></li>
 </ul>
-<h1 id="using-ns-3">Using ns-3</h1>
-<p>First read <code>example/tutorial/first.cc</code> ( by the first line <code>-*- Mode:C++</code> I can see that the author uses Emacs! )</p>
-<ul>
-<li>Include headers</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"ns/core-module.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"ns/network-module.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"ns/internet-module.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"ns/point-to-point-module.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"ns/applications-module.h"</span></span></span><br></pre></td></tr></table></figure>
-<p>A lot of modules…</p>
-<ul>
-<li>log component</li>
-</ul>
-<p><code>NS_LOG_COMPONET_DEFINE (&quot;FirstScriptExample&quot;);</code> This is defined in log.h.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> ns3::LogCompoinent g_log = ns3::LogComponent(name, __FILE__)</span><br></pre></td></tr></table></figure>
-<p>logs need to be enabled.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LogComponentEnable(<span class="string">"FirstScriptExample"</span>, LOG_LEVEL_INFO)</span><br></pre></td></tr></table></figure>
-<p>Use <code>NS_LOG_INFO (&quot;what you want to say&quot;)</code> to print staff at info level</p>
-<ul>
-<li>Copmile and run the script</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cp examples/tutorial/first.cc scratch/myfirst.cc</span><br><span class="line">./waf  # compile</span><br><span class="line">./waf --run scratch/myfirst</span><br><span class="line">``</span><br><span class="line"></span><br><span class="line">But No output ..</span><br><span class="line"></span><br><span class="line">So I rebuild ... something</span><br><span class="line"></span><br><span class="line">``` shell</span><br><span class="line">./waf configure -d debug</span><br><span class="line">./waf</span><br></pre></td></tr></table></figure>
-<p>Now I can see the log output.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">At time 2s client sent 1024 bytes to 10.1.1.2 port 9</span><br><span class="line">At time 2.00369s server received 1024 bytes from 10.1.1.1 port 49153</span><br><span class="line">At time 2.00369s server sent 1024 bytes to 10.1.1.1 port 49153</span><br><span class="line">At time 2.00737s client received 1024 bytes from 10.1.1.2 port 9</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Command Line parser</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./waf --run "scratch/myfirst --PrintHelp"</span><br><span class="line">./waf --run "scratch/myfirst --PrintAttributes=ns3::PointToPointNetDevice"</span><br><span class="line">./waf --run "scratch/myfirst --ns3::PointToPointNetDevice:DataRate=5Mbps</span><br><span class="line">   --ns3::PointToPointChannel::Delay=2ms"</span><br></pre></td></tr></table></figure>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint32_t</span> nPackets = <span class="number">1</span>;</span><br><span class="line">CommandLine cmd;</span><br><span class="line">cmd.AddValue(<span class="string">"nPackets"</span>, <span class="string">"Number of packets to echo"</span>, nPackets);</span><br><span class="line">cmd.Parse (argc, argv);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">echoClient.SetAttribute (<span class="string">"MaxPackets"</span>, UintegerValue (nPackets));</span><br></pre></td></tr></table></figure>
-<ul>
-<li>ASCII tracing</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AsciiTraceHelper ascii;</span><br><span class="line">pointToPoint.EnableAsciiAll (ascii.CreateFileStream (<span class="string">"myfirst.tr"</span>));</span><br></pre></td></tr></table></figure>
-<p>Each line represents a trace event, four types of events</p>
-<ul>
-<li>+: an enqueue event happens on the device</li>
-<li>-: a dequeue event happens on the device</li>
-<li>d: a packet is dropped on the device</li>
-<li><p>r: the device receives a packet</p></li>
-<li><p>PCAP tracing</p></li>
-</ul>
-<p>Enable PCAP(packet capture) tracing:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pointToPoint.EnablePcapAll (<span class="string">"myfirst"</span>);</span><br></pre></td></tr></table></figure>
-<p>output to <code>myfirst-0-0.pcap</code> and <code>myfirst-1-0.pcap</code>. numbers indicate node and device.</p>
-<p>use <code>tcpdump</code> to show the trace</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -nn -tt -r myfirst-0-0.pcap</span><br></pre></td></tr></table></figure>
-<h2 id="api-use-summary">API use summary</h2>
-<p>To implement an ns-3 application.</p>
-<ol type="1">
-<li>create nodes</li>
-<li>setup channel, installed on nodes</li>
-<li>install protocol stack on nodes</li>
-<li>allocate addresses for nodes</li>
-<li>install program on nodes</li>
-<li>start - stop</li>
-</ol>
-<p>c++ is quite verbose. but it’s ok once you get used to it. wifi 还有更细节的物理层的 设置, 比如 node 的位置和随时间的移动.</p>
-<p>但是我还是觉得这种 API 设计挺糟糕的. 本来这些 API 都只是些设置的东西. 却要分成 这么多行代码. 新手需要记住需要哪些步骤, 需要以怎样的步骤来调用. 就算实际上各个参数 都有默认参数, 或者是顺序无影响, 也会给用户带来额外负担.</p>
-<p>比如说 csmaHelper, 我能不能重复使用呢, 即按照一次后它自身的状态会变化吗? 另外 Helper 类的属性也不好用, 作者说是为了灵活性..</p>
-<p>将有副作用和无副作用的 API 分开. 初始化模型用参数表来提示用户需要哪些前提参数, 多好. 属性就直接作为一个域放在类里, 不然编辑器IDE根本帮不上忙, 你完全不知道有哪些属性可以用.</p>
-<p><code>WifiNetDevice</code> 如果只能和 <code>WifiChannel</code> 在一起工作的话, 请用 Type System 约束一下, 或者不要让用户有这个能力把 <code>WifiNetDevice</code> 连上 <code>CsmaChannel</code>.</p>
-<p>Topology 功能也感觉好复杂.</p>
-<p>好的API的设计应该让我不用看文档就能直接仿照例子写自己的程序了.</p>
-<p>用 json 或 xml 描述一下网络就能跑是最好了..</p>
-<p>node, device, interface 都分散在各个变量中. 如果之后有时间, 大概 会创建一个类来保存这些信息. (为什么库不提供啊!)</p>
-<p>心累.. 还有好几个实验呢..</p>
+<p>啊. 挺无聊的..</p>
+<h2 id="ps">ps</h2>
+<p>看到一个 用 termfx 的小编辑器 <a href="https://github.com/adsr/mle" target="_blank" rel="noopener">mle</a>, 挺感兴趣的, 有时间可以看一下. 编辑器算是最常用的软件了, 当然会好奇里面如何设计.</p>
 
       
     </div>
@@ -471,12 +396,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/tools/" rel="tag"># tools</a>
-          
-        </div>
-      
 
       
       
@@ -486,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/12/ML-oxford/" rel="next" title="ML-oxford">
-                <i class="fa fa-chevron-left"></i> ML-oxford
+              <a href="/2018/04/01/object-tracking-on-rpi/" rel="next" title="Object Tracking on RPi">
+                <i class="fa fa-chevron-left"></i> Object Tracking on RPi
               </a>
             
           </div>
@@ -495,10 +414,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/14/File-Server-on-Ubuntu/" rel="prev" title="File Server on Ubuntu">
-                File Server on Ubuntu <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -666,7 +581,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#preparation"><span class="nav-number">1.</span> <span class="nav-text">preparation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#concepts"><span class="nav-number">2.</span> <span class="nav-text">Concepts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#using-ns-3"><span class="nav-number">3.</span> <span class="nav-text">Using ns-3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#api-use-summary"><span class="nav-number">3.1.</span> <span class="nav-text">API use summary</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ps"><span class="nav-number">1.</span> <span class="nav-text">ps</span></a></li></ol></div>
             
 
           </div>
@@ -820,9 +735,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://reveriel.com/2018/03/14/Network-Simulator-ns-3/';
-        this.page.identifier = '2018/03/14/Network-Simulator-ns-3/';
-        this.page.title = 'Network Simulator: ns-3';
+        this.page.url = 'http://reveriel.com/2018/04/23/Termbox-an-API-for-text-based-UI/';
+        this.page.identifier = '2018/04/23/Termbox-an-API-for-text-based-UI/';
+        this.page.title = 'Termbox, an API for text-based UI';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');
