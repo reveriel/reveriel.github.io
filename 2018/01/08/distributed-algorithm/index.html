@@ -2,14 +2,17 @@
 
 
 
+
+
+
   
 
 
-<html class="theme-next muse use-motion" lang="en">
+<html class="theme-next pisces use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -19,6 +22,10 @@
 
 
 
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
 
 
 
@@ -49,19 +56,19 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=6.0.5" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.5">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.5">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.5">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=6.0.5" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
 
 
 
@@ -75,8 +82,8 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
-    version: '6.0.5',
+    scheme: 'Pisces',
+    version: '6.2.0',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: false,
     fastclick: false,
@@ -99,18 +106,14 @@
 
 
 
-  
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-<meta name="description" content="分布式算法 模型：  异步共享存储 异步msg传递 同步msg传递  拓扑：无向图，节点为处理机，边喂双向信道. 算法：由每个处理器上的局部程序构成，包括本地计算和收发msg 节点 \(p_i\), \(p_i\) 相邻的边 \(r\) 条. \(p_i\) 有两个 buffer list: \(outbuf_i[l]\) , \(inbuf_i[l]\), \(l \in [1, r]\) 配置">
+  <meta name="description" content="分布式算法 模型：  异步共享存储 异步msg传递 同步msg传递  拓扑：无向图，节点为处理机，边喂双向信道. 算法：由每个处理器上的局部程序构成，包括本地计算和收发msg 节点 \(p_i\), \(p_i\) 相邻的边 \(r\) 条. \(p_i\) 有两个 buffer list: \(outbuf_i[l]\) , \(inbuf_i[l]\), \(l \in [1, r]\) 配置">
 <meta property="og:type" content="article">
 <meta property="og:title" content="distributed algorithm">
 <meta property="og:url" content="http://reveriel.com/2018/01/08/distributed-algorithm/index.html">
 <meta property="og:site_name" content="Reveirel">
 <meta property="og:description" content="分布式算法 模型：  异步共享存储 异步msg传递 同步msg传递  拓扑：无向图，节点为处理机，边喂双向信道. 算法：由每个处理器上的局部程序构成，包括本地计算和收发msg 节点 \(p_i\), \(p_i\) 相邻的边 \(r\) 条. \(p_i\) 有两个 buffer list: \(outbuf_i[l]\) , \(inbuf_i[l]\), \(l \in [1, r]\) 配置">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-08T07:53:44.291Z">
+<meta property="og:updated_time" content="2018-05-06T08:39:12.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="distributed algorithm">
 <meta name="twitter:description" content="分布式算法 模型：  异步共享存储 异步msg传递 同步msg传递  拓扑：无向图，节点为处理机，边喂双向信道. 算法：由每个处理器上的局部程序构成，包括本地计算和收发msg 节点 \(p_i\), \(p_i\) 相邻的边 \(r\) 条. \(p_i\) 有两个 buffer list: \(outbuf_i[l]\) , \(inbuf_i[l]\), \(l \in [1, r]\) 配置">
@@ -129,20 +132,12 @@
     sidebar: "",
   };
 </script>
+
   <title>distributed algorithm | Reveirel</title>
   
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-64244932-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-64244932-1');
-</script>
 
 
 
@@ -189,12 +184,12 @@
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-brand-wrapper">
+      <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Reveirel</span>
         <span class="logo-line-after"><i></i></span>
@@ -206,7 +201,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -214,50 +209,63 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
-        </li>
-      
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
-        </li>
-      
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
-        </li>
-      
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
 
       
+      
     </ul>
+  
+
   
 
   
 </nav>
 
 
+
   
 
 
 
- </div>
+</div>
     </header>
 
     
@@ -266,6 +274,10 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -278,6 +290,8 @@
   
   
 
+  
+    <div class="reading-progress-bar"></div>
   
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -302,11 +316,19 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">distributed algorithm</h1>
+          <h1 class="post-title" itemprop="name headline">distributed algorithm
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -314,12 +336,30 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-08T15:53:25+08:00">2018-01-08</time>
+
+              
+                
+              
+
+              <time title="Created: 2018-01-08 15:53:25" itemprop="dateCreated datePublished" datetime="2018-01-08T15:53:25+08:00">2018-01-08</time>
             
 
             
-            
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-05-06 16:39:12" itemprop="dateModified" datetime="2018-05-06T16:39:12+08:00">2018-05-06</time>
+              
             
           </span>
 
@@ -356,7 +396,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    <div class="post-body han-init-context" itemprop="articleBody">
 
       
       
@@ -371,6 +411,7 @@
 </ul>
 <p><strong>拓扑</strong>：无向图，节点为处理机，边喂双向信道. <strong>算法</strong>：由每个处理器上的局部程序构成，包括本地计算和收发msg 节点 <span class="math inline">\(p_i\)</span>, <span class="math inline">\(p_i\)</span> 相邻的边 <span class="math inline">\(r\)</span> 条. <span class="math inline">\(p_i\)</span> 有两个 buffer list: <span class="math inline">\(outbuf_i[l]\)</span> , <span class="math inline">\(inbuf_i[l]\)</span>, <span class="math inline">\(l \in [1, r]\)</span></p>
 <p><strong>配置</strong>：某时刻，算法运行的全局状态。为一个向量 <span class="math inline">\((q_0, \ldots, q_{n-1})\)</span>, <span class="math inline">\(q_i\)</span> 是 <span class="math inline">\(p_i\)</span> 的状态.</p>
+<a id="more"></a>
 <p><strong>状态</strong></p>
 <p><strong>事件</strong>：两种</p>
 <ul>
@@ -535,7 +576,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -588,6 +629,21 @@
                   
                 </span>
               
+                <span class="links-of-author-item">
+                  <a href="https://space.bilibili.com/267302/#/" target="_blank" title="Bilibili"><i class="fa fa-fw fa-television"></i>Bilibili</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/reveriel" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:reveriel@hotmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
             </div>
           
 
@@ -615,7 +671,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式算法"><span class="nav-number">1.</span> <span class="nav-text">分布式算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成树"><span class="nav-number">1.1.</span> <span class="nav-text">生成树</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式算法"><span class="nav-text">分布式算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成树"><span class="nav-text">生成树</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -636,7 +692,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
+  <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rev</span>
@@ -649,7 +705,7 @@
 
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
 
 
 
@@ -657,7 +713,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.5</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.2.0</div>
 
 
 
@@ -717,6 +773,8 @@
 
 
 
+  
+
 
 
   
@@ -734,29 +792,41 @@
     <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=6.0.5"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=6.0.5"></script>
-
-
-
   
   
-
+    <script type="text/javascript" src="/lib/reading_progress/reading_progress.js"></script>
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.5"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=6.0.5"></script>
-
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.5"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.2.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
 
 
 
@@ -831,6 +901,13 @@
 
   
   
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script type="text/javascript">pangu.spacingPage();</script>
+
 
   
 

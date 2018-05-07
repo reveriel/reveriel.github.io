@@ -2,14 +2,17 @@
 
 
 
+
+
+
   
 
 
-<html class="theme-next muse use-motion" lang="en">
+<html class="theme-next pisces use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -19,6 +22,10 @@
 
 
 
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
 
 
 
@@ -49,19 +56,19 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=6.0.5" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.5">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.5">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.5">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=6.0.5" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
 
 
 
@@ -75,8 +82,8 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
-    version: '6.0.5',
+    scheme: 'Pisces',
+    version: '6.2.0',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: false,
     fastclick: false,
@@ -99,21 +106,17 @@
 
 
 
-  
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-<meta name="description" content="新しい世界へ！ About me? About me! 这不是博客, 只是我的 markdown 笔记本, 写给自己看的.">
+  <meta name="description" content="新しい世界へ！ 郭兴的 markdown 笔记本. Personal information I’am a graduate CS student in USTC, an auditory learner, a art lover. Born in QianJiang, Hubei, Lived in Hefei, Anhui. Mobile phone : 15556528177(Anhui),">
 <meta property="og:type" content="website">
-<meta property="og:title" content="about">
+<meta property="og:title" content="About Me">
 <meta property="og:url" content="http://reveriel.com/about/index.html">
 <meta property="og:site_name" content="Reveirel">
-<meta property="og:description" content="新しい世界へ！ About me? About me! 这不是博客, 只是我的 markdown 笔记本, 写给自己看的.">
+<meta property="og:description" content="新しい世界へ！ 郭兴的 markdown 笔记本. Personal information I’am a graduate CS student in USTC, an auditory learner, a art lover. Born in QianJiang, Hubei, Lived in Hefei, Anhui. Mobile phone : 15556528177(Anhui),">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-19T00:40:45.716Z">
+<meta property="og:updated_time" content="2018-05-06T18:11:30.079Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="新しい世界へ！ About me? About me! 这不是博客, 只是我的 markdown 笔记本, 写给自己看的.">
+<meta name="twitter:title" content="About Me">
+<meta name="twitter:description" content="新しい世界へ！ 郭兴的 markdown 笔记本. Personal information I’am a graduate CS student in USTC, an auditory learner, a art lover. Born in QianJiang, Hubei, Lived in Hefei, Anhui. Mobile phone : 15556528177(Anhui),">
 
 
 
@@ -129,20 +132,12 @@
     sidebar: "",
   };
 </script>
-  <title>about | Reveirel</title>
+
+  <title>About Me | Reveirel</title>
   
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-64244932-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-64244932-1');
-</script>
 
 
 
@@ -189,12 +184,12 @@
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-brand-wrapper">
+      <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Reveirel</span>
         <span class="logo-line-after"><i></i></span>
@@ -206,7 +201,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -214,50 +209,63 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
-        </li>
-      
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
-        </li>
-      
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
-        </li>
-      
+        
+        
+          
+          <li class="menu-item menu-item-about menu-item-active">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
 
       
+      
     </ul>
+  
+
   
 
   
 </nav>
 
 
+
   
 
 
 
- </div>
+</div>
     </header>
 
     
@@ -266,6 +274,29 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+
+          
           <div id="content" class="content">
             
 
@@ -276,7 +307,7 @@
     <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">about</h1>
+<h1 class="post-title" itemprop="name headline">About Me</h1>
 
 <div class="post-meta">
   
@@ -291,12 +322,90 @@
       
       
       
-      <div class="post-body">
+      <div class="post-body han-init-context">
         
         
-          <h2 id="新しい世界へ">新しい世界へ！</h2>
-<p>About me? About me!</p>
-<p>这不是博客, 只是我的 markdown 笔记本, 写给自己看的.</p>
+          <h1 id="新しい世界へ">新しい世界へ！</h1>
+<p>郭兴的 markdown 笔记本.</p>
+<h2 id="personal-information">Personal information</h2>
+<p>I’am a graduate CS student in USTC, an auditory learner, a art lover. Born in QianJiang, Hubei, Lived in Hefei, Anhui.</p>
+<p>Mobile phone : 15556528177(Anhui), 15908625936(Hubei)</p>
+<p>QQ : 100399330</p>
+<p>(Maybe a PDF version in the future…)</p>
+<h2 id="education">Education</h2>
+<ul>
+<li><em>2013.9 - 2014.7</em> Student, School of Life Science, <strong>University of Science and Technology of China(USTC)</strong>. Realizing C/Linux is more interesting, and Computer Science is more logical(reasonable) than Life Science, changed my major <span class="math inline">\(\Rightarrow\)</span>.</li>
+<li><em>2014.9 - 2017.7</em> Bachelor of Science, School of Computer Science &amp; Technology, <strong>University of Science and Technology of China(USTC)</strong>.</li>
+<li><em>2017.9 - current</em> Master Student, School of Computer Science &amp; Technology, <strong>University of Science and Technology of China(USTC)</strong>, Supervisor: Prof. <a href="http://staff.ustc.edu.cn/~yuzhang/" target="_blank" rel="noopener">Yu Zhang</a>.</li>
+<li><em>Near future</em> ph.D (really).</li>
+</ul>
+<h3 id="ta-experience">TA Experience</h3>
+<ul>
+<li><em>2016 fall</em>, Principles and Techniques of Compilers, <a href="https://guoxing.gitbooks.io/compiler-f2016/content/" target="_blank" rel="noopener">gitbook</a>.</li>
+<li><em>2018 spring</em>, Foundations of Programming Language, <a href="http://staff.ustc.edu.cn/~yuzhang/fopl/" target="_blank" rel="noopener">course webpage</a>, <a href="https://github.com/ustc-fopl/2018s" target="_blank" rel="noopener">github</a>.</li>
+</ul>
+<h2 id="publications">Publications</h2>
+<p>Sadly, 404</p>
+<h2 id="honors">Honors</h2>
+<ul>
+<li>Outstanding Student Scholarship Grade 1, 2014.</li>
+<li>Outstanding Student Scholarship Grade 3, 2015.</li>
+<li>First Prize in Student Remote Direct Memory Access (RDMA) Programming Competition (China), <a href="http://93.ustc.edu.cn/2015/1119/c9299a107344/page.htm" target="_blank" rel="noopener">news</a>.</li>
+<li>Outstanding Student Scholarship Grade 3, 2016.</li>
+<li>Third Prize in The Fifth National Collage Competition on Internet of Things (East China), 2018, <a href="/2018/04/22/%E8%AE%B0%E5%85%A8%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F-IoT-%E5%88%9B%E6%96%B0%E5%A4%A7%E8%B5%9B/">blog</a>.</li>
+</ul>
+<h2 id="projects">Projects</h2>
+<ul>
+<li>Bachelor thesis, A Review of Static Analysis for Resource Leak in Android Programs, 2016
+<ul>
+<li>Static Analysis, Android, written in Java, <a href="https://github.com/Sable/soot" target="_blank" rel="noopener">Soot</a>.</li>
+<li>A vague concept about modeling resources behaviors with type system. (Suspending</li>
+</ul></li>
+<li>A Cross file Call Graph generator for C/C++, continued on a senior students work. 2017 - suspending
+<ul>
+<li>Trying to find a way to visualize processes relations in multiprocessing, but …</li>
+</ul></li>
+<li>Applications based on Raspberry Pi.
+<ul>
+<li>Lifelog: a mobile camera which takes shot at a regular interval, and filter photos smartly.</li>
+<li>PiCam: a tracking web camera with object detection and object tracking running on Pi.</li>
+</ul></li>
+</ul>
+<h2 id="skills">Skills</h2>
+<ul>
+<li><strong>Computer Science</strong>
+<ul>
+<li>Basic CS knowledge you can expect from a CS student.</li>
+<li>Compiler and Programming Languages.</li>
+<li><strong>Programming Language</strong>. I like to try new languages.
+<ul>
+<li>Familiar : C/C++, Java, JavaScript, python.</li>
+<li>Know : OCaml, Haskell, Scheme, SML, Coq, Lua, Ruby, Bash, HTML/CSS, Verilog, Matlab, Mathematica.</li>
+</ul></li>
+</ul></li>
+<li><strong>Writing</strong>
+<ul>
+<li><span class="math inline">\(\LaTeX\)</span>, Markdown.</li>
+<li>Editor: Vim, Spacemacs, recently more on VSCode (web tech is great).</li>
+<li>Writing is important, I will write more.</li>
+</ul></li>
+<li><strong>Language</strong>
+<ul>
+<li>English, TOFEL 96 (2015).</li>
+<li>Japanese, good enough to play Japanese game without translation, and is a member of a <a href="https://weibo.com/u/6463245846" target="_blank" rel="noopener">fansub</a>.</li>
+</ul></li>
+</ul>
+<h2 id="others">Others</h2>
+<ul>
+<li>Painting, mostly anime charactors. see my <a href="https://www.pixiv.net/member.php?id=4293029" target="_blank" rel="noopener">Pixiv</a> and <a href="https://weibo.com/p/1005052623381172/photos?type=photo#place" target="_blank" rel="noopener">Weibo</a></li>
+<li>Music
+<ul>
+<li>Love Vocaloid, a composer-centred music world, instead of famous singer with unknown composer.</li>
+<li>Not only a listener. Can play instruments: saxophone, piano, flute, guitar.</li>
+<li>Prefer creating my own music instead of mechanically replay other’s work.</li>
+</ul></li>
+<li>Game. mostly music rhythm games.</li>
+</ul>
 
         
       </div>
@@ -379,7 +488,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -432,6 +541,21 @@
                   
                 </span>
               
+                <span class="links-of-author-item">
+                  <a href="https://space.bilibili.com/267302/#/" target="_blank" title="Bilibili"><i class="fa fa-fw fa-television"></i>Bilibili</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/reveriel" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:reveriel@hotmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
             </div>
           
 
@@ -459,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#新しい世界へ"><span class="nav-number">1.</span> <span class="nav-text">新しい世界へ！</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#新しい世界へ"><span class="nav-text">新しい世界へ！</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#personal-information"><span class="nav-text">Personal information</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#education"><span class="nav-text">Education</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ta-experience"><span class="nav-text">TA Experience</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#publications"><span class="nav-text">Publications</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#honors"><span class="nav-text">Honors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#projects"><span class="nav-text">Projects</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#skills"><span class="nav-text">Skills</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#others"><span class="nav-text">Others</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -480,7 +604,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
+  <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rev</span>
@@ -493,7 +617,7 @@
 
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
 
 
 
@@ -501,7 +625,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.5</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.2.0</div>
 
 
 
@@ -561,6 +685,8 @@
 
 
 
+  
+
 
 
   
@@ -578,29 +704,41 @@
     <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=6.0.5"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=6.0.5"></script>
-
-
-
   
   
-
+    <script type="text/javascript" src="/lib/reading_progress/reading_progress.js"></script>
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.5"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=6.0.5"></script>
-
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.5"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.2.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
 
 
 
@@ -615,7 +753,7 @@
       var disqus_config = function () {
         this.page.url = 'http://reveriel.com/about/index.html';
         this.page.identifier = 'about/index.html';
-        this.page.title = 'about';
+        this.page.title = 'About Me';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');
@@ -671,10 +809,40 @@
   
 
   
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
 
 
   
   
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script type="text/javascript">pangu.spacingPage();</script>
+
 
   
 
