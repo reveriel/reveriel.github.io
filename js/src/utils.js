@@ -194,16 +194,6 @@ NexT.utils = NexT.$u = {
     }
   },
 
-  /**
-   * Add `menu-item-active` class name to menu item
-   * via comparing location.path with menu item's href.
-   */
-  addActiveClassToMenuItem: function () {
-    var path = window.location.pathname;
-    path = path === '/' ? path : path.substring(0, path.length - 1);
-    $('.menu-item a[href^="' + path + '"]:first').parent().addClass('menu-item-active');
-  },
-
   hasMobileUA: function () {
     var nav = window.navigator;
     var ua = nav.userAgent;
