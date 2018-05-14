@@ -106,24 +106,27 @@
 
 
 
-  <meta name="description" content="分布式算法 模型：  异步共享存储 异步msg传递 同步msg传递  拓扑：无向图，节点为处理机，边喂双向信道. 算法：由每个处理器上的局部程序构成，包括本地计算和收发msg 节点 \(p_i\), \(p_i\) 相邻的边 \(r\) 条. \(p_i\) 有两个 buffer list: \(outbuf_i[l]\) , \(inbuf_i[l]\), \(l \in [1, r]\) 配置">
+  <meta name="description" content="Conjunctive normal forms are AND of ORs. \[(A \lor B) \land (A \lor \neg B)\]">
+<meta name="keywords" content="math">
 <meta property="og:type" content="article">
-<meta property="og:title" content="distributed algorithm">
-<meta property="og:url" content="http://reveriel.com/2018/01/08/distributed-algorithm/index.html">
+<meta property="og:title" content="Logic, Conjunctive Normal Form">
+<meta property="og:url" content="http://reveriel.com/2018/05/14/Logic-Conjunctive-Normal-Form/index.html">
 <meta property="og:site_name" content="Reveirel">
-<meta property="og:description" content="分布式算法 模型：  异步共享存储 异步msg传递 同步msg传递  拓扑：无向图，节点为处理机，边喂双向信道. 算法：由每个处理器上的局部程序构成，包括本地计算和收发msg 节点 \(p_i\), \(p_i\) 相邻的边 \(r\) 条. \(p_i\) 有两个 buffer list: \(outbuf_i[l]\) , \(inbuf_i[l]\), \(l \in [1, r]\) 配置">
+<meta property="og:description" content="Conjunctive normal forms are AND of ORs. \[(A \lor B) \land (A \lor \neg B)\]">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-06T08:39:12.861Z">
+<meta property="og:image" content="http://reveriel.com/2018/05/14/Logic-Conjunctive-Normal-Form/cnf.jpeg">
+<meta property="og:updated_time" content="2018-05-14T13:57:22.551Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="distributed algorithm">
-<meta name="twitter:description" content="分布式算法 模型：  异步共享存储 异步msg传递 同步msg传递  拓扑：无向图，节点为处理机，边喂双向信道. 算法：由每个处理器上的局部程序构成，包括本地计算和收发msg 节点 \(p_i\), \(p_i\) 相邻的边 \(r\) 条. \(p_i\) 有两个 buffer list: \(outbuf_i[l]\) , \(inbuf_i[l]\), \(l \in [1, r]\) 配置">
+<meta name="twitter:title" content="Logic, Conjunctive Normal Form">
+<meta name="twitter:description" content="Conjunctive normal forms are AND of ORs. \[(A \lor B) \land (A \lor \neg B)\]">
+<meta name="twitter:image" content="http://reveriel.com/2018/05/14/Logic-Conjunctive-Normal-Form/cnf.jpeg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://reveriel.com/2018/01/08/distributed-algorithm/"/>
+  <link rel="canonical" href="http://reveriel.com/2018/05/14/Logic-Conjunctive-Normal-Form/"/>
 
 
 
@@ -133,7 +136,7 @@
   };
 </script>
 
-  <title>distributed algorithm | Reveirel</title>
+  <title>Logic, Conjunctive Normal Form | Reveirel</title>
   
 
 
@@ -308,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2018/01/08/distributed-algorithm/">
+    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2018/05/14/Logic-Conjunctive-Normal-Form/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rev">
@@ -325,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">distributed algorithm
+          <h1 class="post-title" itemprop="name headline">Logic, Conjunctive Normal Form
               
             
           </h1>
@@ -350,24 +353,12 @@
                 
               
 
-              <time title="Created: 2018-01-08 15:53:25" itemprop="dateCreated datePublished" datetime="2018-01-08T15:53:25+08:00">2018-01-08</time>
+              <time title="Created: 2018-05-14 21:09:47 / Modified: 21:57:22" itemprop="dateCreated datePublished" datetime="2018-05-14T21:09:47+08:00">2018-05-14</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-05-06 16:39:12" itemprop="dateModified" datetime="2018-05-06T16:39:12+08:00">2018-05-06</time>
               
             
           </span>
@@ -381,9 +372,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/01/08/distributed-algorithm/#comments" itemprop="discussionUrl">
+                <a href="/2018/05/14/Logic-Conjunctive-Normal-Form/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/01/08/distributed-algorithm/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/05/14/Logic-Conjunctive-Normal-Form/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -411,53 +402,31 @@
       
 
       
-        <h1 id="分布式算法">分布式算法</h1>
-<p><strong>模型</strong>：</p>
-<ul>
-<li>异步共享存储</li>
-<li>异步msg传递</li>
-<li>同步msg传递</li>
-</ul>
-<p><strong>拓扑</strong>：无向图，节点为处理机，边喂双向信道. <strong>算法</strong>：由每个处理器上的局部程序构成，包括本地计算和收发msg 节点 <span class="math inline">\(p_i\)</span>, <span class="math inline">\(p_i\)</span> 相邻的边 <span class="math inline">\(r\)</span> 条. <span class="math inline">\(p_i\)</span> 有两个 buffer list: <span class="math inline">\(outbuf_i[l]\)</span> , <span class="math inline">\(inbuf_i[l]\)</span>, <span class="math inline">\(l \in [1, r]\)</span></p>
-<p><strong>配置</strong>：某时刻，算法运行的全局状态。为一个向量 <span class="math inline">\((q_0, \ldots, q_{n-1})\)</span>, <span class="math inline">\(q_i\)</span> 是 <span class="math inline">\(p_i\)</span> 的状态.</p>
+        <p>Conjunctive normal forms are <strong>AND of ORs</strong>.</p>
+<p><span class="math display">\[(A \lor B) \land (A \lor \neg B)\]</span></p>
 <a id="more"></a>
-<p><strong>状态</strong></p>
-<p><strong>事件</strong>：两种</p>
-<ul>
-<li><span class="math inline">\(comp(i)\)</span>, 计算事件.</li>
-<li><span class="math inline">\(del(i,j,m)\)</span>, 传递事件，将msg <span class="math inline">\(m\)</span> 从 <span class="math inline">\(p_i\)</span> 传递到 <span class="math inline">\(p_j\)</span>.</li>
-</ul>
-<p><strong>转换函数</strong></p>
-<p><strong>执行</strong>: 配置和事件交错的序列。</p>
-<ul>
-<li>Safety 条件。 (用来证明算法正确性吗?) 该条件在每个有限前缀里的都成立</li>
-<li>Liveness 条件。 必须成立一定次数。</li>
-</ul>
-<p>满足所有安全性条件的序列称为一个<strong>执行</strong>, 满足所有活跃性条件的 执行 为 <strong>容许(admissible) 的执行</strong>。</p>
-<p>下面主要考虑异步msg传递系统。</p>
-<p><strong>执行片段</strong> <span class="math inline">\(\alpha\)</span> 是一个有限或无限的序列:</p>
-<p><span class="math display">\[ C_0, \Phi_1, C_1, \Phi_2, C_2, \ldots, \]</span> 其中 <span class="math inline">\(C_k\)</span> 是一个配置, <span class="math inline">\(\Phi_k\)</span> 是一个事件.</p>
-<p>如果 <span class="math inline">\(\alpha\)</span> 有限, 则它必须结束于某个配置, 且需满足下述条件:</p>
-<ol type="1">
-<li>若 <span class="math inline">\(\Phi_k = del(i,j,m)\)</span>, 则 <span class="math inline">\(m\)</span> 必须是 <span class="math inline">\(C_{k-1}\)</span> 时 <span class="math inline">\(outbuf_i[l]\)</span> 的元素. <span class="math inline">\(l\)</span> 是 <span class="math inline">\(p_i\)</span> 信道 <span class="math inline">\({p_i, p_j}\)</span> 的标号. 从 <span class="math inline">\(C_{k-1}\)</span> 到 <span class="math inline">\(C_k\)</span> 的唯一变化是将 <span class="math inline">\(m\)</span> 从 <span class="math inline">\(C_{k-1}\)</span> 里的 <span class="math inline">\(outbuf_i[l]\)</span> 中 删去, 加入到 <span class="math inline">\(C_k\)</span> 的 <span class="math inline">\(inbuf_i[h]\)</span>, <span class="math inline">\(h\)</span> 是 <span class="math inline">\(p_j\)</span> 的信道 <span class="math inline">\({p_j, p_i}\)</span> 的标号.</li>
-<li>若 <span class="math inline">\(\Phi_k = comp(i)\)</span>, 则 <span class="math inline">\(C_{k-1}\)</span> 到 <span class="math inline">\(C_k\)</span> 的变化是
-<ol type="1">
-<li>改变状态: 转换函数在<span class="math inline">\(p_i\)</span> 的可访问状态(在配置<span class="math inline">\(C_{k-1}\)</span>里)上进行操作，清空 <span class="math inline">\(inbuf_i[l]\)</span>，<span class="math inline">\((1≤l≤r)\)</span></li>
-<li>发送 msg: 将转换函数制定的消息集合加入 <span class="math inline">\(C_k\)</span> 里的变量 <span class="math inline">\(outbuf_i\)</span> 上</li>
-</ol></li>
-</ol>
-<p><strong>调度</strong> , 调度(或调度片段)总是和执行(或执行片段)联系在一起, 它是执行中的时间序列:</p>
-<p><span class="math display">\[ \Phi_1, \Phi_2, \ldots\]</span></p>
-<p>并不是每个事件序列都是调度. 例如, <span class="math inline">\(del(1,2,m)\)</span> 不是调度, 因为在此时间之前, <span class="math inline">\(p_1\)</span> 没有 send m.</p>
-<p>若局部程序是确定的, 则执行(或执行片段)由 初始配置 <span class="math inline">\(C_0\)</span> 和调度(或调度片段) <span class="math inline">\(\sigma\)</span> 唯一确定, 可表示为 <span class="math inline">\(exec(C_0, \sigma)\)</span></p>
-<p><strong>容许执行</strong>: 满足活跃性条件的执行.</p>
-<p><strong>容许调度</strong>: 容许执行的调度.</p>
-<p><strong>同步系统</strong>, 同步模型中, 执行分为轮, 每轮里, (1)每个处理器能够发送一个 msg 到每个邻居 (2) 每个处理器一接到 msg 就进行计算.</p>
-<p><strong>轮</strong> 同步系统中, 每轮由一个传递时间(outbuf发送, 清空), 紧跟一个计算时间 (处理所有msg)</p>
-<p><strong>终止</strong>, 所有处理机均处于终止状态且没有msg 在传输.</p>
-<p><strong>msg复杂度</strong></p>
-<p>实际很少用状态转换来描述算法, 往往用伪码描述.</p>
-<h2 id="生成树">生成树</h2>
+<p>另一种写法.</p>
+<p><span class="math display">\[ (A + B) \times (A + \overline{B})\]</span></p>
+<p>A can be true or false, B too.</p>
+<p>Draw a picture.</p>
+<p><img src="./cnf.jpeg"></p>
+<p>定义有限集合 <span class="math inline">\(A_k = \{x_0, x_1, x_2,\ldots, x_k \}\)</span></p>
+<p>每个元素 <span class="math inline">\(x_i \in \{T, F\}\)</span>, 所以 <span class="math inline">\(|A_k| = 2^k, A_k \in \{T,F\}^k\)</span></p>
+<p>.. 额, 这个好像不是我想要的..</p>
+<p>称 <span class="math inline">\(\{T,F\}^k = \mathbb{2}^k\)</span> 为 <em>真值空间</em>. <span class="math inline">\(A_k\)</span> 是这个空间的一个点.</p>
+<p>一个 CNF 是真值空间的一个子集.</p>
+<p>定义 <span class="math inline">\(X_0 \subset \mathbb{2}^k\)</span>, 一个子空间, where <span class="math inline">\(x_0 = T\)</span>, 定义 <span class="math inline">\(\overline{X_0} \subset \mathbb{2}^k\)</span>, where <span class="math inline">\(x_0 = F\)</span>,</p>
+<p><span class="math display">\[(A \lor B) \land (A \lor \neg B)\]</span></p>
+<p>就是</p>
+<p><span class="math display">\[(X_A \cup X_B) \cap (X_A \cup \overline X_B)\]</span></p>
+<p>这算是 CNF 的语义.</p>
+<p>还有语法的定义.</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> literal = <span class="built_in">string</span> * <span class="built_in">bool</span></span><br><span class="line"><span class="keyword">type</span> clause = literal <span class="built_in">list</span></span><br><span class="line"><span class="keyword">type</span> cnf = clause <span class="built_in">list</span></span><br></pre></td></tr></table></figure>
+<p>CNF 的表达能力?</p>
+<p>CNF, 包含一个字母表 <span class="math inline">\(A_k\)</span>,</p>
+<h2 id="boolean-satisfiability-problem">Boolean satisfiability problem</h2>
+<p>SATisfiability problem. 给定一个 CNF, 在 <span class="math inline">\(\mathbb{2}^k\)</span> 找一个 点, 它在 CNF 中.</p>
+<p>如果有这样一个解(点), 验证很容易, 但是找这个点是 NP-complete 的.</p>
 
       
     </div>
@@ -476,6 +445,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/math/" rel="tag"># math</a>
+          
+        </div>
+      
 
       
       
@@ -485,8 +460,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/08/approximate-algorithm/" rel="next" title="approximate algorithm">
-                <i class="fa fa-chevron-left"></i> approximate algorithm
+              <a href="/2018/05/08/Energy-Types/" rel="next" title="Energy Types">
+                <i class="fa fa-chevron-left"></i> Energy Types
               </a>
             
           </div>
@@ -494,10 +469,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/09/pathfinding/" rel="prev" title="pathfinding">
-                pathfinding <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -682,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式算法"><span class="nav-text">分布式算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成树"><span class="nav-text">生成树</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#boolean-satisfiability-problem"><span class="nav-text">Boolean satisfiability problem</span></a></li></ol></div>
             
 
           </div>
@@ -850,9 +821,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://reveriel.com/2018/01/08/distributed-algorithm/';
-        this.page.identifier = '2018/01/08/distributed-algorithm/';
-        this.page.title = 'distributed algorithm';
+        this.page.url = 'http://reveriel.com/2018/05/14/Logic-Conjunctive-Normal-Form/';
+        this.page.identifier = '2018/05/14/Logic-Conjunctive-Normal-Form/';
+        this.page.title = 'Logic, Conjunctive Normal Form';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');
@@ -907,6 +878,29 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
