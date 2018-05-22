@@ -115,7 +115,7 @@
 <meta property="og:description" content="Conjunctive normal forms are AND of ORs. \[(A \lor B) \land (A \lor \neg B)\]">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://reveriel.com/2018/05/14/Logic-Conjunctive-Normal-Form/cnf.jpeg">
-<meta property="og:updated_time" content="2018-05-14T13:57:22.551Z">
+<meta property="og:updated_time" content="2018-05-21T06:03:16.350Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logic, Conjunctive Normal Form">
 <meta name="twitter:description" content="Conjunctive normal forms are AND of ORs. \[(A \lor B) \land (A \lor \neg B)\]">
@@ -353,12 +353,24 @@
                 
               
 
-              <time title="Created: 2018-05-14 21:09:47 / Modified: 21:57:22" itemprop="dateCreated datePublished" datetime="2018-05-14T21:09:47+08:00">2018-05-14</time>
+              <time title="Created: 2018-05-14 21:09:47" itemprop="dateCreated datePublished" datetime="2018-05-14T21:09:47+08:00">2018-05-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-05-21 14:03:16" itemprop="dateModified" datetime="2018-05-21T14:03:16+08:00">2018-05-21</time>
               
             
           </span>
@@ -427,6 +439,16 @@
 <h2 id="boolean-satisfiability-problem">Boolean satisfiability problem</h2>
 <p>SATisfiability problem. 给定一个 CNF, 在 <span class="math inline">\(\mathbb{2}^k\)</span> 找一个 点, 它在 CNF 中.</p>
 <p>如果有这样一个解(点), 验证很容易, 但是找这个点是 NP-complete 的.</p>
+<p>A simple general SAT solver (copied from stanford cs242):</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> satisfiable (atoms : <span class="built_in">string</span> <span class="built_in">list</span>) (cnf : cnf) : assignment option =</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">rec</span> iter_cnf (assignment : assignment) (cnf : cnf) : assignment option =</span><br><span class="line">    <span class="keyword">match</span> cnf <span class="keyword">with</span></span><br><span class="line">    | <span class="literal">[]</span> -&gt; <span class="type">Some</span> (<span class="type">List</span>.fold atoms ~init:assignment ~f:(<span class="keyword">fun</span> assignment atom -&gt;</span><br><span class="line">      <span class="keyword">match</span> <span class="type">String</span>.<span class="type">Map</span>.find assignment atom <span class="keyword">with</span></span><br><span class="line">      | <span class="type">None</span> -&gt; <span class="type">String</span>.<span class="type">Map</span>.add assignment ~key:atom ~data:<span class="literal">true</span></span><br><span class="line">      | <span class="type">Some</span> _ -&gt; assignment))</span><br><span class="line">    | clause :: cnf' -&gt;</span><br><span class="line">      <span class="type">List</span>.fold clause ~init:<span class="type">None</span> ~f:(<span class="keyword">fun</span> acc (atom, affinity) -&gt;</span><br><span class="line">        (<span class="keyword">match</span> (acc, <span class="type">String</span>.<span class="type">Map</span>.find assignment atom) <span class="keyword">with</span></span><br><span class="line">         | (<span class="type">Some</span> _, _) -&gt; acc</span><br><span class="line">         | (_, <span class="type">None</span>) -&gt;  <span class="comment">(*none, none*)</span></span><br><span class="line">           iter_cnf (<span class="type">String</span>.<span class="type">Map</span>.add assignment ~key:atom ~data:affinity) cnf'</span><br><span class="line">         | (_, <span class="type">Some</span> affinity') -&gt;</span><br><span class="line">           <span class="keyword">if</span> affinity = affinity' <span class="keyword">then</span> iter_cnf assignment cnf'</span><br><span class="line">           <span class="keyword">else</span> <span class="type">None</span>))</span><br><span class="line">  <span class="keyword">in</span> iter_cnf <span class="type">String</span>.<span class="type">Map</span>.empty cnf</span><br></pre></td></tr></table></figure>
+<p>不是遍历 <span class="math inline">\(\mathbb{2}^k\)</span>, 而是这么看 CNF:</p>
+<p>CNF 是 很多个 ORs 的 AND, 要满足这个CNF, 需要满足每一个 ORs. 每一个 ORs 都是很多个 逻辑变量的 OR, 其中只要有一个满足就行了.</p>
+<p><code>cnf = clause :: cnf'</code></p>
+<p><code>clause =  literal :: clause'</code></p>
+<p>add this literal to assignment, recursively call <code>iter_cnf assignment cnf'</code></p>
+<p>如果不行, 就换下一个 literal, 直到 clause’ 为 nil, 说明确实找不到.</p>
+<p>这代码正确性怎么证明?</p>
+<p>cnf 是一个 nested list. 从外层 list 递归可以吗?</p>
 
       
     </div>
