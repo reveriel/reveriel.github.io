@@ -5,10 +5,14 @@
 
 
 
-  
 
 
-<html class="theme-next pisces use-motion" lang="en">
+
+
+
+
+
+<html class="theme-next mist" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -51,24 +55,50 @@
 
 
 
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Palatino:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
 
 
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
 
 
 
@@ -82,14 +112,14 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
-    version: '6.2.0',
+    scheme: 'Mist',
+    version: '6.4.0',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: false,
     fastclick: false,
     lazyload: false,
     tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -106,24 +136,25 @@
 
 
 
-  <meta name="description" content="Conjunctive normal forms are AND of ORs. \[(A \lor B) \land (A \lor \neg B)\]">
+  <meta name="description" content="linux 的内存管理. 理论上, 为了提供物理地址到虚拟地址的转换. 只需要 pagetable 就行了, 但是为了更多的 feature.  demand paging. memory map of file. mmap 这样的 Copy-on-Write (COW) 页面回收  简单分析一下  demand paging. 虚拟地址空间先给你, 只要在访问时, 才分配实际的物理页面, 为什么">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Conjunctive normal form">
-<meta property="og:url" content="http://reveriel.com/2018/05/14/Conjunctive-normal-form/index.html">
+<meta property="og:title" content="Memory Management in Linux">
+<meta property="og:url" content="http://reveriel.com/2018/08/31/Memory-Management-in-Linux/index.html">
 <meta property="og:site_name" content="Reveirel">
-<meta property="og:description" content="Conjunctive normal forms are AND of ORs. \[(A \lor B) \land (A \lor \neg B)\]">
+<meta property="og:description" content="linux 的内存管理. 理论上, 为了提供物理地址到虚拟地址的转换. 只需要 pagetable 就行了, 但是为了更多的 feature.  demand paging. memory map of file. mmap 这样的 Copy-on-Write (COW) 页面回收  简单分析一下  demand paging. 虚拟地址空间先给你, 只要在访问时, 才分配实际的物理页面, 为什么">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-14T12:34:47.167Z">
+<meta property="og:updated_time" content="2018-08-31T03:02:44.915Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Conjunctive normal form">
-<meta name="twitter:description" content="Conjunctive normal forms are AND of ORs. \[(A \lor B) \land (A \lor \neg B)\]">
+<meta name="twitter:title" content="Memory Management in Linux">
+<meta name="twitter:description" content="linux 的内存管理. 理论上, 为了提供物理地址到虚拟地址的转换. 只需要 pagetable 就行了, 但是为了更多的 feature.  demand paging. memory map of file. mmap 这样的 Copy-on-Write (COW) 页面回收  简单分析一下  demand paging. 虚拟地址空间先给你, 只要在访问时, 才分配实际的物理页面, 为什么">
 
 
 
 
 
 
-  <link rel="canonical" href="http://reveriel.com/2018/05/14/Conjunctive-normal-form/"/>
+  <link rel="canonical" href="http://reveriel.com/2018/08/31/Memory-Management-in-Linux/"/>
 
 
 
@@ -133,7 +164,7 @@
   };
 </script>
 
-  <title>Conjunctive normal form | Reveirel</title>
+  <title>Memory Management in Linux | Reveirel</title>
   
 
 
@@ -204,9 +235,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
+    
   </div>
 
   <div class="site-nav-toggle">
@@ -217,7 +246,6 @@
     </button>
   </div>
 </div>
-
 
 
 
@@ -264,6 +292,9 @@
   
 
   
+    
+
+  
 
   
 </nav>
@@ -283,9 +314,6 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          
-            
-
           
           <div id="content" class="content">
             
@@ -308,7 +336,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2018/05/14/Conjunctive-normal-form/">
+    <link itemprop="mainEntityOfPage" href="http://reveriel.com/2018/08/31/Memory-Management-in-Linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rev">
@@ -325,7 +353,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Conjunctive normal form
+          <h1 class="post-title" itemprop="name headline">Memory Management in Linux
               
             
           </h1>
@@ -350,7 +378,7 @@
                 
               
 
-              <time title="Created: 2018-05-14 20:21:42 / Modified: 20:34:47" itemprop="dateCreated datePublished" datetime="2018-05-14T20:21:42+08:00">2018-05-14</time>
+              <time title="Created: 2018-08-31 10:43:31 / Modified: 11:02:44" itemprop="dateCreated datePublished" datetime="2018-08-31T10:43:31+08:00">2018-08-31</time>
             
 
             
@@ -369,9 +397,10 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/14/Conjunctive-normal-form/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/31/Memory-Management-in-Linux/#comments" itemprop="discussionUrl">
+                
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/14/Conjunctive-normal-form/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/31/Memory-Management-in-Linux/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -399,13 +428,21 @@
       
 
       
-        <p>Conjunctive normal forms are <strong>AND of ORs</strong>.</p>
-<p><span class="math display">\[(A \lor B) \land (A \lor \neg B)\]</span></p>
-<a id="more"></a>
-<p>另一种写法.</p>
-<p><span class="math display">\[ (A + B) \times (A + \overline{B})\]</span></p>
-<p>A can be true or false, B too.</p>
-<p>Draw a picture.</p>
+        <p>linux 的内存管理. 理论上, 为了提供物理地址到虚拟地址的转换. 只需要 pagetable 就行了, 但是为了更多的 feature.</p>
+<ul>
+<li>demand paging.</li>
+<li>memory map of file. mmap 这样的</li>
+<li>Copy-on-Write (COW)</li>
+<li>页面回收</li>
+</ul>
+<p>简单分析一下</p>
+<ul>
+<li>demand paging. 虚拟地址空间先给你, 只要在访问时, 才分配实际的物理页面, 为什么不能直接用 pagetable? 用 pagetable 的话, 我给你分配 pte (page table entry), 但是设置权限不可访问, 在访问触发 pagefault 后再填上物理地址不也可以吗?</li>
+<li>memory map of file. mmap 这样的, 不可以吗? 显然没有办法. 如何和文件关联起来?</li>
+<li>Copy-on-Write (COW), 这个似乎也能只用 pagetable 实现, 类似 demand paging 的做法.</li>
+<li>页面回收, 我们需要保持关于物理页面的使用信息的一些 metadata 才行.</li>
+</ul>
+<h3 id="demand-papaing">demand papaing,</h3>
 
       
     </div>
@@ -424,6 +461,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
 
       
       
@@ -433,8 +476,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/08/Energy-Types/" rel="next" title="Energy Types">
-                <i class="fa fa-chevron-left"></i> Energy Types
+              <a href="/2018/05/14/Logic-Conjunctive-Normal-Form/" rel="next" title="Logic, Conjunctive Normal Form">
+                <i class="fa fa-chevron-left"></i> Logic, Conjunctive Normal Form
               </a>
             
           </div>
@@ -457,10 +500,6 @@
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
@@ -500,8 +539,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -520,7 +568,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -545,7 +593,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -606,6 +656,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#demand-papaing"><span class="nav-text">demand papaing,</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -619,7 +685,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
@@ -633,15 +699,11 @@
 
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
-  <span class="post-meta-divider">|</span>
 
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.2.0</div>
 
 
 
@@ -667,7 +729,10 @@
     
 
     
+	
+    
 
+    
   </div>
 
   
@@ -729,32 +794,25 @@
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=6.2.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.2.0"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
 
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
 
 
 
@@ -767,10 +825,10 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://reveriel.com/2018/05/14/Conjunctive-normal-form/';
-        this.page.identifier = '2018/05/14/Conjunctive-normal-form/';
-        this.page.title = 'Conjunctive normal form';
-      };
+        this.page.url = 'http://reveriel.com/2018/08/31/Memory-Management-in-Linux/';
+        this.page.identifier = '2018/08/31/Memory-Management-in-Linux/';
+        this.page.title = 'Memory Management in Linux';
+        };
       function loadComments () {
         var d = document, s = d.createElement('script');
         s.src = 'https://reveriel.disqus.com/embed.js';
@@ -787,18 +845,6 @@
 
 
 
-	
-
-
-
-
-
-  
-
-
-
-
-
 
 
 
@@ -824,29 +870,6 @@
   
   
 
-  
-    
-      <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-      var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-    
   
 
 
@@ -861,6 +884,9 @@
 
 
   
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=6.4.0"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=6.4.0"></script>
+
 
   
 
