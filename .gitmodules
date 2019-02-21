@@ -1,0 +1,7 @@
+[submodule "themes/hugo-primer"]
+	path = themes/hugo-primer
+	url = git@github.com:reveriel/hugo-primer.git
+[submodule "public"]
+	path = public
+	url = git@github.com:reveriel/reveriel.github.io.git
+	branch = master
