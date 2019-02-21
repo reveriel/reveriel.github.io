@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  eigen &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="计算矩阵的全部特征值的 QR 方法|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="eigen | BLTBLG">
+    <meta name="twitter:description" content="计算矩阵的全部特征值的 QR 方法|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">eigen</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2018-01-02. Published at: 2017-12-30.">
+        
+          Lastmod: 2018-01-02
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <h1 id="计算矩阵的全部特征值的-qr-方法">计算矩阵的全部特征值的 QR 方法</h1>
+
+<p>QR 分解指, 将矩阵 $A$ 分解为 $A = QR$, $R$ 是上三角矩阵, $Q$是正交矩阵.</p>
+
+<p>利用QR分解求矩阵特征值的方法如下:</p>
+
+<p>$A_1 = Q_1 R_1$</p>
+
+<p>$A_2 = Q_1^{-1} A_1 Q_1 = Q_1^{-1}Q_1 R_1 Q_1 = R_1 Q_1$</p>
+
+<p>即分解后交换 QR 再相乘, 反复迭代这回收敛到以A 的特征值为对角线元素的上三角矩阵.</p>
+
+<p>并行算法就是将 QR 分解和矩阵相乘的两个步骤并行化.</p>
+
+<h1 id="离散小波变换-dwt">离散小波变换 DWT</h1>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>eigen</b>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#计算矩阵的全部特征值的-qr-方法">计算矩阵的全部特征值的 QR 方法</a></li>
+<li><a href="#离散小波变换-dwt">离散小波变换 DWT</a></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

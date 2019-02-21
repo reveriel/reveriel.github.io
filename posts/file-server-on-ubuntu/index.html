@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  File Server on Ubuntu &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="Install samba. configure it.
+Use Samba on the LAN, FTP over the Internet.
+File Server | Ubuntu documentation
+其实把东西记在博客里一点也不方便.
+后来某天想要在树莓派上设置Samba时, 还以为是记在 Note 里面的. 找不到这篇笔记, 才 想起是放在了这里..
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="File Server on Ubuntu | BLTBLG">
+    <meta name="twitter:description" content="Install samba. configure it.
+
+Use Samba on the LAN, FTP over the Internet.
+
+File Server | Ubuntu documentation
+
+其实把东西记在博客里一点也不方便.
+
+后来某天想要在树莓派上设置Samba时, 还以为是记在 Note 里面的. 找不到这篇笔记, 才
+想起是放在了这里..|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">File Server on Ubuntu</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/linux' class="muted-link">
+  <span class="Label Label--gray">linux</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2019-02-21. Published at: 2018-03-14.">
+        
+          Lastmod: 2019-02-21
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>Install samba. configure it.</p>
+
+<p>Use Samba on the LAN, FTP over the Internet.</p>
+
+<p><a href="https://help.ubuntu.com/lts/serverguide/samba-fileserver.html.en">File Server | Ubuntu documentation</a></p>
+
+<p>其实把东西记在博客里一点也不方便.</p>
+
+<p>后来某天想要在树莓派上设置Samba时, 还以为是记在 Note 里面的. 找不到这篇笔记, 才
+想起是放在了这里..</p>
+
+<pre><code>sudo apt install samba
+</code></pre>
+
+<p><code>/etc/samba/smb.conf</code></p>
+
+<p>then make some change in the [homes] section.</p>
+
+<pre><code>[homes]
+  comment = Home Directories
+  browseable = yes
+  read only = no
+  create mask = 0775
+  directory mask = 0775
+  valid users = %S
+</code></pre>
+
+<p>then</p>
+
+<pre><code>sudo service smdb restart &amp;&amp; service nmbd restart
+</code></pre>
+
+<p>failed&hellip; Use this.</p>
+
+<pre><code>sudo systemctl restart smbd.service nmbd.service
+</code></pre>
+
+<blockquote>
+<p>This works fine on Ubt17, but failed on my RPi(8 jessie, Raspbian),
+use this <code>sudo /etc/init.d/samba restart</code> on RPi</p>
+</blockquote>
+
+<p>add user to sambda</p>
+
+<pre><code>smbpasswd -a &lt;user-name&gt;
+</code></pre>
+
+<h2 id="connect-to-smb-on-macos">Connect to SMB on macOS</h2>
+
+<p>Finder &gt; Go &gt; Connect to Server&hellip;</p>
+
+<p>enter an URL</p>
+
+<pre><code>smb://&lt;ip&gt;/&lt;folder&gt;
+</code></pre>
+
+<p>Enter your user-name (on the file server) and the passwd you&rsquo;ve just set.</p>
+
+<p>Now You can edit files on the server just like editing your local files!</p>
+
+<p>然后安装个 transmission, 把服务器作为 BT 下载器, 也是美滋滋~</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>File Server on Ubuntu</b>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#connect-to-smb-on-macos">Connect to SMB on macOS</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

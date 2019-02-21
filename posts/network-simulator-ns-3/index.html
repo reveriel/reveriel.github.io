@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Network Simulator: ns-3 &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="ns-3 is a Network simulator,
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="Network Simulator: ns-3 | BLTBLG">
+    <meta name="twitter:description" content="ns-3 is a Network simulator,|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Network Simulator: ns-3</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2019-02-21. Published at: 2018-03-14.">
+        
+          Lastmod: 2019-02-21
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>ns-3 is a Network simulator,</p>
+
+<p>working directory: <code>nico:workspace/ns3</code></p>
+
+<h1 id="preparation">preparation</h1>
+
+<p>Normally you need to download the source and build it. Compile failed on MacOS,
+So I have to use Ubuntu.</p>
+
+<p>Download <code>ns-allinone-3.27.tar.bz2</code>. Then <code>tar xf</code> it, and build it:</p>
+
+<pre><code>./build.py --enable-examples --enable-tests
+</code></pre>
+
+<p>or</p>
+
+<pre><code>./waf -d optimized --enable-examples --enable-tests configure
+</code></pre>
+
+<p>run example</p>
+
+<pre><code>./waf --run hello-simulator
+</code></pre>
+
+<p>in example/tutorial</p>
+
+<h1 id="concepts">Concepts</h1>
+
+<p>four basic Concepts:</p>
+
+<ul>
+<li><code>Node</code>: a machine, pc, router, switch</li>
+<li><code>Application</code>: program</li>
+<li><code>Channel</code>: between nodes
+
+<ul>
+<li>csma, p2p, wifi</li>
+</ul></li>
+<li><code>NetDevice</code>: Network interface Card and driver.</li>
+<li><code>Topology Helper</code>: attach NetDevice to Node and Channel, do configuration
+
+<ul>
+<li><code>NodeContainer</code> create, access and manage <code>Node</code> objects</li>
+</ul></li>
+</ul>
+
+<h1 id="using-ns-3">Using ns-3</h1>
+
+<p>First read  <code>example/tutorial/first.cc</code> ( by the first line <code>-*- Mode:C++</code>
+I can see that the author uses Emacs! )</p>
+
+<ul>
+<li>Include headers</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&#34;ns/core-module.h&#34;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;ns/network-module.h&#34;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;ns/internet-module.h&#34;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;ns/point-to-point-module.h&#34;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;ns/applications-module.h&#34;</span><span class="cp">
+</span></code></pre></div>
+<p>A lot of modules&hellip;</p>
+
+<ul>
+<li>log component</li>
+</ul>
+
+<p><code>NS_LOG_COMPONET_DEFINE (&quot;FirstScriptExample&quot;);</code>
+This is  defined in log.h.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">static</span> <span class="n">ns3</span><span class="o">::</span><span class="n">LogCompoinent</span> <span class="n">g_log</span> <span class="o">=</span> <span class="n">ns3</span><span class="o">::</span><span class="n">LogComponent</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">)</span>
+</code></pre></div>
+<p>logs need to be enabled.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">LogComponentEnable</span><span class="p">(</span><span class="s">&#34;FirstScriptExample&#34;</span><span class="p">,</span> <span class="n">LOG_LEVEL_INFO</span><span class="p">)</span>
+</code></pre></div>
+<p>Use <code>NS_LOG_INFO (&quot;what you want to say&quot;)</code> to print staff at info level</p>
+
+<ul>
+<li>Copmile and run the script</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cp examples/tutorial/first.cc scratch/myfirst.cc
+./waf  <span class="c1"># compile</span>
+./waf --run scratch/myfirst
+<span class="sb">``</span>
+
+But No output ..
+
+So I rebuild ... something
+
+<span class="sb">```</span> shell
+./waf configure -d debug
+./waf</code></pre></div>
+<p>Now I can see the log output.</p>
+<div class="highlight"><pre class="chroma"><code class="language-log" data-lang="log">At time 2s client sent 1024 bytes to 10.1.1.2 port 9
+At time 2.00369s server received 1024 bytes from 10.1.1.1 port 49153
+At time 2.00369s server sent 1024 bytes to 10.1.1.1 port 49153
+At time 2.00737s client received 1024 bytes from 10.1.1.2 port 9</code></pre></div>
+<ul>
+<li>Command Line parser</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">./waf --run <span class="s2">&#34;scratch/myfirst --PrintHelp&#34;</span>
+./waf --run <span class="s2">&#34;scratch/myfirst --PrintAttributes=ns3::PointToPointNetDevice&#34;</span>
+./waf --run <span class="s2">&#34;scratch/myfirst --ns3::PointToPointNetDevice:DataRate=5Mbps
+</span><span class="s2">   --ns3::PointToPointChannel::Delay=2ms&#34;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">uint32_t</span> <span class="n">nPackets</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">CommandLine</span> <span class="n">cmd</span><span class="p">;</span>
+<span class="n">cmd</span><span class="p">.</span><span class="n">AddValue</span><span class="p">(</span><span class="s">&#34;nPackets&#34;</span><span class="p">,</span> <span class="s">&#34;Number of packets to echo&#34;</span><span class="p">,</span> <span class="n">nPackets</span><span class="p">);</span>
+<span class="n">cmd</span><span class="p">.</span><span class="n">Parse</span> <span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="c1">// ...
+</span><span class="c1"></span><span class="n">echoClient</span><span class="p">.</span><span class="n">SetAttribute</span> <span class="p">(</span><span class="s">&#34;MaxPackets&#34;</span><span class="p">,</span> <span class="n">UintegerValue</span> <span class="p">(</span><span class="n">nPackets</span><span class="p">));</span>
+</code></pre></div>
+<ul>
+<li>ASCII tracing</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">AsciiTraceHelper</span> <span class="n">ascii</span><span class="p">;</span>
+<span class="n">pointToPoint</span><span class="p">.</span><span class="n">EnableAsciiAll</span> <span class="p">(</span><span class="n">ascii</span><span class="p">.</span><span class="n">CreateFileStream</span> <span class="p">(</span><span class="s">&#34;myfirst.tr&#34;</span><span class="p">));</span>
+</code></pre></div>
+<p>Each line represents a trace event, four types of events</p>
+
+<ul>
+<li>+: an enqueue event happens on the device</li>
+<li>-: a dequeue event happens on the device</li>
+<li>d: a packet is dropped on the device</li>
+
+<li><p>r: the device receives a packet</p></li>
+
+<li><p>PCAP tracing</p></li>
+</ul>
+
+<p>Enable PCAP(packet capture) tracing:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">pointToPoint</span><span class="p">.</span><span class="n">EnablePcapAll</span> <span class="p">(</span><span class="s">&#34;myfirst&#34;</span><span class="p">);</span>
+</code></pre></div>
+<p>output to <code>myfirst-0-0.pcap</code> and <code>myfirst-1-0.pcap</code>. numbers indicate node and device.</p>
+
+<p>use <code>tcpdump</code> to show the trace</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">tcpdump -nn -tt -r myfirst-0-0.pcap</code></pre></div>
+<h2 id="api-use-summary">API use summary</h2>
+
+<p>To implement an ns-3 application.</p>
+
+<ol>
+<li>create nodes</li>
+<li>setup channel, installed on nodes</li>
+<li>install protocol stack on nodes</li>
+<li>allocate addresses for nodes</li>
+<li>install program on nodes</li>
+<li>start - stop</li>
+</ol>
+
+<p>c++ is quite verbose. but it&rsquo;s ok once you get used to it. wifi 还有更细节的物理层的
+设置, 比如 node 的位置和随时间的移动.</p>
+
+<p>但是我还是觉得这种 API 设计挺糟糕的. 本来这些 API 都只是些设置的东西. 却要分成
+这么多行代码. 新手需要记住需要哪些步骤, 需要以怎样的步骤来调用. 就算实际上各个参数
+都有默认参数, 或者是顺序无影响, 也会给用户带来额外负担.</p>
+
+<p>比如说 csmaHelper, 我能不能重复使用呢, 即按照一次后它自身的状态会变化吗? 另外 Helper
+类的属性也不好用, 作者说是为了灵活性..</p>
+
+<p>将有副作用和无副作用的 API 分开. 初始化模型用参数表来提示用户需要哪些前提参数, 多好.
+属性就直接作为一个域放在类里, 不然编辑器IDE根本帮不上忙, 你完全不知道有哪些属性可以用.</p>
+
+<p><code>WifiNetDevice</code> 如果只能和 <code>WifiChannel</code> 在一起工作的话, 请用 Type System 约束一下,
+或者不要让用户有这个能力把 <code>WifiNetDevice</code> 连上 <code>CsmaChannel</code>.</p>
+
+<p>Topology 功能也感觉好复杂.</p>
+
+<p>好的API的设计应该让我不用看文档就能直接仿照例子写自己的程序了.</p>
+
+<p>用 json 或 xml 描述一下网络就能跑是最好了..</p>
+
+<p>node, device, interface 都分散在各个变量中. 如果之后有时间, 大概
+会创建一个类来保存这些信息.  (为什么库不提供啊!)</p>
+
+<p>心累.. 还有好几个实验呢..</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Network Simulator: ns-3</b>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#preparation">preparation</a></li>
+<li><a href="#concepts">Concepts</a></li>
+<li><a href="#using-ns-3">Using ns-3</a>
+<ul>
+<li><a href="#api-use-summary">API use summary</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

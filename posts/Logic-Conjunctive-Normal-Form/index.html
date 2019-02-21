@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Logic, Conjunctive Normal Form &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="Conjunctive normal forms are AND of ORs.
+$$(A \lor B) \land (A \lor \neg B)$$
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="Logic, Conjunctive Normal Form | BLTBLG">
+    <meta name="twitter:description" content="Conjunctive normal forms are AND of ORs.
+
+$$(A \lor B) \land (A \lor \neg B)$$|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Logic, Conjunctive Normal Form</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/math' class="muted-link">
+  <span class="Label Label--gray">math</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2019-02-21. Published at: 2018-05-14.">
+        
+          Lastmod: 2019-02-21
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>Conjunctive normal forms are <strong>AND of ORs</strong>.</p>
+
+<p>$$(A \lor B) \land (A \lor \neg B)$$</p>
+
+<p>另一种写法.</p>
+
+<p>$$ (A + B) \times (A + \overline{B})$$</p>
+
+<p>A can be true or false,  B too.</p>
+
+<p>Draw a picture.</p>
+
+<p><img src="./cnf.jpeg" alt="" /></p>
+
+<p>定义有限集合  $A_k = {x_0, x_1, x_2,\ldots, x_k }$</p>
+
+<p>每个元素 $x_i \in {T, F}$,  所以 $|A_k| = 2^k,  A_k \in {T,F}^k$</p>
+
+<p>.. 额, 这个好像不是我想要的..</p>
+
+<p>称 ${T,F}^k = \mathbb{2}^k$ 为 <em>真值空间</em>.  $A_k$ 是这个空间的一个点.</p>
+
+<p>一个 CNF 是真值空间的一个子集.</p>
+
+<p>定义 $X_0 \subset \mathbb{2}^k$, 一个子空间, where $x_0 = T$,
+定义 $\overline{X_0} \subset \mathbb{2}^k$, where $x_0 = F$,</p>
+
+<p>$$(A \lor B) \land (A \lor \neg B)$$</p>
+
+<p>就是</p>
+
+<p>$$(X_A \cup X_B) \cap (X_A \cup \overline X_B)$$</p>
+
+<p>这算是 CNF 的语义.</p>
+
+<p>还有语法的定义.</p>
+<div class="highlight"><pre class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">literal</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">*</span> <span class="kt">bool</span>
+<span class="k">type</span> <span class="n">clause</span> <span class="o">=</span> <span class="n">literal</span> <span class="kt">list</span>
+<span class="k">type</span> <span class="n">cnf</span> <span class="o">=</span> <span class="n">clause</span> <span class="kt">list</span></code></pre></div>
+<p>CNF 的表达能力?</p>
+
+<p>CNF, 包含一个字母表 $A_k$,</p>
+
+<h2 id="boolean-satisfiability-problem">Boolean satisfiability problem</h2>
+
+<p>SATisfiability problem. 给定一个 CNF, 在 $\mathbb{2}^k$ 找一个 点, 它在 CNF 中.</p>
+
+<p>如果有这样一个解(点), 验证很容易, 但是找这个点是 NP-complete 的.</p>
+
+<p>A simple general SAT solver (copied from stanford cs242):</p>
+<div class="highlight"><pre class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">satisfiable</span> <span class="o">(</span><span class="n">atoms</span> <span class="o">:</span> <span class="kt">string</span> <span class="kt">list</span><span class="o">)</span> <span class="o">(</span><span class="n">cnf</span> <span class="o">:</span> <span class="n">cnf</span><span class="o">)</span> <span class="o">:</span> <span class="n">assignment</span> <span class="n">option</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">iter_cnf</span> <span class="o">(</span><span class="n">assignment</span> <span class="o">:</span> <span class="n">assignment</span><span class="o">)</span> <span class="o">(</span><span class="n">cnf</span> <span class="o">:</span> <span class="n">cnf</span><span class="o">)</span> <span class="o">:</span> <span class="n">assignment</span> <span class="n">option</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">cnf</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="nc">Some</span> <span class="o">(</span><span class="nn">List</span><span class="p">.</span><span class="n">fold</span> <span class="n">atoms</span> <span class="o">~</span><span class="n">init</span><span class="o">:</span><span class="n">assignment</span> <span class="o">~</span><span class="n">f</span><span class="o">:(</span><span class="k">fun</span> <span class="n">assignment</span> <span class="n">atom</span> <span class="o">-&gt;</span>
+      <span class="k">match</span> <span class="nn">String</span><span class="p">.</span><span class="nn">Map</span><span class="p">.</span><span class="n">find</span> <span class="n">assignment</span> <span class="n">atom</span> <span class="k">with</span>
+      <span class="o">|</span> <span class="nc">None</span> <span class="o">-&gt;</span> <span class="nn">String</span><span class="p">.</span><span class="nn">Map</span><span class="p">.</span><span class="n">add</span> <span class="n">assignment</span> <span class="o">~</span><span class="n">key</span><span class="o">:</span><span class="n">atom</span> <span class="o">~</span><span class="n">data</span><span class="o">:</span><span class="bp">true</span>
+      <span class="o">|</span> <span class="nc">Some</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="n">assignment</span><span class="o">))</span>
+    <span class="o">|</span> <span class="n">clause</span> <span class="o">::</span> <span class="n">cnf&#39;</span> <span class="o">-&gt;</span>
+      <span class="nn">List</span><span class="p">.</span><span class="n">fold</span> <span class="n">clause</span> <span class="o">~</span><span class="n">init</span><span class="o">:</span><span class="nc">None</span> <span class="o">~</span><span class="n">f</span><span class="o">:(</span><span class="k">fun</span> <span class="n">acc</span> <span class="o">(</span><span class="n">atom</span><span class="o">,</span> <span class="n">affinity</span><span class="o">)</span> <span class="o">-&gt;</span>
+        <span class="o">(</span><span class="k">match</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="nn">String</span><span class="p">.</span><span class="nn">Map</span><span class="p">.</span><span class="n">find</span> <span class="n">assignment</span> <span class="n">atom</span><span class="o">)</span> <span class="k">with</span>
+         <span class="o">|</span> <span class="o">(</span><span class="nc">Some</span> <span class="o">_,</span> <span class="o">_)</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+         <span class="o">|</span> <span class="o">(_,</span> <span class="nc">None</span><span class="o">)</span> <span class="o">-&gt;</span>  <span class="c">(*none, none*)</span>
+           <span class="n">iter_cnf</span> <span class="o">(</span><span class="nn">String</span><span class="p">.</span><span class="nn">Map</span><span class="p">.</span><span class="n">add</span> <span class="n">assignment</span> <span class="o">~</span><span class="n">key</span><span class="o">:</span><span class="n">atom</span> <span class="o">~</span><span class="n">data</span><span class="o">:</span><span class="n">affinity</span><span class="o">)</span> <span class="n">cnf&#39;</span>
+         <span class="o">|</span> <span class="o">(_,</span> <span class="nc">Some</span> <span class="n">affinity&#39;</span><span class="o">)</span> <span class="o">-&gt;</span>
+           <span class="k">if</span> <span class="n">affinity</span> <span class="o">=</span> <span class="n">affinity&#39;</span> <span class="k">then</span> <span class="n">iter_cnf</span> <span class="n">assignment</span> <span class="n">cnf&#39;</span>
+           <span class="k">else</span> <span class="nc">None</span><span class="o">))</span>
+  <span class="k">in</span> <span class="n">iter_cnf</span> <span class="nn">String</span><span class="p">.</span><span class="nn">Map</span><span class="p">.</span><span class="n">empty</span> <span class="n">cnf</span></code></pre></div>
+<p>不是遍历 $\mathbb{2}^k$, 而是这么看 CNF:</p>
+
+<p>CNF 是 很多个 ORs 的 AND, 要满足这个CNF, 需要满足每一个 ORs. 每一个 ORs 都是很多个 逻辑变量的 OR, 其中只要有一个满足就行了.</p>
+
+<p><code>cnf = clause :: cnf'</code></p>
+
+<p><code>clause =  literal :: clause'</code></p>
+
+<p>add this literal to assignment, recursively call <code>iter_cnf assignment cnf'</code></p>
+
+<p>如果不行, 就换下一个 literal, 直到 clause&rsquo; 为 nil, 说明确实找不到.</p>
+
+<p>这代码正确性怎么证明?</p>
+
+<p>cnf 是一个 nested list. 从外层 list 递归可以吗?</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Logic, Conjunctive Normal Form</b>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#boolean-satisfiability-problem">Boolean satisfiability problem</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

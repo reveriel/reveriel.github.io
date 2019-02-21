@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  paralell computing &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="paralell data dependency
+statement S, T,
+define $S \,\delta\, T$: $T$ depends on $S$, $S$ must be executed before $T$
+$S\,\delta\,T$ if and only if one of the cases are true.
+$x$ is a variable
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="paralell computing | BLTBLG">
+    <meta name="twitter:description" content="paralell
+
+data dependency
+
+statement S, T,
+
+define $S \,\delta\, T$:
+$T$ depends on $S$, $S$ must be executed before $T$
+
+$S\,\delta\,T$ if and only if one of the cases are true.
+
+$x$ is a variable|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">paralell computing</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2018-05-06. Published at: 2018-01-05.">
+        
+          Lastmod: 2018-05-06
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <h1 id="paralell">paralell</h1>
+
+<p>data dependency</p>
+
+<p>statement S, T,</p>
+
+<p><strong>define</strong> $S \,\delta\, T$:
+$T$ depends on $S$, $S$ must be executed before $T$</p>
+
+<p>$S\,\delta\,T$ if and only if one of the cases are true.</p>
+
+<p>$x$ is a variable</p>
+
+<ol>
+<li><p><strong>flow dependency</strong>: $S\,\delta^f\,T$, if $x \in OUT(S)$, and $x \in IN(T)$.
+and $x$ is readed in $T$</p>
+
+<p>S: x = a + b</p>
+
+<p>T: y = x</p>
+
+<p>Read after wrtie.</p></li>
+
+<li><p><strong>reverse dependency</strong>: $S\,\delta^a\,T$, if $x \in IN(S)$ and $x \in OUT(T)$.
+and $S$ read $x$ before $T$ write to $x$</p>
+
+<p>S: r = x</p>
+
+<p>T: x = a + b</p>
+
+<p>Write after read.</p></li>
+
+<li><p><strong>output dependency</strong>: $S\,\delta^o\,T$, if $x \in OUT(S)$ and $x \in OUT(T)$.
+$S$ write to $x$ before $T$ write to $x$.</p>
+
+<p>S: x = a</p>
+
+<p>T: x = b</p>
+
+<p>Write after write.</p></li>
+</ol>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>paralell computing</b>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#paralell">paralell</a></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

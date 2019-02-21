@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Object Tracking on RPi &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="Install SiamFC-TensorFlow on RPi
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="Object Tracking on RPi | BLTBLG">
+    <meta name="twitter:description" content="Install SiamFC-TensorFlow on RPi|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Object Tracking on RPi</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2019-02-21. Published at: 2018-04-01.">
+        
+          Lastmod: 2019-02-21
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>Install <a href="https://github.com/torrvision/siamfc-tf">SiamFC-TensorFlow</a> on RPi</p>
+
+<p>在笔记本上和 RPi 上都进行测试.</p>
+
+<p>目录:  chip:~/workspace/object-tracking/siamfc/siamfc-tf
+pi3:~/workspace/</p>
+
+<p>按官方指南, 使用 virtual-env, 创建一个独立的环境, 不依赖于系统里已经安装的 python 库.</p>
+
+<p>siamfc-tf 需要 tensorflow-gpu==1.1.0, tensorflow-gpu 依赖 libcublas, 会在运行时加载
+libcublas 动态库, 这个库需要 CUDA.</p>
+
+<p>需要把 tensorflow-gpu 换成 tensorflow, 但是直接使用 pip 安装 tensorflow 失败, 找不到 tensorflow
+这个包. 于是使用
+<a href="https://github.com/samjabrahams/tensorflow-on-raspberry-pi">tensorflow-on-raspberry-pi</a>
+提供的二进制安装. tensorflow-1.1.0</p>
+
+<p>使用 pip 安装依赖 matplotlib 时, 编译错误:</p>
+
+<pre><code>src/_png.cpp: In member function 'Py::Object _png_module::write_png(const Py::Tuple&amp;)':
+src/_png.cpp:147:51: error: 'npy_PyFile_Dup' was not declared in this scope
+...
+</code></pre>
+
+<p>change numpy version from 1.11.1 to 1.6.2  NO.
+I install it manually,</p>
+
+<p>OK, 可以运行.</p>
+
+<p>原输入是一个文件夹, 里面都是图, 以及一个框. 输出, 每帧一个框, 图片可以显示.</p>
+
+<p>改成. 输入是摄像头, (初始框暂时不管</p>
+
+<p><code>region_to_bbox</code>,
+region is either 4 dim or 8 dim.
+4 dim is rect, x y w h,
+8 dim is poly,  … not sure yet.
+anyway , only 4 is used here</p>
+
+<p>Where did it open the image file?
+tracker.py 70, it use a for loop to process each frame.</p>
+
+<p>sess.run use  a feed_dict, which requires a filename for a frame. I need to stop it
+sess is a tf.Session.  what do you what ? see official doc !
+It seems that the tf graph is in the global environment. sess.run(), run it.</p>
+
+<p>run : Runs operations and evaluates tensors in fetches.</p>
+
+<p>feed_dict argument allows the caller to override the value of tensors in the graph. See run() for more information.</p>
+
+<p>so the computation has already been defined in the
+graph definition part.</p>
+
+<p>it used a tf.train.Coordinator() to load image file!!!</p>
+
+<p>A coordinator for threads.
+This class implements a simple mechanism to coordinate the termination of a set of threads.</p>
+
+<p>修改 graph, 发现不知道 tensorflow 如何输入图片.
+计算图怎么写?</p>
+
+<p>看了下 Session 和 run,</p>
+
+<p>使用 feed_dic 输入 graph. 弄个 place_holder 接受就行了.</p>
+
+<p>这个真的.. 我真的没把这里当成博客啊.. 这不是把屎拉在路上么..</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Object Tracking on RPi</b>
+      
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

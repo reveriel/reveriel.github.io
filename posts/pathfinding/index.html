@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  pathfinding &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="from wiki
+A pathfinding method searches a graph by starting at one vertex and exploring adjacent nodes until the destination node is reached.
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="pathfinding | BLTBLG">
+    <meta name="twitter:description" content="from wiki
+
+A pathfinding method searches a graph by starting at one vertex and exploring adjacent nodes until the destination node is reached.|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">pathfinding</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2018-05-06. Published at: 2018-01-09.">
+        
+          Lastmod: 2018-05-06
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>from wiki</p>
+
+<p>A pathfinding method searches a <a href="https://en.wikipedia.org/wiki/Graph_(data_structure)">graph</a> by starting at one <a href="https://en.wikipedia.org/wiki/Vertex_(graph_theory)">vertex</a> and exploring adjacent <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">nodes</a> until the destination node is reached.</p>
+
+<p>Two primary problems of pathfinding are (1) to find a path between two nodes in
+a <a href="https://en.wikipedia.org/wiki/Graph_(data_structure)">graph</a>; and (2) the
+<a href="https://en.wikipedia.org/wiki/Shortest_path_problem">shortest path problem</a>—to
+find the <a href="https://en.wikipedia.org/wiki/Shortest_path_problem">optimal shortest
+path</a>. Basic algorithms
+such as <a href="https://en.wikipedia.org/wiki/Breadth-first_search">breadth-first</a> and
+<a href="https://en.wikipedia.org/wiki/Depth-first_search">depth-first</a> search address
+the first problem by
+<a href="https://en.wikipedia.org/wiki/Brute-force_search">exhausting</a> all
+possibilities; starting from the given node, they iterate over all potential
+paths until they reach the destination node. These algorithms run in
+$O(|V|+|E|)$, or linear time, where V is the number of vertices, and E is the
+number of <a href="https://en.wikipedia.org/wiki/Edge_(graph_theory)">edges</a> between
+vertices.</p>
+
+<p>The more complicated problem is finding the optimal path. The exhaustive
+approach in this case is known as the <a href="https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm">Bellman–Ford
+algorithm</a>, which
+yields a time complexity of $O(|V||E|)$, or quadratic time. However, it is not
+necessary to examine all possible paths to find the optimal one. Algorithms
+such as <a href="https://en.wikipedia.org/wiki/A*_search_algorithm">A*</a>and <a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">Dijkstra&rsquo;s
+algorithm</a> strategically
+eliminate paths, either through
+<a href="https://en.wikipedia.org/wiki/Heuristic_(computer_science)">heuristics</a> or
+through <a href="https://en.wikipedia.org/wiki/Dynamic_programming">dynamic
+programming</a>. By eliminating
+impossible paths, these algorithms can achieve time complexities as low as
+$O(|E|\log⁡(|V|))$.</p>
+
+<p>The above algorithms are among the best general algorithms which operate on a
+graph without preprocessing. However, in practical travel-routing systems, even
+better time complexities can be attained by algorithms which can pre-process
+the graph to attain better performance. One such algorithm is <a href="https://en.wikipedia.org/wiki/Contraction_hierarchies">contraction
+hierarchies</a>.</p>
+
+<h3 id="bellman-ford-algorithm">Bellman-Ford algorithm</h3>
+
+<h3 id="dijkstra-s-algorithm">Dijkstra&rsquo;s algorithm</h3>
+
+<p>begins with a start node and an &ldquo;open set&rdquo; of candidate nodes.</p>
+
+<p>At each step, the node in the open set with the lowest distance from the start is examined. The node is marked &ldquo;closed&rdquo;, and all nodes adjacent to it are added to the open set if they have not already been examined. This process repeats until a path to the destination has been found.</p>
+
+<p>算法会找到从起始顶点到每个顶点(距离小于起始顶点到目标顶点最短路径)的最短路径.</p>
+
+<p>Dijkstra&rsquo;s algorithm fails if there is a negative <a href="https://en.wikipedia.org/wiki/Edge_(graph_theory)">edge</a> weight.</p>
+
+<h3 id="a-algorithm">A* algorithm</h3>
+
+<h3 id="sample-algorithm">Sample algorithm</h3>
+
+<pre><code>  1 2 3 4 5 6 7 8
+X X X X X X X X X X
+X _ _ _ X X _ X _ X 1
+X _ X _ _ X _ _ _ X 2
+X S X X _ _ _ X _ X 3
+X _ X _ _ X _ _ _ X 4
+X _ _ _ X X _ X _ X 5
+X _ X _ _ X _ X _ X 6
+X _ X X _ _ _ X _ X 7
+X _ _ O _ X _ _ _ X 8
+X X X X X X X X X X
+
+  1 2 3 4 5 6 7 8
+X X X X X X X X X X
+X _ _ _ X X _ X _ X 1
+X _ X _ _ X _ _ _ X 2
+X S X X _ _ _ X _ X 3
+X 6 X 6 _ X _ _ _ X 4
+X 5 6 5 X X 6 X _ X 5
+X 4 X 4 3 X 5 X _ X 6
+X 3 X X 2 3 4 X _ X 7
+X 2 1 0 1 X 5 6 _ X 8
+X X X X X X X X X X
+</code></pre>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>pathfinding</b>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#bellman-ford-algorithm">Bellman-Ford algorithm</a></li>
+<li><a href="#dijkstra-s-algorithm">Dijkstra&rsquo;s algorithm</a></li>
+<li><a href="#a-algorithm">A* algorithm</a></li>
+<li><a href="#sample-algorithm">Sample algorithm</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

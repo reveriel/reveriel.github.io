@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Write a Parser in OCaml &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="First we define the language, then translate it into OCaml code.
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="Write a Parser in OCaml | BLTBLG">
+    <meta name="twitter:description" content="First we define the language, then translate it into OCaml code.|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Write a Parser in OCaml</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2017-12-11. Published at: 2017-06-25.">
+        
+          Lastmod: 2017-12-11
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>First we define the language, then translate it into OCaml code.</p>
+
+<h1 id="definition">Definition</h1>
+
+<p>Two part is necessary,
+1. Syntax Definition in Bacus-Naur Form to define the &ldquo;Language&rdquo;(which is, set of string).
+2. And sematics definition to Describe the &ldquo;Meaning&rdquo;.</p>
+
+<h2 id="syntax-definition">Syntax Definition</h2>
+
+<p>Including lexing and parsing rules.</p>
+
+<pre><code>&lt;start&gt; ::= &lt;exp&gt; '\n'
+&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | [&quot;0&quot;-&quot;9&quot;]+
+&lt;op&gt;    ::= &quot;+&quot; | &quot;-&quot; 
+</code></pre>
+
+<h2 id="sematics-definition">Sematics Definition</h2>
+
+<p>This is the AST(Abstract Syntax Tree) definition, sine we want to write a frontend for a compiler.</p>
+<div class="highlight"><pre class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">op</span>  <span class="o">=</span> <span class="nc">Plus</span> <span class="o">|</span> <span class="nc">Minus</span> 
+<span class="k">type</span> <span class="n">exp</span> <span class="o">=</span> <span class="nc">Exp</span> <span class="k">of</span> <span class="n">exp</span> <span class="o">*</span> <span class="n">op</span> <span class="o">*</span> <span class="n">exp</span> <span class="o">|</span> <span class="nc">Num</span> <span class="k">of</span> <span class="kt">int</span> </code></pre></div>
+<h1 id="implementation">Implementation</h1>
+
+<p>We need to implement four parts</p>
+
+<table>
+<thead>
+<tr>
+<th>part</th>
+<th>file</th>
+<th>method</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>lexer</td>
+<td>lexer.mll</td>
+<td>ocamllex</td>
+</tr>
+
+<tr>
+<td>parser</td>
+<td>parser.mly</td>
+<td>ocamlyacc</td>
+</tr>
+
+<tr>
+<td>AST</td>
+<td>ast.ml</td>
+<td>by hand, some lib for pretty printing</td>
+</tr>
+
+<tr>
+<td>driver</td>
+<td>driver.ml</td>
+<td>by hand</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="translate-language-definition-to-code">Translate language definition to code</h2>
+
+<p>In our Bacus-Naur Form definition, those symbols quoted with <code>'</code> <code>&quot;</code> should be denoted as Lexeme simble. and defined in the <code>parser.mly</code> file.</p>
+
+<pre><code>&lt;start&gt; ::= &lt;exp&gt; '\n'
+&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | ['0'-'9']+
+&lt;op&gt;    ::= &quot;+&quot; | &quot;-&quot; 
+</code></pre>
+
+<p>$\Downarrow$</p>
+
+<pre><code>// regular grammar
+&lt;EOL&gt;   ::=  '\n'
+&lt;NUM&gt;   ::= ['0'-'9']+
+&lt;PLUS&gt;  ::= &quot;+&quot;
+&lt;MINUS&gt; ::= &quot;-&quot;
+// context free grammar
+&lt;start&gt; ::= &lt;exp&gt; &lt;EOL&gt;
+&lt;exp&gt;   ::= &lt;exp&gt; &lt;op&gt; &lt;exp&gt; | &lt;NUM&gt;
+&lt;op&gt;    ::= &lt;PLUS&gt; | &lt;MINUS&gt;
+</code></pre>
+
+<p>Regular grammar tokens are defined in the header of <code>parser.mly</code>, like this</p>
+
+<pre><code>%token &lt;int&gt; NUM
+%token PLUS MINUS
+%token EOL
+%left  PLUS MINUS
+</code></pre>
+
+<p>and produced by <code>lexer.mll</code>, like this</p>
+
+<pre><code>rule token = parse
+    [' ' '\t']      { token lexbuf }
+  | '\n'            { Parser.EOL}
+  | ['0'-'9']+ as i { Parser.NUM(int_of_string i) }
+  | '+'             { Parser.PLUS }
+  | '-'             { Parser.MINUS }
+  | eof             { raise Eof }
+</code></pre>
+
+<p>Context free grammar are put in the main part of the <code>parser.mly</code></p>
+
+<p>The AST part can be put in the <code>ast.ml</code> file directly.  Some utility function for error handling and pretty printing can be put here.</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Write a Parser in OCaml</b>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#definition">Definition</a>
+<ul>
+<li><a href="#syntax-definition">Syntax Definition</a></li>
+<li><a href="#sematics-definition">Sematics Definition</a></li>
+</ul></li>
+<li><a href="#implementation">Implementation</a>
+<ul>
+<li><a href="#translate-language-definition-to-code">Translate language definition to code</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

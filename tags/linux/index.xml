@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on BLTBLG</title>
+    <link>http://reveriel.com/tags/linux/</link>
+    <description>Recent content in Linux on BLTBLG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>jp</language>
+    <lastBuildDate>Wed, 14 Mar 2018 14:59:42 +0000</lastBuildDate>
+    
+	<atom:link href="http://reveriel.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>File Server on Ubuntu</title>
+      <link>http://reveriel.com/posts/file-server-on-ubuntu/</link>
+      <pubDate>Wed, 14 Mar 2018 14:59:42 +0000</pubDate>
+      
+      <guid>http://reveriel.com/posts/file-server-on-ubuntu/</guid>
+      <description>&lt;p&gt;Install samba. configure it.&lt;/p&gt;
+
+&lt;p&gt;Use Samba on the LAN, FTP over the Internet.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://help.ubuntu.com/lts/serverguide/samba-fileserver.html.en&#34;&gt;File Server | Ubuntu documentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;其实把东西记在博客里一点也不方便.&lt;/p&gt;
+
+&lt;p&gt;后来某天想要在树莓派上设置Samba时, 还以为是记在 Note 里面的. 找不到这篇笔记, 才
+想起是放在了这里..&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

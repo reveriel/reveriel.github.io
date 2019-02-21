@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  distributed algorithm &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="分布式算法 模型：
+ 异步共享存储 异步msg传递 同步msg传递  拓扑：无向图，节点为处理机，边喂双向信道. 算法：由每个处理器上的局部程序构成，包括本地计算和收发msg 节点 $p_i$, $p_i$ 相邻的边 $r$ 条. $p_i$ 有两个 buffer list: $outbuf_i[l]$ , $inbuf_i[l]$, $l \in [1, r]$
+配置：某时刻，算法运行的全局状态。为一个向量 $(q0, \ldots, q{n-1})$, $q_i$ 是 $p_i$ 的状态.
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="distributed algorithm | BLTBLG">
+    <meta name="twitter:description" content="分布式算法
+
+模型：
+
+
+异步共享存储
+异步msg传递
+同步msg传递
+
+
+拓扑：无向图，节点为处理机，边喂双向信道.
+算法：由每个处理器上的局部程序构成，包括本地计算和收发msg
+节点 $p_i$,   $p_i$ 相邻的边 $r$ 条.
+$p_i$ 有两个 buffer list:  $outbuf_i[l]$ , $inbuf_i[l]$, $l \in [1, r]$
+
+配置：某时刻，算法运行的全局状态。为一个向量 $(q0, \ldots, q{n-1})$,
+$q_i$ 是 $p_i$ 的状态.|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">distributed algorithm</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2018-05-06. Published at: 2018-01-08.">
+        
+          Lastmod: 2018-05-06
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <h1 id="分布式算法">分布式算法</h1>
+
+<p><strong>模型</strong>：</p>
+
+<ul>
+<li>异步共享存储</li>
+<li>异步msg传递</li>
+<li>同步msg传递</li>
+</ul>
+
+<p><strong>拓扑</strong>：无向图，节点为处理机，边喂双向信道.
+<strong>算法</strong>：由每个处理器上的局部程序构成，包括本地计算和收发msg
+节点 $p_i$,   $p_i$ 相邻的边 $r$ 条.
+$p_i$ 有两个 buffer list:  $outbuf_i[l]$ , $inbuf_i[l]$, $l \in [1, r]$</p>
+
+<p><strong>配置</strong>：某时刻，算法运行的全局状态。为一个向量 $(q<em>0, \ldots, q</em>{n-1})$,
+$q_i$ 是 $p_i$ 的状态.</p>
+
+<p><strong>状态</strong></p>
+
+<p><strong>事件</strong>：两种</p>
+
+<ul>
+<li>$comp(i)$, 计算事件.</li>
+<li>$del(i,j,m)$, 传递事件，将msg $m$ 从 $p_i$ 传递到 $p_j$.</li>
+</ul>
+
+<p><strong>转换函数</strong></p>
+
+<p><strong>执行</strong>: 配置和事件交错的序列。</p>
+
+<ul>
+<li>Safety 条件。 (用来证明算法正确性吗?) 该条件在每个有限前缀里的都成立</li>
+<li>Liveness 条件。 必须成立一定次数。</li>
+</ul>
+
+<p>满足所有安全性条件的序列称为一个<strong>执行</strong>,
+满足所有活跃性条件的 执行 为 <strong>容许(admissible) 的执行</strong>。</p>
+
+<p>下面主要考虑异步msg传递系统。</p>
+
+<p><strong>执行片段</strong> $\alpha$ 是一个有限或无限的序列:</p>
+
+<p>$$ C_0, \Phi_1, C_1, \Phi_2, C_2, \ldots, $$
+其中 $C_k$ 是一个配置, $\Phi_k$ 是一个事件.</p>
+
+<p>如果 $\alpha$ 有限, 则它必须结束于某个配置, 且需满足下述条件:</p>
+
+<ol>
+<li>若 $\Phi<em>k = del(i,j,m)$, 则 $m$ 必须是 $C</em>{k-1}$ 时 $outbuf_i[l]$ 的元素.
+$l$ 是 $p_i$  信道 ${p_i, p<em>j}$ 的标号.
+从 $C</em>{k-1}$  到 $C<em>k$ 的唯一变化是将 $m$ 从 $C</em>{k-1}$ 里的 $outbuf_i[l]$ 中
+删去, 加入到 $C_k$ 的 $inbuf_i[h]$, $h$ 是 $p_j$ 的信道 ${p_j, p_i}$ 的标号.</li>
+<li>若 $\Phi<em>k = comp(i)$, 则 $C</em>{k-1}$ 到 $C_k$ 的变化是
+
+<ol>
+<li>改变状态: 转换函数在$p<em>i$ 的可访问状态(在配置$C</em>{k-1}$里)上进行操作，清空
+$inbuf_i[l]$，$(1≤l≤r)$</li>
+<li>发送 msg: 将转换函数制定的消息集合加入 $C_k$ 里的变量 $outbuf_i$ 上</li>
+</ol></li>
+</ol>
+
+<p><strong>调度</strong> , 调度(或调度片段)总是和执行(或执行片段)联系在一起,
+它是执行中的时间序列:</p>
+
+<p>$$ \Phi_1, \Phi_2, \ldots$$</p>
+
+<p>并不是每个事件序列都是调度. 例如, $del(1,2,m)$ 不是调度, 因为在此时间之前,
+$p_1$ 没有 send m.</p>
+
+<p>若局部程序是确定的, 则执行(或执行片段)由 初始配置 $C_0$ 和调度(或调度片段) $\sigma$
+唯一确定, 可表示为 $exec(C_0, \sigma)$</p>
+
+<p><strong>容许执行</strong>: 满足活跃性条件的执行.</p>
+
+<p><strong>容许调度</strong>: 容许执行的调度.</p>
+
+<p><strong>同步系统</strong>, 同步模型中, 执行分为轮, 每轮里, (1)每个处理器能够发送一个
+msg 到每个邻居 (2) 每个处理器一接到 msg 就进行计算.</p>
+
+<p><strong>轮</strong> 同步系统中, 每轮由一个传递时间(outbuf发送, 清空), 紧跟一个计算时间
+(处理所有msg)</p>
+
+<p><strong>终止</strong>, 所有处理机均处于终止状态且没有msg 在传输.</p>
+
+<p><strong>msg复杂度</strong></p>
+
+<p>实际很少用状态转换来描述算法, 往往用伪码描述.</p>
+
+<h2 id="生成树">生成树</h2>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>distributed algorithm</b>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#分布式算法">分布式算法</a>
+<ul>
+<li><a href="#生成树">生成树</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

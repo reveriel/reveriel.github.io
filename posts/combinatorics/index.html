@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  组合数学课 &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看. 这篇只是用来总结课堂的一些知识.
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="组合数学课 | BLTBLG">
+    <meta name="twitter:description" content="先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看.
+这篇只是用来总结课堂的一些知识.|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">组合数学课</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2018-01-17. Published at: 2017-12-12.">
+        
+          Lastmod: 2018-01-17
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看.
+这篇只是用来总结课堂的一些知识.</p>
+
+<h2 id="鸽巢原理">鸽巢原理</h2>
+
+<p><strong>定理</strong>: 把 n+1 个物体放在 n 个盒子里, 至少有一个盒子里有两个以上的物体.</p>
+
+<p><strong>定理</strong>: 鸽巢定理推广. $q_1, q_2, \ldots, q_n \in \mathbb{Z^+}$ , 把 $\sum_i q_i - n + 1$ 个物体放入 $n$ 个盒子, 第一个盒子至少 $q_1$ 个物体, 或者第二个盒子中至少有 $q_2$ 个物体,  … , 或者第 n 个盒子中至少有 $q_n$ 个物体.</p>
+
+<p>这两个定理用反证法很容易证明.</p>
+
+<p>课本前半部分都是一些很古典的组合数学问题. 用物体, 盒子等定义不明的语言描述.</p>
+
+<p>这里试着用集合论语言描述一下.</p>
+
+<p><strong>物体</strong>集合 O  (object), 可数集合</p>
+
+<p><strong>盒子/标签</strong> 集合 T  (type), 可数集合.</p>
+
+<p>一个<strong>方案/安排</strong> a  (arrangement), 是一个映射 $a \in O \to C$, $O \to C$ 表示所有值域为 $O$, 定义域为 $C$ 的映射的集合.</p>
+
+<p>所有方案$A = O \to C$, 许多问题问的就是 $|A|$.</p>
+
+<p>鸽巢定理: $|O| = n+1$, $|T| = n$, 记 $A = O \to T$  $\forall a \in A$ , $\exists t_0 \in T$,  $|a^{-1}(t_0)| &gt; 1$</p>
+
+<p>这里用映射的逆表示从值域映射到定义域集合的一个映射.</p>
+
+<p>不得不说, 这么写的话, 定理的含义模糊了很多. 定理的成立也不那么明显了.</p>
+
+<h3 id="ramsey-数">Ramsey 数</h3>
+
+<p>略</p>
+
+<h2 id="排列与组合">排列与组合</h2>
+
+<h3 id="加法乘法原则">加法乘法原则</h3>
+
+<p><strong>加法原则</strong>: 事件 A 有 m 种选取方式, 事件 B 有 n 种选取方式, 则选择 A 或 B, 有 m + n 中选取方式.</p>
+
+<blockquote>
+<p>这有什么意义? 太显然了.. 一个事件A 有 m 种选取方式是什么意思? 这里并不涉及上面提到的 Object 和 Type. (因为一时想不到答案.. 走神看QQ去了..). 加法原则可以看做是单纯的集合相加. 看下面的乘法原则吧.</p>
+</blockquote>
+
+<p><strong>乘法原则</strong>: 事件 A 有 m 种选取方式, 事件 B 有 n 种选取方式, 选取 A 然后选取 B 有 mn 中选取方式</p>
+
+<blockquote>
+<p>这不也仅仅是集合相乘吗..</p>
+</blockquote>
+
+<p>减法原则, 除法原则</p>
+
+<h3 id="集合的排列">集合的排列</h3>
+
+<p>n 元集合 S 的一个 r 排列是指从 S 中选 r 个元素, 依次排列. 方案数记为 $P(n,r)$</p>
+
+<p>$$P(n, r) = \frac{n!}{(n-r)!}$$</p>
+
+<h3 id="集合组合">集合组合</h3>
+
+<p>n 元集合 S 的 r 组合是指从 S 中选取 r 个元素的无序选择.  方案数记为 $\binom{n}{r}$. or $C_n^r$</p>
+
+<p>$$\binom{n}{r} = \frac{n!}{r!(n-r)!}$$</p>
+
+<blockquote>
+<p>这个是 S 集合的大小为 r 的子集的个数</p>
+</blockquote>
+
+<h3 id="多重集合的排列">多重集合的排列</h3>
+
+<p>多重集合里面可能会有相同元素, 比如 $M = {a,a,a,b,c,c,d,d,d,d}$ = ${3\cdot a, 1\cdot b, 2 \cdot c, 4 \cdot d}$</p>
+
+<p>一般把多重集合记为 $M = {k_1\cdot a_1, k_2\cdot a_2, \ldots, k_n \cdot a_n}$,</p>
+
+<p><strong>定理</strong> 多重集合  $M = {\infty\cdot a_1, \infty\cdot a_2, \ldots, \infty \cdot a_k}$ 的 r 排列数为 $k ^ r$</p>
+
+<blockquote>
+<p>这个..勉勉强强吧</p>
+</blockquote>
+
+<p><strong>定理</strong> 多重集合$M = {k_1\cdot a_1, k_2\cdot a_2, \ldots, k_n \cdot a_n}$ 的全排列数为</p>
+
+<p>$$\frac{(k_1 + k_2 + \ldots + k_n)!}{k_1!k_2!\ldots k_n! }$$</p>
+
+<h3 id="多重集合的组合">多重集合的组合</h3>
+
+<p><strong>定理</strong> 多重集合  $M = {\infty\cdot a_1, \infty\cdot a_2, \ldots, \infty \cdot a_k}$ 的 r 组合数为 $\binom{k+r-1}{r}$, 另一种描述 将 r 个相同的求放入 k 个不同的盒中.</p>
+
+<p><strong>定理</strong> 多重集合 $M = {\infty\cdot a_1, \infty\cdot a_2, \ldots, \infty \cdot a_k}$  要求 $a_1, \ldots, a_k$ 至少出现一次的 $r$ 组合数为 $\binom{r-1}{k-1}$</p>
+
+<blockquote>
+<p>高中时的&rdquo;隔板法&rdquo;</p>
+</blockquote>
+
+<h2 id="二项式定理">二项式定理</h2>
+
+<p><strong>二项式定理</strong> $(x + y)^n =  \sum_{r=0}^{n} \binom{n}{r} x^{n-r} y ^r $</p>
+
+<p><strong>二项式定理</strong> $,(1+x)^{\alpha} = \sum_{r=0}^{\infty}\binom{\alpha}{r} x^r$ for all $\alpha \in \mathbb{R}$ , $\binom{\alpha}{r} = \frac{\alpha(\alpha -1)\ldots(\alpha-r+1)}{r!}$</p>
+
+<p>(1) 当 $\alpha= - n$,</p>
+
+<p>$$\begin{align} \binom{\alpha}{r} &amp; = \binom{-n}{r}  \ &amp;= \frac{(-n)(-n-1)\ldots(-n-r-1)}{r!} \ &amp;= (-1)^r\binom{n+r-1}{r} \end{align}$$</p>
+
+<p>so, $(1+x)^{-n} = \sum_{r=0}^{\infty}(-1)^r \binom{n+r-1}{r} x^r$</p>
+
+<p>(2) 当 $\alpha = \frac{1}{2}$,</p>
+
+<p>$$\begin{align}\binom{\alpha}{r} &amp;= \binom{\frac{1}{2}}{r} \ &amp;=\frac{\frac{1}{2}(\frac{1}{2}-1)\ldots(\frac{1}{2}-r+1)}{r!}\&amp;=(-1)^{r-1}\cdot\frac{1}{r2^{2r-1}}\binom{2r-2}{r-1} \end{align}$$</p>
+
+<p>so, $$(1+x)^\frac{1}{2} = \sum_{r=0}^{\infty}(-1)^{r-1}\frac{1}{r2^{2r-1}}\binom{2r-2}{r-1}x^r$$</p>
+
+<p>$\binom{n}{r}$ 的一些基本性质:</p>
+
+<ol>
+<li>对称</li>
+<li>递推关系</li>
+<li>单峰(中间最大)</li>
+<li>可以看做在杨辉三角中, 从顶点走到$\binom{n}{r}$ 点的所有路径数.</li>
+</ol>
+
+<p>恒等式:</p>
+
+<ol>
+<li>$\binom{n}{0} + \binom{n}{1} + \ldots + \binom{n}{n} = 2^n$</li>
+<li>$\binom{n}{i}$ 所有偶数项求和等于所有奇数项</li>
+<li>$1\binom{n}{1} + 2\binom{n}{2} + 3\binom{n}{3} + \ldots + n\binom{n}{n} = n2^{n-1}$, 证明: $(1+x)^n$ 在 $x=1$ 处求导.</li>
+<li>$\sum_{k=0}^{n}\binom{n}{k}^2 = \binom{2n}{n}$</li>
+<li>$\binom{0}{k}+\binom{1}{k} + \ldots + \binom{n}{k} = \binom{n+1}{k+1}$, 组合意义,</li>
+<li>$\sum_{k=0}^{n}\binom{n}{k}^2 = \binom{n}{0}\binom{n}{n} + \binom{n}{1}\binom{n}{n-1} + \ldots + \binom{n}{n}\binom{n}{0}= \binom{2n}{n}$,  组合意义</li>
+<li>$\sum_{i=0}^{r}\binom{m}{i}\binom{n}{r-i} = \binom{m+n}{r}$ , Vandermonde 恒等式, 上式的推广</li>
+<li>$\sum_{i=0}^{m}\binom{m}{i}\binom{n}{r+i} = \binom{m+n}{m+r}$,</li>
+</ol>
+
+<p>多项式定理</p>
+
+<p>$(x_1+ x_2+ \ldots + x_t)^n = \sum\binom{n}{n_1n_2\ldots n_t}x_1^{n_1}x_2^{n_2}\ldots x_t^{n_t}$</p>
+
+<p>多项式系数 $\binom{n}{n_1n_2\ldots n_t} = \frac{n!}{n_1!n_2!\ldots n_t!}$</p>
+
+<h2 id="容斥定理">容斥定理</h2>
+
+<p>$S$ 是有限集合, $P_1 ,P_2,\ldots,P_m$ 是有关 $S$ 元素的性质, $A_i$ 是 $S$ 中具有 $P_i$ 性质的元素组成的集合, 则 $S$ 中不具有性质 $P_1,\ldots,P_m$  的元素个数为:</p>
+
+<p>$$ |\overline{A_1} \cap \overline{A_2} \cap \ldots \cap \overline{A_m}| = |S| - \sum|A_i| + \sum|A_i\cap A_j| - \sum|A_i\cap A_j \cap A_k| + \ldots + (-1)^m |A_1\cap A_2 \cap \ldots \cap A_m|$$</p>
+
+<h3 id="错排问题">错排问题</h3>
+
+<p>1,2,…,n, 的一个错排指满足每个数不在原位置的全排列.</p>
+
+<p>错排数$D_n = n!(1 - \frac{1}{1!}+\frac{1}{2!}-\frac{1}{3!}+\ldots+(-1)^n\frac{1}{n!})$</p>
+
+<p>证明方法1. 容斥定理 $P_i $ 为 i 在原位置上. 2. 递推公式</p>
+
+<h3 id="有禁止模式的排列问题">有禁止模式的排列问题</h3>
+
+<p>容斥原理, $P_i$ 为有某个禁止模式的排列</p>
+
+<h2 id="生成函数">生成函数</h2>
+
+<p><strong>定义</strong></p>
+
+<p>$A(x) = a_0 + a_1x + a_2x^2 + \ldots$ 为序列 $a_0, a_1, a_2, \ldots$ 的生成函数.</p>
+
+<p><strong>加法</strong>, 对应项相加 $A(x)+B(x) \equiv \sum_{k=0}^\infty (a_k + b_k)x^k$</p>
+
+<p><strong>乘法</strong>, 相乘后合并同次项 $A(x)B(x) \equiv \sum_{k=0}^{\infty} (a_kb<em>0+a</em>{k-1}b_1+ \ldots + a_0b_k)x^k$</p>
+
+<p>加法零元: 0, 0, 0, &hellip;</p>
+
+<p>乘法单位元: 1, 0, 0, &hellip;</p>
+
+<p>形式多项式集合 $R[[x]]$ 构成一个整环.</p>
+
+<p><strong>求导</strong></p>
+
+<h3 id="生成函数的性质">生成函数的性质</h3>
+
+<p>一些计算规则和例子</p>
+
+<p>$b<em>k = \sum</em>{i=0}^k a_i$ $\iff$ $B(x) = \frac{A(x)}{1-x}$</p>
+
+<p>$b<em>k=\sum</em>{i=k}^\infty a_i \iff B(x) = \frac{A(1)-xA(x)}{1-x}$</p>
+
+<p>$b_k = ka_k \iff B(x) = xA&rsquo;(x)$</p>
+
+<p>$b_k=\frac{a_k}{k+1} \iff B(x) = \frac{1}{x}\int_0^xA(t)\,\mathrm{d}t$</p>
+
+<h3 id="组合型分配问题的生成函数">组合型分配问题的生成函数</h3>
+
+<p>${\infty a_1, \infty a_2, \ldots, \infty a_n}$, 的 $k$ 组合数</p>
+
+<p>其生成函数 $A(x) = (\sum<em>{i=0}^\infty x^i )^n$ , 每个因子 $\sum</em>{i=0}^\infty x^i$  表示一个 a_i 可取的个数, 生成函数的 $k$ 次项就是 $k$ 组合数.</p>
+
+<p>$A(x) = \frac{1}{(1-x)^n}$, $a_k = \binom{n-1+k}{k}$</p>
+
+<h3 id="排列型分配问题的指数型生成函数">排列型分配问题的指数型生成函数</h3>
+
+<p>指数型生成函数.</p>
+
+<p>数列 $a<em>i$, 的指数型生成函数为 $\sum</em>{k=0}^\infty a_k \frac{x^k}{k!}$</p>
+
+<h3 id="正整数拆分">正整数拆分</h3>
+
+<h2 id="递推关系">递推关系</h2>
+
+<h3 id="常系数线性齐次递推关系">常系数线性齐次递推关系</h3>
+
+<h3 id="常系数线性非齐次">常系数线性非齐次</h3>
+
+<h3 id="迭代归纳法">迭代归纳法</h3>
+
+<h3 id="生成函数求解递推关系">生成函数求解递推关系</h3>
+
+<h2 id="特殊计数序列">特殊计数序列</h2>
+
+<p>fibonacci</p>
+
+<p>catalan</p>
+
+<p>集合划分 stirling</p>
+
+<p><strong>分配问题</strong></p>
+
+<h2 id="polya-计数">Polya 计数</h2>
+
+<h3 id="群">群</h3>
+
+<p>非空集合$G$ 以及在上面的二元运算 $\cdot$, 满足以下条件</p>
+
+<ol>
+<li>运算封闭</li>
+<li>结合律成立</li>
+<li>存在单位元</li>
+<li>每个元素都存在逆元</li>
+</ol>
+
+<p>则称 $\langle G, \cdot \rangle$ 为<em>群</em>.</p>
+
+<p>由以上几条,可以证明的一些性质:</p>
+
+<p>设$\langle G, \cdot \rangle$ is a group, $e$ is the identity element.
+then:</p>
+
+<ol>
+<li>$e^{-1} = e$</li>
+<li>$e$ is unique</li>
+<li>消去律成立, if $a \cdot b = a \cdot c$ or $b \cdot a = c \cdot a$ then
+$b = c​$</li>
+<li>$(a \cdot b)^{-1} =b^{-1} \cdot a^{-1}$</li>
+</ol>
+
+<p>定义<em>子群</em>, 设 $\langle G, \cdot \rangle$ is a group, and $H$ is a non-empty
+subset of $G$, if $\langle H, \cdot \rangle$ is a group, we call it $G$&rsquo;s
+<em>subgroup</em></p>
+
+<p>一些性质包括, 只要 $H$ 中运算封闭, $\langle H, \cdot \rangle$ 就是子群.</p>
+
+<h3 id="置换群">置换群</h3>
+
+<p>有限集合$D$ 上的 一一映射 成为 $D$ 上的置换. 不失一般性, $D={1,2,\ldots, n}$</p>
+
+<p>一个置换</p>
+
+<p>$\sigma = \left ( \begin{array}{cccc}1&amp;2 &amp;\ldots &amp; n\ \sigma(1) &amp;\sigma(2) &amp;\ldots &amp; \sigma(n)\end{array} \right )$</p>
+
+<p>将1 映射到 $\sigma(1)$, 以此类推.</p>
+
+<p>$D = {1, 2,\ldots, n}$ 的所有置换构成一个群, 记为$S_n$, $\big|S_n\big| = n!$</p>
+
+<p>$(1,4,6)$ 这种叫<em>轮换</em>, $1\to4, 4\to 6, 6 \to 1$, 其他不变.
+举个例子, 轮换的复合运算:  $(1234)(1234) = (13)(24)$</p>
+
+<p>任意置换都可以表示为不相交的轮换之积.</p>
+
+<p>$D$ and $R$ are two finite sets, $F = D \to R$, $G$ is a Permutation Group on D,
+for some $f1_1, f_2 \in F$, if there exists $\sigma \in G$, s.t. forall $d \in D$,
+$$ f_1(d) = f_2(\sigma(d))$$
+We call $f_1$ and $f_2$ are <em>$G$ equal</em> ($G$ 等价)</p>
+
+<p>两个映射 $f_1$, $f_2$ 在 置换群$G$ 上等价, 如果存在一个定义域上的一一映射, 把定
+义域的元素用这个映射换一下 $f_1$ 就是 $f_2$.</p>
+
+<p>显然这个关系是$F$ 上的一个等价关系 (和 $G$ 好像并没有什么关系)?</p>
+
+<blockquote>
+<p>并不是和$G$ 没有关系哟. 如果给定一个置换群G, 那么就能把 $F, (F = D \to R)$ 划分成
+多个等价类.</p>
+</blockquote>
+
+<p>对应到组合问题中, 比如一个着色方案, 一个分配方案, 实际上就是一个$F = D \to R$,
+着色方案的话, $D$ 是定点, $R$ 是颜色. 分配方案的话, $D$ 是小球, $R$ 是盒子.</p>
+
+<p>给定一个置换群$G$, 等价类的个数就是实际的组合方案数.</p>
+
+<h3 id="burnside-引理">Burnside 引理</h3>
+
+<p>定义两个置换的<strong>共轭</strong>:</p>
+
+<p>$G$ is subgroup of $S_n$, two elements  $s, t \in S_n$,  if there exists a $g \in G$, s.t.
+$s = g^{-1} t g $, then we say $s$ is a conjugate of $t$, and that viceversa, or $s$ and
+$t$ of $G$ are conjugate.</p>
+
+<p>G-conjugate, G共轭是 $S_n$ 上的一个等价关系. G共轭当且仅当, 两个置换是同型的.</p>
+
+<p>定义<strong>同型</strong>:</p>
+
+<h3 id="映射的等价类">映射的等价类</h3>
+
+<p>Burnside引理 可以解决用m色对n个物体着色的方案计数问题, 但是计算量太大, 经过 Polya 改进形成 Polya 计数定理后才得到广泛应用.</p>
+
+<h2 id="组合设计">组合设计</h2>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>组合数学课</b>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#鸽巢原理">鸽巢原理</a>
+<ul>
+<li><a href="#ramsey-数">Ramsey 数</a></li>
+</ul></li>
+<li><a href="#排列与组合">排列与组合</a>
+<ul>
+<li><a href="#加法乘法原则">加法乘法原则</a></li>
+<li><a href="#集合的排列">集合的排列</a></li>
+<li><a href="#集合组合">集合组合</a></li>
+<li><a href="#多重集合的排列">多重集合的排列</a></li>
+<li><a href="#多重集合的组合">多重集合的组合</a></li>
+</ul></li>
+<li><a href="#二项式定理">二项式定理</a></li>
+<li><a href="#容斥定理">容斥定理</a>
+<ul>
+<li><a href="#错排问题">错排问题</a></li>
+<li><a href="#有禁止模式的排列问题">有禁止模式的排列问题</a></li>
+</ul></li>
+<li><a href="#生成函数">生成函数</a>
+<ul>
+<li><a href="#生成函数的性质">生成函数的性质</a></li>
+<li><a href="#组合型分配问题的生成函数">组合型分配问题的生成函数</a></li>
+<li><a href="#排列型分配问题的指数型生成函数">排列型分配问题的指数型生成函数</a></li>
+<li><a href="#正整数拆分">正整数拆分</a></li>
+</ul></li>
+<li><a href="#递推关系">递推关系</a>
+<ul>
+<li><a href="#常系数线性齐次递推关系">常系数线性齐次递推关系</a></li>
+<li><a href="#常系数线性非齐次">常系数线性非齐次</a></li>
+<li><a href="#迭代归纳法">迭代归纳法</a></li>
+<li><a href="#生成函数求解递推关系">生成函数求解递推关系</a></li>
+</ul></li>
+<li><a href="#特殊计数序列">特殊计数序列</a></li>
+<li><a href="#polya-计数">Polya 计数</a>
+<ul>
+<li><a href="#群">群</a></li>
+<li><a href="#置换群">置换群</a></li>
+<li><a href="#burnside-引理">Burnside 引理</a></li>
+<li><a href="#映射的等价类">映射的等价类</a></li>
+</ul></li>
+<li><a href="#组合设计">组合设计</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Paper Reading on BLTBLG</title>
+    <link>http://reveriel.com/tags/paper-reading/</link>
+    <description>Recent content in Paper Reading on BLTBLG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>jp</language>
+    <lastBuildDate>Wed, 14 Mar 2018 22:45:29 +0000</lastBuildDate>
+    
+	<atom:link href="http://reveriel.com/tags/paper-reading/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Inference on Embeded Systems</title>
+      <link>http://reveriel.com/posts/inference-on-embeded-systems/</link>
+      <pubDate>Wed, 14 Mar 2018 22:45:29 +0000</pubDate>
+      
+      <guid>http://reveriel.com/posts/inference-on-embeded-systems/</guid>
+      <description>&lt;h1 id=&#34;sparsification-and-separation&#34;&gt;Sparsification and Separation.&lt;/h1&gt;
+
+&lt;p&gt;key Contributions:
+ * A sparse coding-based approach to optimize depp learning
+inference execution.
+ * Convolution kernel separation technique
+ * The first to do Deep Learning Model on severely constrained wearable hardware.
+ * implement a prototype,
+ * experiment with for CNN and DNN models, 11.3x improvements in memory and 13.3x inexecution time. accuracy loss 5%&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

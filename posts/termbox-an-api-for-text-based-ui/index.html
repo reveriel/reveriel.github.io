@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Termbox, an API for text-based UI &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="Termbox 之前就在 haskell 库里面看到过, 现在又在 lua 里面看到了. 似乎各个语言中都有这个库.
+字符界面的 API 感觉挺酷的, 而且在实现简单程序 demo 时也可以考虑使用字符界面而不是GUI.
+看一看这个 API 是怎么设计的吧.
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="Termbox, an API for text-based UI | BLTBLG">
+    <meta name="twitter:description" content="Termbox 之前就在 haskell 库里面看到过, 现在又在 lua 里面看到了.
+似乎各个语言中都有这个库.
+
+字符界面的 API 感觉挺酷的, 而且在实现简单程序 demo 时也可以考虑使用字符界面而不是GUI.
+
+看一看这个 API 是怎么设计的吧.|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Termbox, an API for text-based UI</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2018-05-06. Published at: 2018-04-23.">
+        
+          Lastmod: 2018-05-06
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p><a href="https://github.com/nsf/termbox">Termbox</a> 之前就在 haskell 库里面看到过, 现在又在 lua 里面看到了.
+似乎各个语言中都有这个库.</p>
+
+<p>字符界面的 API 感觉挺酷的, 而且在实现简单程序 demo 时也可以考虑使用字符界面而不是GUI.</p>
+
+<p>看一看这个 API 是怎么设计的吧.</p>
+
+<p>Viewing terminals as a table of fixed-size cells and input being a stream of
+structured messages.</p>
+
+<p>把终端看成一个长方形数组, 要求等宽字体 (CJK 会有点问题).</p>
+
+<p>先别看 termbox 是怎么设计的. 想想自己会怎么设计?</p>
+
+<pre><code>global window { width, height }
+clear()
+draw()
+set(x, y, char)
+</code></pre>
+
+<p>最基本的操作就这些了. 再看 termbox 的设计.</p>
+
+<ul>
+<li><a href="http://tset.de/termfx/README.html">termfx | lua</a></li>
+<li><a href="https://godoc.org/github.com/nsf/termbox-go">termbox | go</a></li>
+</ul>
+
+<p>啊, UI 的API 除了画画, 最重要的的还有 Event 这个东西, 就这么简单.</p>
+
+<p>画画的功能上, 还能增加 &ldquo;子窗口&rdquo; 功能..</p>
+
+<p>啊, 无聊.</p>
+
+<h2 id="ps">ps</h2>
+
+<p>看到一个 用 termfx 的小编辑器 <a href="https://github.com/adsr/mle">mle</a>,
+挺感兴趣的, 有时间可以看一下. 编辑器算是最常用的软件了, 当然会好奇里面如何设计.</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Termbox, an API for text-based UI</b>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#ps">ps</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

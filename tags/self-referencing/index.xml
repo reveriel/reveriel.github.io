@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Self Referencing on BLTBLG</title>
+    <link>http://reveriel.com/tags/self-referencing/</link>
+    <description>Recent content in Self Referencing on BLTBLG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>jp</language>
+    <lastBuildDate>Wed, 01 Mar 2017 21:50:37 +0000</lastBuildDate>
+    
+	<atom:link href="http://reveriel.com/tags/self-referencing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>始まりの物語</title>
+      <link>http://reveriel.com/posts/%E5%A7%8B%E3%81%BE%E3%82%8A%E3%81%AE%E7%89%A9%E8%AA%9E/</link>
+      <pubDate>Wed, 01 Mar 2017 21:50:37 +0000</pubDate>
+      
+      <guid>http://reveriel.com/posts/%E5%A7%8B%E3%81%BE%E3%82%8A%E3%81%AE%E7%89%A9%E8%AA%9E/</guid>
+      <description>&lt;h2 id=&#34;新的开始&#34;&gt;新的开始&lt;/h2&gt;
+
+&lt;p&gt;原来的文章写得毫无意义，而且更新了 hexo 之后连编译都过不了了。于是从零开始。&lt;/p&gt;
+
+&lt;p&gt;其实我更喜欢 LaTeX 的，这里只能用 MarkDown 和 &lt;i
+style=&#34;background-color:rgb(180, 40, 40);color:white;font-size:300%;&#34;&gt;HTML&lt;/i&gt;)。&lt;/p&gt;
+
+&lt;p&gt;等等！如果能够使用 HTML, 那么 Javascript 。。。。&lt;/p&gt;
+
+&lt;p&gt;&lt;button type=&#34;button&#34; style=&#34;border:none;background-color:rgb(126,45,
+176);padding:15px 32px;text-align:center; text-decoration: none; display:
+inline-block; font-size 16px; margin: 4px 2px; cursor: pointer; color:white;&#34;
+onclick=&#34;document.getElementById(&#39;demo&#39;).innerHTML = Date()&#34;&gt; Click?&lt;/button&gt;&lt;/p&gt;
+
+&lt;p id=&#34;demo&#34; style=&#34;background-color:black;color:white;padding:10px;&#34;&gt;O__O \\(^o^)/~  (ノಠ益ಠ)ノ彡┻━┻  ( ⊙ o ⊙ )  (ˇˍˇ)   ┑(￣Д ￣)┍ &lt;/p&gt;
+
+&lt;p&gt;厉害了，图灵完备! 可以在这里放 JS 游戏了。。。&lt;/p&gt;
+
+&lt;h2 id=&#34;打算写些什么&#34;&gt;打算写些什么&lt;/h2&gt;
+
+&lt;p&gt;日记有 OneNote，笔记和实验室做的事情用 Latex 记着，这里要写的话，就剩下课程和实
+验室工作以外的东西了，比如个人兴趣之类的。&lt;/p&gt;
+
+&lt;h2 id=&#34;博客&#34;&gt;博客&lt;/h2&gt;
+
+&lt;h3 id=&#34;引擎&#34;&gt;引擎&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://hexo.io&#34;&gt;Hexo&lt;/a&gt;, markdown 生成静态网页，轻松部署到 Github。&lt;/p&gt;
+
+&lt;h3 id=&#34;主题&#34;&gt;主题&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://theme-next.iissnan.com&#34;&gt;NexT&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;评论&#34;&gt;评论&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://disqus.com&#34;&gt;disqus&lt;/a&gt;, 多说评论挂了，Disqus 需要翻墙。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

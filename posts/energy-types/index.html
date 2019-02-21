@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Energy Types &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="ENT language|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="Energy Types | BLTBLG">
+    <meta name="twitter:description" content="ENT language|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Energy Types</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2018-05-14. Published at: 2018-05-08.">
+        
+          Lastmod: 2018-05-14
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <h1 id="ent-language">ENT language</h1>
+
+<h2 id="abstract-syntax">Abstract Syntax</h2>
+
+<p>symbol 上的横线用来表示 这是个 list, 类似 BNF 里面 asterisk 的作用. (第一次见到这种写法)</p>
+
+<p><strong>Terms</strong></p>
+
+<p>$$P ::= D \, \overline{C}$$</p>
+
+<p>Program is made of *mode declaration*s and  <em>classes</em>.  This is because ENT is derived from Java.</p>
+
+<p>$$D ::= \overline{\mathtt{m} \le \mathtt{m}}$$</p>
+
+<p>*mode declaration*s are an order relation on *mode*s.   $mathtt{m}$ is a mode&rsquo;s name.
+A mode can used to represent an energy state. high energy mode, middle energy mode, low energy mode.</p>
+
+<p>$$C ::= \mathbf{class}\; \mathtt{c}\; \Delta\; \mathbf{extends}\; \mathtt{c} \; {\overline{F}\; \overline{M} \; A}$$</p>
+
+<p>*class*es  extends other classes. A class&rsquo;s body consists of <em>field</em>, <em>methods</em> and <em>attributor</em>. $\mathtt{c}$ is the name of some class.</p>
+
+<p>$$F ::= T \; \mathtt{fd} = e$$</p>
+
+<p><em>field</em> is <em>Type</em> and <em>expression</em>,  $\mathtt{fd}$ is the field&rsquo;s name. These are Java things,
+but the Type can be tagged with energy modes.</p>
+
+<p>$$M ::= T \; \mathtt{md}(\overline{T}\; \overline{x}) {e}$$</p>
+
+<p><em>method</em>, $\mathtt{md}$ is the method&rsquo;s name.</p>
+
+<p>$$A ::= e$$</p>
+
+<p><em>attributor</em>.  In ENT, if a class is declared to be dynamic (has type $?$), it must be associated with an attributor.
+An atributor can be arbitrary Java code, allowing the object to inspect the class information at run time, and get the
+runtime mode of the object.</p>
+
+<p>$$\begin{aligned}e ::= &amp; \; x \;|\; e.\mathtt{fd} \;|\; \mathbf{new}\; \mathtt{c}\langle \iota \rangle \;|\; e.\mathtt{md}(\overline{e}) \;|\; (T)e
+\| &amp;  \; \mathbf{snapshot}\;e\;[\eta,\eta&rsquo;] \;|\; \mathbf{mcase}\langle T\rangle{\overline{m:e}} \;|\; e \rhd \eta\end{aligned}$$</p>
+
+<p><em>expression</em></p>
+
+<p>$\mathbf{snapshot}$ take the mode of an expression $e$ and check if it in range $[\eta, \eta&rsquo;]$.</p>
+
+<p>$\mathbf{mcase}$ 类似函数式编程里的 match 语句, 把 mode 映射到 expression.</p>
+
+<p>$e \rhd \eta$ &ldquo;the mode case elimination expression&rdquo;.
+&gt;In the concrete syntax, mode case elimination for local field access is implicitly represented as $\mathtt{depth \rhd X}$</p>
+
+<p>???, 大概是说 class 的 field 的 mode 默认为 enclosing class 的 mode.</p>
+
+<p><strong>Types</strong></p>
+
+<p>$$T ::= \mathtt{c} \langle\iota\rangle \;|\; \mathbf{mcase}\langle T\rangle$$
+<em>programmer type</em>,</p>
+
+<p>$$\iota ::= \eta \;|\; ?, \eta$$
+<em>object parameter list</em>.  $?$ is a dynamic type, its real type must(?) be determined by an attributor.</p>
+
+<p>$$\eta ::= \mathtt{m} \;|\; \mathtt{md} \;|\; \top \;|\; \bot$$
+<em>static mode</em> , $\mathtt{m}$ is mode name , $\mathtt{md}$ is method name.</p>
+
+<p>$$\omega ::= \eta \le \mathtt{mt} \le \eta&rsquo;$$
+<em>constrained mode</em>,  $\mathtt{mt}$ is mode type variable.</p>
+
+<p>$$\Delta ::= ? \to \omega, \Omega \;|\; \Omega$$
+<em>class parameter list</em></p>
+
+<p>$$\Omega ::= \overline{\omega}$$
+<em>constrained mode list</em></p>
+
+<p><strong>Type System Elements</strong></p>
+
+<p>$$\mu ::= \eta \;|\; ?$$
+<em>mode</em></p>
+
+<p>$$\tau ::= T \;|\; \exists \omega .\tau \;|\; \mathtt{modev}$$
+<em>type</em>.  $\mathtt{modev}$ is  for typing attributor.</p>
+
+<p>$$\Gamma ::= \overline{\mathtt{x} : \tau}$$
+<em>typing environment</em></p>
+
+<p>$$\mathtt{K} ::= \overline{\eta \le \eta&rsquo;}$$
+<em>constraints</em>.</p>
+
+<p><strong>Functions</strong></p>
+
+<p>$\mathtt{mtype}(\mathtt{md}, T)$ return the signature for method $\mathtt{md}$ of object of type $T$.
+This is Java, a method also belongs to some object or class.</p>
+
+<p>$\mathtt{mtype}$ 这符号没必要. This can be expressed like this : $e : T \land e.\mathtt{md} : T_0$.
+$\quad T_0$ is what $\mathtt{mtype}()$ returns.</p>
+
+<p>$$\mathtt{omode}(\mathtt{c}\langle \iota \rangle ) \triangleq \mu \text{ if } \iota = \mu, \overline{\eta}$$</p>
+
+<p>$\mathtt{omode}$ get the mode of an object of type $\mathtt{c}\langle \iota \rangle$,
+it simply get the first mode in the mode list.</p>
+
+<p>$$\begin{aligned} \mathtt{cmode} &amp; (? \to \omega, \Omega)  \triangleq ? <br />
+\mathtt{cmode} &amp; (\omega, \Omega)  \triangleq \omega
+\end{aligned}$$</p>
+
+<p>$\mathtt{cmode}$ gets the mode from a class parameter list. Return the first constrained mode.</p>
+
+<p>Note the difference between a object&rsquo;s mode and a class&rsquo;s mode. an object&rsquo;s mode is a specific value.
+but a class&rsquo;s mode is a range.</p>
+
+<p>$\mathtt{mode}(P)$ represents all modes in the Program $P$.</p>
+
+<p><strong>Expression Typing</strong></p>
+
+<p>Definition: Judgment $\Gamma;\mathtt{K} \vdash e : \tau$, says expression
+ $e$ has type $\tau$ under <em>typing environment</em> and <em>constraint set</em> $\mathtt{K}$.</p>
+
+<p>Definition: $\Gamma(\mathtt{x})$ is the $\mathtt{x}$&rsquo;s type in $\Gamma$.  这个也很没必要, $\Gamma \vdash \mathtt{x} : T$
+不就能表示了么, 明明用大家熟悉的 relation 能够表达的, 偏要自己定义一个函数. 严格来说, 函数并不是能够随便定义的, 还要
+先证明 $\forall x, y.\; x = y \Rightarrow f(x) = f(y)$.</p>
+
+<p>Definition: $\mathtt{K}  \looparrowright \mathtt{K}&lsquo;$, iff the reflexive and
+transitive closure of $\mathtt{K}&rsquo; \cup D$ is a subset of that of
+ $\mathtt{K} \cup D$  .</p>
+
+<p>What ???</p>
+
+<p>$$
+\begin{aligned}
+&amp;\mathtt{cons}(\overline{\eta \le \mathtt{mt} \le \eta&rsquo;}) \triangleq
+\cup {\eta \le \mathtt{mt}, \mathtt{mt} \le \eta&rsquo;} <br />
+&amp;\mathtt{cons}(? \to \omega, \Omega) \triangleq
+{\eta \le \mathtt{mt}, \mathtt{mt} \le \eta&rsquo;} \cup \mathtt{cons}(\Omega)
+\quad\text{ if } \omega = \eta \le \mathtt{mt} \le \eta&rsquo;
+\end{aligned}
+$$</p>
+
+<p>cons 操作类似于格上求 join 或 meet.</p>
+
+<p>Definition: Static Water fall Invariant
+$$
+\mathtt{sfall}(T, T&rsquo;, \mathtt{K})  \text{ iff }  \mathtt{K} \looparrowright {\mathtt{omode}(T) \le \mathtt{omode}(T&rsquo;)}
+$$</p>
+
+<p>不理解 $\looparrowright$ 就没法继续了.</p>
+
+<p><strong>Typing Rules</strong></p>
+
+<p>$$(\text{T-New})
+ \frac{\iota = ?,\iota&rsquo; \text{ iff }\mathbf{class}\ \mathtt{c}\ \Delta \cdots \in P \text{ and } \mathtt{cmode}(\Delta) = ?
+ \qquad \mathtt{K} \looparrowright \mathtt{cons}(\Delta)}
+{\Gamma;\mathtt{K} \vdash \mathbf{new}\;\mathtt{c} \langle \iota \rangle : \mathtt{c} \langle \iota \rangle}$$</p>
+
+<p>$P$ ?, $P$ is implicit. We could write
+$${\Gamma;\mathtt{K};P \vdash \mathbf{new}\;\mathtt{c} \langle \iota \rangle : \mathtt{c} \langle \iota \rangle}$$</p>
+
+<p>So, how to interpreter this ? Why is there an $\text{iff}$ in the predicate?
+Did the author put it in the wrong place?</p>
+
+<p><del>Maybe it says two things, a definition and a rule. </del> Not a definition. There&rsquo;s nothing new. 使用 $\text{iff}$
+时, 如果一个左边引入新的符号, 则是一个定义; 如果没有新的符号, 看成一个逻辑连接符就行了.</p>
+
+<p>$\text{iff}$ means, two judgements must both be true of false at the same time.</p>
+
+<!-- $$\iota = ?,\iota' \text{ iff } \mathbf{class}\ \mathtt{c}\ \Delta \cdots \in P \text{ and } \mathtt{cmode}(\Delta) = ?$$
+
+$$(\text{T-New})
+ \frac{\iota = ?,\iota' \qquad \mathtt{K} \looparrowright \mathtt{cons}(\Delta)}
+{\Gamma;\mathtt{K} \vdash \mathbf{new}\;\mathtt{c} \langle \iota \rangle : \mathtt{c} \langle \iota \rangle}$$ -->
+
+<p>$\iota = ?,\iota&rsquo;$ means that the first mode in the class&rsquo;s parameter list is $?$. This is a static type and is specified
+in this new statement.</p>
+
+<p>$\mathbf{class}\;\mathtt{c}\;\Delta \cdots \in P \text{ and } \mathtt{cmode}(\Delta) = ?$ means that the first mode in the class&rsquo;s
+ definition&rsquo;s parameter list is $?$. This is a constraint type and is specified in the definition of the class.</p>
+
+<p>This rule 说明  $\mathbf{new}\;\mathtt{c}\langle\iota\rangle : \mathtt{c}\langle\iota\rangle$ 也是有条件的.
+$\looparrowright$ ???</p>
+
+<p>$$(\text{T-Msg})\frac
+{\Gamma;\mathtt{K} \vdash e : T_0 \qquad
+\mathtt{mtype}(\mathtt{md}, T_0) = \overline{T} \to T \qquad
+\Gamma;\mathtt{K} \vdash \overline{e} : \overline{T} \qquad
+\mathtt{sfall}(T_0, \Gamma(\mathbf{this}), \mathtt{K})
+}
+{\Gamma;\mathtt{K} \vdash e.\mathtt{md}(\overline{e}) : T}
+$$</p>
+
+<p>函数调用.</p>
+
+<p>$$
+(\text{T-Snapshot}) \frac
+{\Gamma;\mathtt{K} \vdash e : \mathtt{c}\langle?, \iota\rangle \qquad
+\omega = \eta_1 \le \eta_2
+}
+{\Gamma;\mathtt{K}\vdash \mathbf{snapshot}\;e\;[\eta_1,\eta_2] : \exists\omega.\mathtt{c}\langle\mathtt{mt},\iota\rangle}
+$$</p>
+
+<p>Snapshot</p>
+
+<p>最大疑点, 用 existential type 表示 dynamic type. 我从来就没见过 动态语言的 类型系统..</p>
+
+<p>$$
+(\text{T-MCase}) \frac
+{\overline{\mathtt{m}} = \mathtt{modes}(P) \qquad
+\Gamma;\mathtt{K} \vdash e_i : T \text{ for all } i
+}
+{\Gamma;\mathtt{K} \vdash \mathbf{mcase}\langle T \rangle {\overline {\mathtt{m} : e}} :  \mathbf{mcase} \langle T \rangle
+}
+$$</p>
+
+<p>mcase</p>
+
+<p>$$
+(\text{T-ElimCase}) \frac
+{\Gamma;\mathtt{K} \vdash e:\mathbf{mcase}\langle T\rangle\qquad
+\eta \in \mathtt{modes}(P) \text{ or }\eta \text{ appears in } \mathtt{K}
+}
+{\Gamma;\mathtt{K} \vdash e \rhd \eta : T}
+$$</p>
+
+<h2 id="reference">Reference</h2>
+
+<p>[1] [2] [3] 都是一个组做的工作.</p>
+
+<p>[1] has phase and mode, while [3] only has mode. 虽然说 [3] 是基于 [1] 但是还是有很多不同的.</p>
+
+<p><a href="https://dl.acm.org/citation.cfm?id=2384676">[1] Energy Types &ndash; OOPSLA&rsquo;12</a></p>
+
+<p><a href="https://dl.acm.org/citation.cfm?id=2660235">[2] Understanding Energy Behaviors of Concurrent Programs &ndash; OOPSLA&rsquo;14</a>
+and <a href="https://www.youtube.com/watch?v=rJxeHyjNeSA">a short video (1min)</a></p>
+
+<p><a href="dl.acm.org/citation.cfm?id=3062356">[3] Proactive and Adaptive Energy-Aware Programming with Mixed Typechecking &ndash; PLDI&rsquo;17</a></p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Energy Types</b>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#ent-language">ENT language</a>
+<ul>
+<li><a href="#abstract-syntax">Abstract Syntax</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

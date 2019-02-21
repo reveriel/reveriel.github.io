@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Posts &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="Posts | BLTBLG">
+    <meta name="twitter:description" content="|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div>
+
+  <h1>Posts</h1>
+
+  
+
+  
+    
+    
+<div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-3">
+  <div class="Subhead mb-2">
+    <div class="Subhead-heading">
+      <a href="/posts/network-simulator-ns-3/">
+        <div class="h2 mt-1 mb-1">Network Simulator: ns-3</div>
+      </a>
+    </div>
+    <div class="Subhead-description">
+      
+
+
+
+
+
+      <div class="float-md-right">
+        <span>2018-03-14</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-gray">
+    
+    <p>ns-3 is a Network simulator,</p>
+    <a class="muted-link" href="/posts/network-simulator-ns-3/">…</a>
+  </div>
+</div>
+
+  
+    
+    
+<div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-3">
+  <div class="Subhead mb-2">
+    <div class="Subhead-heading">
+      <a href="/posts/ml-oxford/">
+        <div class="h2 mt-1 mb-1">ML-oxford</div>
+      </a>
+    </div>
+    <div class="Subhead-description">
+      
+
+
+
+
+
+      <div class="float-md-right">
+        <span>2018-01-12</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-gray">
+    
+    linear
+$\hat{y} = \mathrm{X} \theta$
+$X = \begin{bmatrix} x_{11}\end{bmatrix}$
+$J(\theta) = (y - X\theta)^T (y - X\theta) = \sum_{i=1}^{n}(y_i - x_i^T\theta)^2$
+matrix differentiation.
+    <a class="muted-link" href="/posts/ml-oxford/">…</a>
+  </div>
+</div>
+
+  
+    
+    
+<div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-3">
+  <div class="Subhead mb-2">
+    <div class="Subhead-heading">
+      <a href="/posts/pathfinding/">
+        <div class="h2 mt-1 mb-1">pathfinding</div>
+      </a>
+    </div>
+    <div class="Subhead-description">
+      
+
+
+
+
+
+      <div class="float-md-right">
+        <span>2018-01-09</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-gray">
+    
+    <p>from wiki</p>
+
+<p>A pathfinding method searches a <a href="https://en.wikipedia.org/wiki/Graph_(data_structure)">graph</a> by starting at one <a href="https://en.wikipedia.org/wiki/Vertex_(graph_theory)">vertex</a> and exploring adjacent <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">nodes</a> until the destination node is reached.</p>
+    <a class="muted-link" href="/posts/pathfinding/">…</a>
+  </div>
+</div>
+
+  
+    
+    
+<div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-3">
+  <div class="Subhead mb-2">
+    <div class="Subhead-heading">
+      <a href="/posts/distributed-algorithm/">
+        <div class="h2 mt-1 mb-1">distributed algorithm</div>
+      </a>
+    </div>
+    <div class="Subhead-description">
+      
+
+
+
+
+
+      <div class="float-md-right">
+        <span>2018-01-08</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-gray">
+    
+    <h1 id="分布式算法">分布式算法</h1>
+
+<p><strong>模型</strong>：</p>
+
+<ul>
+<li>异步共享存储</li>
+<li>异步msg传递</li>
+<li>同步msg传递</li>
+</ul>
+
+<p><strong>拓扑</strong>：无向图，节点为处理机，边喂双向信道.
+<strong>算法</strong>：由每个处理器上的局部程序构成，包括本地计算和收发msg
+节点 $p_i$,   $p_i$ 相邻的边 $r$ 条.
+$p_i$ 有两个 buffer list:  $outbuf_i[l]$ , $inbuf_i[l]$, $l \in [1, r]$</p>
+
+<p><strong>配置</strong>：某时刻，算法运行的全局状态。为一个向量 $(q<em>0, \ldots, q</em>{n-1})$,
+$q_i$ 是 $p_i$ 的状态.</p>
+    <a class="muted-link" href="/posts/distributed-algorithm/">…</a>
+  </div>
+</div>
+
+  
+    
+    
+<div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-3">
+  <div class="Subhead mb-2">
+    <div class="Subhead-heading">
+      <a href="/posts/approximate-algorithm/">
+        <div class="h2 mt-1 mb-1">approximate algorithm</div>
+      </a>
+    </div>
+    <div class="Subhead-description">
+      
+
+
+
+
+
+      <div class="float-md-right">
+        <span>2018-01-08</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-gray">
+    
+    <h1 id="近似算法">近似算法</h1>
+
+<p>总结</p>
+    <a class="muted-link" href="/posts/approximate-algorithm/">…</a>
+  </div>
+</div>
+
+  
+    
+    
+<div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-3">
+  <div class="Subhead mb-2">
+    <div class="Subhead-heading">
+      <a href="/posts/paralell-computing/">
+        <div class="h2 mt-1 mb-1">paralell computing</div>
+      </a>
+    </div>
+    <div class="Subhead-description">
+      
+
+
+
+
+
+      <div class="float-md-right">
+        <span>2018-01-05</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-gray">
+    
+    <h1 id="paralell">paralell</h1>
+
+<p>data dependency</p>
+
+<p>statement S, T,</p>
+
+<p><strong>define</strong> $S \,\delta\, T$:
+$T$ depends on $S$, $S$ must be executed before $T$</p>
+
+<p>$S\,\delta\,T$ if and only if one of the cases are true.</p>
+
+<p>$x$ is a variable</p>
+    <a class="muted-link" href="/posts/paralell-computing/">…</a>
+  </div>
+</div>
+
+  
+    
+    
+<div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-3">
+  <div class="Subhead mb-2">
+    <div class="Subhead-heading">
+      <a href="/posts/eigen/">
+        <div class="h2 mt-1 mb-1">eigen</div>
+      </a>
+    </div>
+    <div class="Subhead-description">
+      
+
+
+
+
+
+      <div class="float-md-right">
+        <span>2017-12-30</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-gray">
+    
+    <h1 id="计算矩阵的全部特征值的-qr-方法">计算矩阵的全部特征值的 QR 方法</h1>
+    <a class="muted-link" href="/posts/eigen/">…</a>
+  </div>
+</div>
+
+  
+    
+    
+<div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-3">
+  <div class="Subhead mb-2">
+    <div class="Subhead-heading">
+      <a href="/posts/string-match/">
+        <div class="h2 mt-1 mb-1">string match</div>
+      </a>
+    </div>
+    <div class="Subhead-description">
+      
+
+
+
+
+
+      <div class="float-md-right">
+        <span>2017-12-13</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-gray">
+    
+    <p>问题, Pattern, $P : \Sigma^m$, Text $T : \Sigma^n$</p>
+
+<p>$n \ge m$, 找 P 在 T 中的位置.</p>
+
+<p>Hash 函数 $hash$ , 求 $hash(P)$,  与 $T$ 的所有长度 $m$ 的子串.
+先比较 Hash, 如果 hash 值相等, 再精确比较.</p>
+    <a class="muted-link" href="/posts/string-match/">…</a>
+  </div>
+</div>
+
+  
+    
+    
+<div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-3">
+  <div class="Subhead mb-2">
+    <div class="Subhead-heading">
+      <a href="/posts/combinatorics/">
+        <div class="h2 mt-1 mb-1">组合数学课</div>
+      </a>
+    </div>
+    <div class="Subhead-description">
+      
+
+
+
+
+
+      <div class="float-md-right">
+        <span>2017-12-12</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-gray">
+    
+    <p>先是在wiki上找了一下组合数学的词条. 发现涵盖的东西居然这么多. 有机会再看.
+这篇只是用来总结课堂的一些知识.</p>
+    <a class="muted-link" href="/posts/combinatorics/">…</a>
+  </div>
+</div>
+
+  
+    
+    
+<div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-3">
+  <div class="Subhead mb-2">
+    <div class="Subhead-heading">
+      <a href="/posts/randomized-algorithm/">
+        <div class="h2 mt-1 mb-1">randomized algorithm</div>
+      </a>
+    </div>
+    <div class="Subhead-description">
+      
+
+
+
+
+
+      <div class="float-md-right">
+        <span>2017-12-11</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-gray">
+    
+    <h1 id="概率算法">概率算法</h1>
+
+<p>总结</p>
+    <a class="muted-link" href="/posts/randomized-algorithm/">…</a>
+  </div>
+</div>
+
+  
+
+  
+  
+
+<nav class="paginate-container">
+  <div class="pagination">
+    <ul>
+      
+      <a href="/posts/" class="previous_page">Prev</a>
+      
+
+      
+          
+          
+          
+          
+              
+              
+          
+          
+            
+              <a href="/posts/">1</a>
+            
+          
+      
+          
+          
+          
+          
+              
+              
+          
+          
+            
+              <em class="current selected" aria-current="true">2</em>
+            
+          
+      
+          
+          
+          
+          
+              
+              
+          
+          
+            
+              <a href="/posts/page/3/">3</a>
+            
+          
+      
+
+      
+      <a href="/posts/page/3/" class="next_page">Next</a>
+      
+    </ul>
+  </div>
+</nav>
+
+
+
+
+</div>
+
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+
+  <div class="Box Box--blue p-2 mb-3 mt-5">
+    <a href="/tags/" class="link-gray-dark">
+      <h4>Tags</h4>
+    </a>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/linux" class="link-gray text-emphasized css-truncate-target"><span class="">Linux</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/math" class="link-gray text-emphasized css-truncate-target"><span class="">Math</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/paper-reading" class="link-gray text-emphasized css-truncate-target"><span class="">Paper reading</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/self-referencing" class="link-gray text-emphasized css-truncate-target"><span class="">Self referencing</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+  </div>
+
+
+
+
+  <div class="Box Box--blue p-2 mb-3">
+    <a href="/categories/" class="link-gray-dark">
+      <h4>Categories</h4>
+    </a>
+    
+  </div>
+
+
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

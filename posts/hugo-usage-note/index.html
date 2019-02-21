@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Hugo Usage Note &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="Notes about how to use hugo.
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="Hugo Usage Note | BLTBLG">
+    <meta name="twitter:description" content="Notes about how to use hugo.|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Hugo Usage Note</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2019-02-21. Published at: 2019-02-21.">
+        
+          Lastmod: 2019-02-21
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>Notes about how to use hugo.</p>
+
+<h2 id="basics">Basics</h2>
+
+<p>Create a new post.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">hugo new posts/my-first-post.md</code></pre></div>
+<p>run server</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">hugo server -D</code></pre></div>
+<p><code>-D</code> for draft</p>
+
+<h2 id="deploy">deploy</h2>
+
+<pre><code>./deploy.sh
+</code></pre>
+
+<h2 id="mathjax">MathJax</h2>
+
+<p>$$\frac{a}{b}$$</p>
+
+<p>在需要用到的 markdown 页面加上这个 :</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2 id="javascript">javascript</h2>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">id </span><span class="o">=</span> <span class="s">&#34;count&#34;</span><span class="p">&gt;</span>  <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="kd">function</span> <span class="nx">sleep</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">ms</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">pp</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;count&#34;</span><span class="p">);</span>
+
+    <span class="kr">async</span> <span class="kd">function</span> <span class="nx">b</span><span class="p">(){</span>
+        <span class="kd">var</span> <span class="nx">a</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">a</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">pp</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="s2">&#34;&#34;</span>
+            <span class="kr">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">320</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<p id = "count">  </p>
+
+<script>
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    var pp = document.getElementById("count");
+
+    async function b(){
+        var a;
+        for (a = 0; a < 100000; a++) {
+            pp.textContent = a + ""
+            await sleep(320)
+        }
+    }
+    b();
+</script>
+
+<h1 id="others">Others</h1>
+
+<p>设置时的记录, 可以忘记了.</p>
+
+<h2 id="安装-hugo">安装 hugo</h2>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">go get -v github.com/gohugoio/hugo
+go install github.com/gohugoio/hugo</code></pre></div>
+<h2 id="创建-site">创建 site</h2>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">hugo new site quickstart</code></pre></div>
+<p>在 <code>~/site/quickstart</code> 创建目录.</p>
+
+<h2 id="theme">theme</h2>
+
+<p>adapted from <a href="https://themes.gohugo.io/hugo-primer/">https://themes.gohugo.io/hugo-primer/</a>,
+这个超简洁, 像我这样的前端白痴也敢动手改.</p>
+
+<h2 id="host-on-github">host on GitHub</h2>
+
+<p><a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">doc</a></p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Hugo Usage Note</b>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#basics">Basics</a></li>
+<li><a href="#deploy">deploy</a></li>
+<li><a href="#mathjax">MathJax</a></li>
+<li><a href="#javascript">javascript</a></li>
+</ul></li>
+<li><a href="#others">Others</a>
+<ul>
+<li><a href="#安装-hugo">安装 hugo</a></li>
+<li><a href="#创建-site">创建 site</a></li>
+<li><a href="#theme">theme</a></li>
+<li><a href="#host-on-github">host on GitHub</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Inference on Embeded Systems &ndash; BLTBLG
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="Sparsification and Separation. key Contributions: * A sparse coding-based approach to optimize depp learning inference execution. * Convolution kernel separation technique * The first to do Deep Learning Model on severely constrained wearable hardware. * implement a prototype, * experiment with for CNN and DNN models, 11.3x improvements in memory and 13.3x inexecution time. accuracy loss 5%
+|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="BLTBLG">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@reveriel">
+    <meta name="twitter:creator" content="@reveriel">
+    <meta name="twitter:title" content="Inference on Embeded Systems | BLTBLG">
+    <meta name="twitter:description" content="Sparsification and Separation.
+
+key Contributions:
+ * A sparse coding-based approach to optimize depp learning
+inference execution.
+ * Convolution kernel separation technique
+ * The first to do Deep Learning Model on severely constrained wearable hardware.
+ * implement a prototype,
+ * experiment with for CNN and DNN models, 11.3x improvements in memory and 13.3x inexecution time. accuracy loss 5%|Describe what your web page is about">
+    <meta name="twitter:image" content="http://reveriel.com/twitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Inference on Embeded Systems</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/paper-reading' class="muted-link">
+  <span class="Label Label--gray">paper-reading</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2019-02-21. Published at: 2018-03-14.">
+        
+          Lastmod: 2019-02-21
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <h1 id="sparsification-and-separation">Sparsification and Separation.</h1>
+
+<p>key Contributions:
+ * A sparse coding-based approach to optimize depp learning
+inference execution.
+ * Convolution kernel separation technique
+ * The first to do Deep Learning Model on severely constrained wearable hardware.
+ * implement a prototype,
+ * experiment with for CNN and DNN models, 11.3x improvements in memory and 13.3x inexecution time. accuracy loss 5%</p>
+
+<p>background:
+DNN,  CNN(DNN with some convolutional layers)</p>
+
+<p>local computation: privacy, independent of network condition.</p>
+
+<p>Design Goals:
+* No re-training
+* No Cloud Offloading
+* Low-resource platforms. only a few MBs of RAM.
+* Minimize Model Changes</p>
+
+<p>Three technique:
+* Layer Compression Compiler, for Fully-connected layers
+* Sparse Inference Runtime, load active layers only
+* Convolution Separation Runtime, for Convolutional layers.</p>
+
+<p>Fully-connected layers:</p>
+
+<p>$f(\mathbf{b} + \mathbf{W} \cdot \mathbf{x})$</p>
+
+<p>Convolutional Layers:</p>
+
+<p>$f(\sum\mathbf{x} \ast \mathcal{K} + \mathbf{b} )$</p>
+
+<p>Weight Factorization:</p>
+
+<p>$W \cdot x$ , $W$ is m x n, if we factorize $M = U \cdot V$, $U$ and $V$ is
+m x k, then compressed. Previous work use SVD.</p>
+
+<p>This paper improved this by using Dictionary Learning. factorized
+$M = B \cdot A$, $A$ is a sparse matrix.</p>
+
+<p>Convolutional Layers:</p>
+
+<p>d x d convolutional kernels factorized to d x k and k x d, use SVD.</p>
+
+<p>choose k for specified accuracy, memory, and computation time:
+  for each layer, use binary search to find one.</p>
+
+<p>evaluation: &hellip;</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Inference on Embeded Systems</b>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#sparsification-and-separation">Sparsification and Separation.</a></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>
