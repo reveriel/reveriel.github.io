@@ -1,0 +1,74 @@
+---
+title: Object Tracking on RPi
+date: 2018-04-01 09:11:11
+tags:
+---
+
+Install [SiamFC-TensorFlow](https://github.com/torrvision/siamfc-tf) on RPi
+<!--more-->
+
+在笔记本上和 RPi 上都进行测试.
+
+目录:  chip:~/workspace/object-tracking/siamfc/siamfc-tf
+pi3:~/workspace/
+
+按官方指南, 使用 virtual-env, 创建一个独立的环境, 不依赖于系统里已经安装的 python 库.
+
+siamfc-tf 需要 tensorflow-gpu==1.1.0, tensorflow-gpu 依赖 libcublas, 会在运行时加载
+libcublas 动态库, 这个库需要 CUDA.
+
+需要把 tensorflow-gpu 换成 tensorflow, 但是直接使用 pip 安装 tensorflow 失败, 找不到 tensorflow
+这个包. 于是使用
+[tensorflow-on-raspberry-pi](https://github.com/samjabrahams/tensorflow-on-raspberry-pi)
+提供的二进制安装. tensorflow-1.1.0
+
+使用 pip 安装依赖 matplotlib 时, 编译错误:
+
+```
+src/_png.cpp: In member function 'Py::Object _png_module::write_png(const Py::Tuple&)':
+src/_png.cpp:147:51: error: 'npy_PyFile_Dup' was not declared in this scope
+...
+```
+change numpy version from 1.11.1 to 1.6.2  NO.
+I install it manually,
+
+OK, 可以运行.
+
+原输入是一个文件夹, 里面都是图, 以及一个框. 输出, 每帧一个框, 图片可以显示.
+
+改成. 输入是摄像头, (初始框暂时不管
+
+`region_to_bbox`,
+region is either 4 dim or 8 dim.
+4 dim is rect, x y w h,
+8 dim is poly,  … not sure yet.
+anyway , only 4 is used here
+
+Where did it open the image file?
+tracker.py 70, it use a for loop to process each frame.
+
+sess.run use  a feed_dict, which requires a filename for a frame. I need to stop it
+sess is a tf.Session.  what do you what ? see official doc !
+It seems that the tf graph is in the global environment. sess.run(), run it.
+
+run : Runs operations and evaluates tensors in fetches.
+
+feed_dict argument allows the caller to override the value of tensors in the graph. See run() for more information.
+
+so the computation has already been defined in the
+graph definition part.
+
+it used a tf.train.Coordinator() to load image file!!!
+
+A coordinator for threads.
+This class implements a simple mechanism to coordinate the termination of a set of threads.
+
+修改 graph, 发现不知道 tensorflow 如何输入图片.
+计算图怎么写?
+
+看了下 Session 和 run,
+
+使用 feed_dic 输入 graph. 弄个 place_holder 接受就行了.
+
+这个真的.. 我真的没把这里当成博客啊.. 这不是把屎拉在路上么..
+

@@ -1,0 +1,69 @@
+---
+title: File Server on Ubuntu
+date: 2018-03-14 14:59:42
+tags:
+- linux
+---
+
+Install samba. configure it.
+
+Use Samba on the LAN, FTP over the Internet.
+
+[File Server | Ubuntu documentation](https://help.ubuntu.com/lts/serverguide/samba-fileserver.html.en)
+
+其实把东西记在博客里一点也不方便.
+
+后来某天想要在树莓派上设置Samba时, 还以为是记在 Note 里面的. 找不到这篇笔记, 才
+想起是放在了这里..
+
+<!--more-->
+
+```
+sudo apt install samba
+```
+
+`/etc/samba/smb.conf`
+
+then make some change in the [homes] section.
+
+```
+[homes]
+  comment = Home Directories
+  browseable = yes
+  read only = no
+  create mask = 0775
+  directory mask = 0775
+  valid users = %S
+```
+
+then
+
+    sudo service smdb restart && service nmbd restart
+
+failed... Use this.
+
+    sudo systemctl restart smbd.service nmbd.service
+
+> This works fine on Ubt17, but failed on my RPi(8 jessie, Raspbian),
+> use this `sudo /etc/init.d/samba restart` on RPi
+
+add user to sambda
+
+    smbpasswd -a <user-name>
+
+
+## Connect to SMB on macOS
+
+Finder > Go > Connect to Server...
+
+enter an URL
+
+```
+smb://<ip>/<folder>
+```
+
+Enter your user-name (on the file server) and the passwd you've just set.
+
+Now You can edit files on the server just like editing your local files!
+
+然后安装个 transmission, 把服务器作为 BT 下载器, 也是美滋滋~
