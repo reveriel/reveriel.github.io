@@ -1,8 +1,9 @@
 # OS
 .DS_Store
 
-# Astro build output
+# Astro
 dist/
+.astro/
 
 # Node
 node_modules/
@@ -10,7 +11,3 @@ node_modules/
 # IDE
 .vscode/
 .idea/
-
-# Hugo leftovers (old site)
-resources/
-.hugo_build.lock
