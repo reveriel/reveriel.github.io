@@ -1,12 +1,15 @@
 ---
 title: "Hugo Usage Note"
 date: 2019-02-21T16:09:53+08:00
-draft:
+stage: 1
+prerequisites: []
+concepts: [basics, deploy, mathjax, javascript, others]
+tags: []
+summary: "Notes about how to use hugo."
 ---
 
 Notes about how to use hugo.
 
-<!--more-->
 
 
 ## Basics
@@ -41,8 +44,10 @@ $$\frac{a}{b}$$
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 ```
+```html
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+```
 
 ## javascript
 
@@ -66,25 +71,6 @@ $$\frac{a}{b}$$
     b();
 </script>
 ```
-
-<p id = "count">  </p>
-
-<script>
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    var pp = document.getElementById("count");
-
-    async function b(){
-        var a;
-        for (a = 0; a < 100000; a++) {
-            pp.textContent = a + ""
-            await sleep(320)
-        }
-    }
-    b();
-</script>
 
 # Others
 
@@ -114,3 +100,33 @@ adapted from https://themes.gohugo.io/hugo-primer/,
 
 [doc](https://gohugo.io/hosting-and-deployment/hosting-on-github/)
 
+## 域名
+
+之前在一个小网站上注册的域名, 后来那网站看起来要凉了, 就把域名转移到 godaddy 了,
+然后域名一直属于 parked 状态, 指向 godaddy 的广告页.
+
+参考
+
+[Using a Custom Domain with Github Pages](https://help.github.com/en/articles/using-a-custom-domain-with-github-pages)
+
+[manually Forwarding or Masking your domain or subdomain](https://www.godaddy.com/help/manually-forwarding-or-masking-your-domain-or-subdomain-422)
+
+![DNS](/img/Screenshot 2019-02-21 at 9.47.06 PM.png)
+
+<img style="width: 400px" src="/img/Screenshot 2019-02-21 at 10.00.30 PM.png">
+</img>
+
+{/* ![DNS Forwarding](/img/Screenshot 2019-02-21 at 10.00.30 PM.png) */}
+反正捣鼓捣鼓, 就行了.
+
+<small style="color:gray">
+PS: 如果 markdown 不能调整图片大小, 可以直接用 html..
+
+``` html
+<img style="width: 400px" src="/img/Screenshot 2019-02-21 at 10.00.30 PM.png">
+</img>
+```
+</small>
+
+godaddy 的域名转发的 ip 好像被墙了, 在国内用不了, 所以 reveriel.com 不能自动跳到
+www.reveriel.com, 虽然设置好了..

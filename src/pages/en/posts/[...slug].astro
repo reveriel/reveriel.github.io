@@ -1,0 +1,25 @@
+---
+// English article pages — /en/posts/[...slug]
+import { getCollection, type CollectionEntry } from 'astro:content'
+import PostLayout from '@layouts/PostLayout.astro'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts')
+  return posts
+    .filter(p => !p.data.draft || import.meta.env.DEV)
+    .filter(p => (p.data.locale || 'zh-CN') === 'en')
+    .map(p => ({
+      params: {
+        slug: p.id.replace(/\/index\.(mdx|md)$/, '').replace(/\.(mdx|md)$/, '').replace(/\/(en|zh-CN)$/, ''),
+      },
+      props: { post: p },
+    }))
+}
+
+const { post } = Astro.props as { post: CollectionEntry<'posts'> }
+const { Content } = await post.render()
+---
+
+<PostLayout post={post}>
+  <Content />
+</PostLayout>

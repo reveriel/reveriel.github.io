@@ -1,0 +1,78 @@
+---
+title: "system_server, high cpu usage?"
+date: 2018-12-29T11:42:46+08:00
+stage: 1
+prerequisites: []
+concepts: [问题, swap, cat-/proc/swaps, free--h, systemserver]
+tags: []
+summary: "华为手机的对后台应用的处理有点奇怪啊, 大概概况为这么一句话: 另可卡死, 也不杀一个后台. mate 20,  5.4 GB 内存. swap 2.1GB 打开应用, 不使用返回键或在多任务切换界面删除, 这些应用就几乎是一直在 后台缓存着, 再次打开时, 能够非常迅速的打开, 而且不丢失运行状态. 不会回到刚才 用"
+---
+
+# 问题
+
+华为手机的对后台应用的处理有点奇怪啊, 大概概况为这么一句话:
+
+另可卡死, 也不杀一个后台.
+
+mate 20,  5.4 GB 内存. swap 2.1GB
+
+打开应用, 不使用返回键或在多任务切换界面删除, 这些应用就几乎是一直在
+后台缓存着, 再次打开时, 能够非常迅速的打开, 而且不丢失运行状态. 不会回到刚才
+用过的应用时, 又要等广告或欢迎界面的情况. 5.4GB (应该标称 6GB 吧) 内存挺大了,
+能够缓存不少应用.
+
+但是, 连续打开近10个应用左右, 就变得非常非常卡了, 系统 UI 反应十分迟钝,
+类似 UI 动画播放速度 x0.1, 开得越多越严重, 开到不行才开始出现之前应用进度丢失的
+情况. 不过 5.4 GB 内存对于一般人使用来说, 开几个大游戏来回切换都没问题了吧.
+
+不过即便如此, 开始有帖子抱怨后台应用被杀, 导致即时消息收不到. 安卓的问题吧..
+
+- [mate 20 杀后台严重](https://club.huawei.com/thread-18175712-1-1.html)
+- [mate 20 pro 疯狂杀后台](https://club.huawei.com/thread-18038114-1-1.html)
+
+# swap
+
+卡顿的话, 应该是 swap in swap out 吧. 查看 swap 信息:
+
+```
+# cat /proc/swaps
+Filename                Type     Size       Used      Priority
+/dev/block/zram0      partition  2293756   2193912   -1
+```
+
+只有一个 zram 作为 swap 设备. 大小 2 GB.
+相关统计信息在: `sys/block/zram0`
+
+开启很多应用后, 清除所有后台前:
+
+```
+# free -h
+		total        used        free      shared     buffers
+Mem:             5.4G        5.0G        341M        2.5M        1.0M
+-/+ buffers/cache:           5.0G        343M
+Swap:            2.1G        2.0G         99M
+```
+
+清除所有后台后:
+
+```
+# free -h
+		total        used        free      shared     buffers
+Mem:             5.4G        3.8G        1.6G        964K        1.0M
+-/+ buffers/cache:           3.8G        1.6G
+Swap:            2.1G        883M        1.3G
+```
+
+用 `vmstat` 查看 swap in out 的情况. 及时清空后台后, 再次开启应用时, 也会出现
+swap in, 说明 swap 里面还有应用的一些数据或代码.
+
+> SWAP-IN: Moving data from Swap space to main memory of the machine.
+
+> SWAP-OUT: Moving main memory contents to Swap disk when main memory space fills up.
+
+# system_server
+
+很卡的时候,  使用 top 查看进程 cpu 占用, 发现最上面的进程叫
+`system_server`
+
+system_server 是什么?

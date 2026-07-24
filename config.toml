@@ -11,6 +11,7 @@ summaryLength = 70
 pygmentsCodeFences = true
 pygmentsUseClasses = true
 # googleAnalytics = "U-12345678-0"
+copyright = "all rights reserved"
 
 [frontmatter]
 # update sitemap.xml's lastmod datetime by file change time, instead of git.
@@ -18,10 +19,12 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
 
 [params]
 description = "Describe what your web page is about"
-twitter = "reveriel"
+# twitter = "xhclgyyz"
 # You can use favicon by addin them manually.
 useIcon = true
 useTwitterCard = true
+pygmentsCodeFences = true
+pygmentsUseClasses = true
 
 # shareTo = ["Twitter", "Hatena", "Facebook", "Pocket"]
-creditHugoPrimer = true
+showFooterCredits = true

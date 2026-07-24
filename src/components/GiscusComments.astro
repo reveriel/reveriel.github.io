@@ -1,0 +1,89 @@
+---
+// GiscusComments.astro — GitHub Discussions-powered comments.
+// Lazy-loaded via IntersectionObserver.
+//
+// Setup: https://giscus.app
+//   1. Enable Discussions in your GitHub repo (Settings → Features)
+//   2. Install Giscus App: https://github.com/apps/giscus
+//   3. Visit https://giscus.app → fill in repo → copy repoId & categoryId
+//   4. Set env vars or update the defaults below:
+//
+//     GISCUS_REPO        = "username/repo"
+//     GISCUS_REPO_ID     = "R_kgDO..."
+//     GISCUS_CATEGORY    = "Announcements" (or create "Comments")
+//     GISCUS_CATEGORY_ID = "DIC_kwDO..."
+//
+// The mapping: term = post slug; reactions = on; lazyLoad = yes
+
+const repo       = import.meta.env.GISCUS_REPO        || 'YOUR_NAME/YOUR_REPO'
+const repoId     = import.meta.env.GISCUS_REPO_ID     || 'YOUR_REPO_ID'
+const category   = import.meta.env.GISCUS_CATEGORY    || 'Announcements'
+const categoryId = import.meta.env.GISCUS_CATEGORY_ID || 'YOUR_CATEGORY_ID'
+---
+
+<div
+  id="giscus-container"
+  data-repo={repo}
+  data-repo-id={repoId}
+  data-category={category}
+  data-category-id={categoryId}
+  style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border);"
+>
+  <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center;">
+    💬 评论加载中...
+  </p>
+</div>
+
+<script>
+  (function() {
+    const container = document.getElementById('giscus-container')
+    if (!container) return
+
+    const repo       = container.dataset.repo       || ''
+    const repoId     = container.dataset.repoId     || ''
+    const category   = container.dataset.category   || ''
+    const categoryId = container.dataset.categoryId || ''
+
+    // Don't load if not configured
+    if (!repoId || repoId.startsWith('YOUR_')) {
+      container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center;">💬 评论系统尚未配置 — 请设置 Giscus。</p>'
+      return
+    }
+
+    // Extract page slug for term mapping
+    const path = location.pathname.replace(/\/+$/, '') || '/'
+    const term = path.replace(/^\/posts\//, '')
+
+    let loaded = false
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !loaded) {
+        loaded = true
+        observer.disconnect()
+
+        const script = document.createElement('script')
+        script.src = 'https://giscus.app/client.js'
+        script.setAttribute('data-repo', repo)
+        script.setAttribute('data-repo-id', repoId)
+        script.setAttribute('data-category', category)
+        script.setAttribute('data-category-id', categoryId)
+        script.setAttribute('data-mapping', 'pathname')
+        script.setAttribute('data-term', term)
+        script.setAttribute('data-strict', '0')
+        script.setAttribute('data-reactions-enabled', '1')
+        script.setAttribute('data-emit-metadata', '0')
+        script.setAttribute('data-input-position', 'top')
+        script.setAttribute('data-theme', 'dark')
+        script.setAttribute('data-lang', 'zh-CN')
+        script.setAttribute('data-loading', 'lazy')
+        script.setAttribute('crossorigin', 'anonymous')
+        script.async = true
+
+        container.innerHTML = ''
+        container.appendChild(script)
+      }
+    }, { rootMargin: '300px' })
+
+    observer.observe(container)
+  })()
+</script>

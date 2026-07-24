@@ -1,0 +1,42 @@
+---
+// English post listing
+import { getCollection } from 'astro:content'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import { t } from '@i18n/ui'
+
+const locale = 'en'
+const strings = t(locale)
+
+function cleanSlug(id: string) {
+  return id.replace(/\/index\.(mdx|md)$/, '').replace(/\.(mdx|md)$/, '')
+}
+
+const posts = (await getCollection('posts'))
+  .filter(p => !p.data.draft || import.meta.env.DEV)
+  .filter(p => (p.data.locale || 'zh-CN') === locale)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+}
+---
+
+<BaseLayout title={strings.posts.heading}>
+  <h1>{strings.posts.heading}</h1>
+
+  <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem; padding: 1rem 0;">
+    {posts.map(post => (
+      <li>
+        <a href={`/en/posts/${cleanSlug(post.id)}`}>
+          <strong>{post.data.title}</strong>
+        </a>
+        <span style="color: var(--text-muted); font-size: 0.82rem; margin-left: 0.5rem;">
+          {formatDate(post.data.date)}
+        </span>
+        <span class={`stage-badge stage-${post.data.stage}`} style="margin-left: 0.5rem;">
+          Stage {post.data.stage}
+        </span>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

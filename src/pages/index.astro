@@ -1,0 +1,70 @@
+---
+// Homepage — post listing with stage indicators, locale-aware.
+import { getCollection } from 'astro:content'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import { t } from '@i18n/ui'
+
+const locale = Astro.url.pathname.startsWith('/en') ? 'en' : 'zh-CN'
+const strings = t(locale)
+
+function cleanSlug(id: string) {
+  return id.replace(/\/index\.(mdx|md)$/, '').replace(/\.(mdx|md)$/, '').replace(/\/(en|zh-CN)$/, '')
+}
+
+const posts = (await getCollection('posts'))
+  .filter(p => !p.data.draft || import.meta.env.DEV)
+  .filter(p => (p.data.locale || 'zh-CN') === locale)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+
+function formatDate(d: Date) {
+  const l = locale === 'en' ? 'en-US' : 'zh-CN'
+  return d.toLocaleDateString(l, { year: 'numeric', month: 'long', day: 'numeric' })
+}
+---
+
+<BaseLayout title={strings.site.name} description={strings.site.description}>
+  <div style="padding: 2rem 0;">
+    <h1 style="font-size: 1.4rem; margin-bottom: 0.5rem;">
+      {strings.home.heading}
+    </h1>
+    <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem;">
+      {strings.home.tagline}
+    </p>
+
+    <ul style="list-style: none; display: flex; flex-direction: column; gap: 1.2rem;">
+      {posts.map(post => (
+        <li style="
+          padding: 1rem 1.2rem;
+          background: var(--bg-elevated);
+          border: 1px solid var(--border);
+          border-radius: var(--radius);
+          transition: border-color 0.2s;
+        ">
+          <a href={`${locale === 'en' ? '/en' : ''}/posts/${cleanSlug(post.id)}`} style="display: block;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span style="font-weight: 600; font-size: 1.1rem;">{post.data.title}</span>
+              <span class={`stage-badge stage-${post.data.stage}`}>Stage {post.data.stage}</span>
+            </div>
+            <div style="margin-top: 0.3rem; font-size: 0.82rem; color: var(--text-muted);">
+              {formatDate(post.data.date)}
+              {post.data.concepts.length > 0 && (
+                <span> — {post.data.concepts.join(', ')}</span>
+              )}
+            </div>
+            {post.data.summary && (
+              <p style="margin-top: 0.4rem; font-size: 0.9rem; color: var(--text-muted);">
+                {post.data.summary}
+              </p>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    {posts.length === 0 && (
+      <p style="color: var(--text-muted); text-align: center; padding: 3rem;">
+        {strings.home.empty}
+      </p>
+    )}
+  </div>
+</BaseLayout>

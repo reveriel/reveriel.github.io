@@ -1,0 +1,50 @@
+---
+title: "Termbox, an API for text-based UI"
+date: 2018-04-23
+stage: 1
+prerequisites: []
+concepts: [ps]
+tags: []
+summary: "[Termbox](https://github.com/nsf/termbox) 之前就在 haskell 库里面看到过, 现在又在 lua 里面看到了.
+似乎各个语言中都有这个库. 字符界面的 API 感觉挺酷的, 而且在实现简单程序 demo 时也可以考虑使用字符界面而不是GUI. 看一看这个 API 是怎么设计"
+---
+
+[Termbox](https://github.com/nsf/termbox) 之前就在 haskell 库里面看到过, 现在又在 lua 里面看到了.
+似乎各个语言中都有这个库.
+
+字符界面的 API 感觉挺酷的, 而且在实现简单程序 demo 时也可以考虑使用字符界面而不是GUI.
+
+看一看这个 API 是怎么设计的吧.
+
+
+
+Viewing terminals as a table of fixed-size cells and input being a stream of
+structured messages.
+
+把终端看成一个长方形数组, 要求等宽字体 (CJK 会有点问题).
+
+先别看 termbox 是怎么设计的. 想想自己会怎么设计?
+
+```
+global window { width, height }
+clear()
+draw()
+set(x, y, char)
+```
+
+最基本的操作就这些了. 再看 termbox 的设计.
+
+- [termfx | lua](http://tset.de/termfx/README.html)
+- [termbox | go](https://godoc.org/github.com/nsf/termbox-go)
+
+啊, UI 的API 除了画画, 最重要的的还有 Event 这个东西, 就这么简单.
+
+画画的功能上, 还能增加 "子窗口" 功能..
+
+啊, 无聊.
+
+
+## ps
+
+看到一个 用 termfx 的小编辑器 [mle](https://github.com/adsr/mle),
+挺感兴趣的, 有时间可以看一下. 编辑器算是最常用的软件了, 当然会好奇里面如何设计.

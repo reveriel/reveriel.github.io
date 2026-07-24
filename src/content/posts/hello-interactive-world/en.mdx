@@ -1,0 +1,290 @@
+---
+title: "Reveriel: Designing an Interactive Knowledge System"
+date: 2026-07-23
+locale: en
+stage: 1
+prerequisites: []
+concepts: [reveriel-architecture, knowledge-graph, interactive-components, mdx-authoring, static-site-seo]
+tags: [meta, architecture]
+summary: "Reveriel is an interactive knowledge system disguised as a blog. This article explains its design — directory structure, content pipeline, component system, knowledge graph, branding & SEO — and why games are a superior knowledge carrier to dead books."
+---
+
+import ShaderPlayground from '@components/ShaderPlayground.astro'
+import CodeCell from '@components/CodeCell.astro'
+import QuizChain from '@components/QuizChain.astro'
+import ProofStep from '@components/ProofStep.astro'
+import WasmDemo from '@components/WasmDemo.astro'
+
+## The Problem: Why Books Aren't Good Enough
+
+Open a textbook. It assumes you'll read from page one to the last. It doesn't check if you actually understand. It can't respond to your mistakes. Skip the hard parts, it won't protest. Misunderstand a concept, it won't correct you. Lose interest, it won't pull you back.
+
+**Books are dead.** They sit on paper waiting for you to turn pages, and page-turning is a one-way act that requires no feedback.
+
+A good game, on the other hand — like *Portal* or *Baba Is You* — doesn't hand you a rulebook at all. It gives you a safe environment for trial and error, where you learn by **doing**. Failure has no penalty. Success gets instant feedback. Difficulty escalates gradually. Every new level builds on the skills from the last.
+
+<QuizChain
+  checkpoint={true}
+  questions={[
+    {
+      text: "What is the fundamental problem with traditional textbooks, according to this article?",
+      options: [
+        "They are one-way, passive, and provide no feedback",
+        "They are too expensive",
+        "They aren't academic enough",
+        "Their typography is ugly"
+      ],
+      answer: 0,
+      hint: 'Think about the difference between "dead" and "alive."'
+    }
+  ]}
+/>
+
+**This blog's belief: games are a more advanced knowledge carrier than dead books.** It's not a "tech blog" — it's an **interactive knowledge system** disguised as a blog.
+
+---
+
+## Architecture: A Directory + A Build Script
+
+No database. No admin panel. No black boxes. The entire input is a directory on the filesystem. The output is a pile of HTML files you can open in any browser.
+
+```
+What the author writes (input)    What the framework does    What the reader sees (output)
+─────────────────────────────    ──────────────────────    ──────────────────────────
+
+src/content/posts/                                       https://reveriel.com/
+  shader-intro/                                          /posts/shader-intro/
+    index.mdx          →  MDX → HTML              →     Interactive page
+    demos/                                               Editable ShaderPlayground
+      circle.wgsl      →  Asset bundling          →     WGSL code embedded in page
+      sim.py           →  Pyodide reference       →     Python runs in reader's browser
+```
+
+**Five core principles:**
+
+1. **Files are articles.** One directory = one post = one self-contained knowledge unit. Directory name = URL.
+2. **Components are interactions.** Where interaction is needed, insert a component tag (like `<ShaderPlayground />`), not a bunch of `<script>` tags.
+3. **Metadata is the graph.** Frontmatter `prerequisites` and `concepts` auto-generate the knowledge dependency graph.
+4. **Load on demand.** WASM, shaders, Pyodide only load when used. The homepage is as fast as a plain text blog.
+5. **Search-engine friendly.** Static generation + semantic HTML + Open Graph tags + sitemap. Knowledge should be discoverable.
+
+---
+
+## Branding: Why "Reveriel"
+
+Reveriel comes from "reverie" — deep thought, daydreaming. Knowledge shouldn't be dry, one-way delivery. It should be an immersive, playable experience.
+
+Every article page title follows `{Article Title} — Reveriel`. Open Graph tags set `site_name` to `Reveriel · Interactive Knowledge`. These tags determine:
+
+- **How your link appears** in search engine results
+- **How cards preview** when shared on Twitter / Slack / Telegram
+- **How titles display** in RSS readers
+
+The tagline: **"Knowledge is play. Reading is gameplay."** This tagline pushes back against the traditional concept of "reading a book" — there are no books here, only levels.
+
+---
+
+## Content Pipeline: MDX → Interactive Page
+
+The data flow:
+
+```
+index.mdx (you write)
+    │
+    ├── YAML frontmatter    →  Metadata (title, stage, concepts...)
+    │                         →  Knowledge graph database
+    │
+    ├── Markdown body       →  Astro MDX parser
+    │                         →  Shiki syntax highlighting
+    │                         →  HTML
+    │
+    └── Component tags       →  Astro component rendering
+        <ShaderPlayground />  →  WebGPU initialization script
+        <CodeCell />          →  Pyodide / JS runtime
+        <QuizChain />         →  Interactive quiz logic
+        <ProofStep />         →  Collapsible <details>
+        <GiscusComments />    →  GitHub Discussions comments
+```
+
+At build time (`npm run build`), Astro walks all `.mdx` files, extracts frontmatter, renders Markdown to HTML, replaces component tags with real interactive code, and outputs pure static files to `dist/`.
+
+**Key point: the output is static HTML + CSS + JS. No server needed.** Deploy to GitHub Pages, Cloudflare Pages, or anywhere that hosts static files.
+
+---
+
+## Component System: How Interaction Works
+
+This framework provides a set of **interactive components**. Each solves a specific teaching need:
+
+| Component | Problem it solves | Reader experience |
+|-----------|-------------------|-------------------|
+| `<ShaderPlayground>` | How to intuitively understand shaders | Edit code → see results in real-time |
+| `<CodeCell>` | Code isn't meant to be "looked at" | Run JS / Python in the browser |
+| `<QuizChain>` | How to verify the reader actually understands | Progressive Q&A, pass to unlock next |
+| `<ProofStep>` | Math proofs are disorienting | Reader controls their own pace |
+| `<Simulation>` | Parameter changes can't be described in text | Drag sliders, watch changes live |
+| `<WasmDemo>` | How to run high-performance compute | Rust → WASM, load on demand |
+| `<GiscusComments>` | Readers want to discuss, question, challenge | GitHub Discussions, lazy-loaded |
+
+### What is an Astro Component?
+
+You might wonder: where do tags like `ShaderPlayground` and `CodeCell` come from?
+
+They are **Astro components** — `.astro` files in `src/components/`. An `.astro` file looks like this:
+
+```astro
+---
+// Top section (between --- markers): JS/TS, runs at BUILD TIME
+interface Props {
+  width?: number
+  height?: number
+}
+const { width = 640, height = 360 } = Astro.props
+---
+
+<!-- Bottom section: HTML template, output as static HTML at build time -->
+<div class="interactive-block">
+  <canvas id="my-canvas" width={width} height={height}></canvas>
+</div>
+
+<script>
+  // JS in <script> tags runs in the READER'S BROWSER
+  const canvas = document.getElementById('my-canvas')
+  // ... WebGPU init ...
+</script>
+```
+
+**Key insight:** Astro components have two execution environments —
+
+| Where it runs | When | What it does |
+|---------------|------|--------------|
+| Code between `---` | **Build time** (your machine) | Process props, read files, generate HTML |
+| Code in `<script>` tags | **Runtime** (reader's browser) | Manipulate DOM, init WebGPU, handle user input |
+
+After build, everything outside `<script>` tags has become **pure HTML strings**. That's why this blog needs no server — all logic either executes at build time or loads on demand in the reader's browser.
+
+---
+
+## WASM: Running Rust in the Browser
+
+When computation exceeds JavaScript's capabilities (physics simulation, image processing, numerical computing), compile Rust to WebAssembly and run it directly in the browser.
+
+Below is a **Mandelbrot set** WASM renderer. Core computation in Rust, compiled to `.wasm`, loaded via `<WasmDemo>`:
+
+<WasmDemo
+  wasm="./demos/pkg/mandelbrot_bg.wasm"
+  js="./demos/pkg/mandelbrot.js"
+  width={640}
+  height={400}
+/>
+
+The WASM module is also lazy-loaded — download and initialization only begin when the reader scrolls to it.
+
+---
+
+## SEO: Making Knowledge Discoverable
+
+A blog no one reads is pointless no matter how interactive. Reveriel includes SEO infrastructure from day one:
+
+**Every article auto-generates:**
+- `<title>` and `<meta description>` (from frontmatter summary)
+- **Open Graph tags** (`og:title`, `og:description`, `og:image`, `og:type: article`) — controls social media share cards
+- **Twitter Card** (`summary_large_image`) — link previews in Twitter / Slack / Telegram
+- **`article:published_time`** and **`article:tag`** — structured time + tags for search engines
+- Semantic HTML (`<article>`, `<header>`, `<time>`, `<nav>`) — helps search engines understand page structure
+
+**Coming soon:** `sitemap.xml`, RSS Feed, JSON-LD structured data.
+
+### Comments: Knowledge Needs Discussion
+
+Every article has **Giscus** integrated at the bottom — a comment system based on GitHub Discussions:
+
+- Readers log in with GitHub → leave comments under articles
+- Comment data stored in your repo's Discussions (no third-party database)
+- Lazy-loaded via IntersectionObserver — no script loads until scrolled to
+- Dark theme, configurable language
+
+If Giscus isn't configured, a placeholder message is shown instead — no broken UI.
+
+---
+
+## Series: Linear Learning Paths
+
+Some knowledge is naturally sequential. "Intro to Shaders" → "Drawing Shapes with SDF" → "Ray Marching for 3D" — these three form a linear series.
+
+Declare a series in frontmatter:
+
+```yaml
+---
+title: "Intro to SDF"
+series: "shader-from-scratch"
+seriesOrder: 2    # Position in the series
+---
+```
+
+All articles in a series are auto-collected and sorted. Visit `/graph?series=shader-from-scratch` to see the linear reading order.
+
+**Stage and Series are orthogonal:**
+
+- **Stage** describes difficulty (1→5 progression, cross-series)
+- **Series** describes topic (linear reading order within a topic)
+
+A Stage 4 article could be #3 in a series — meaning that series gets hard toward the end.
+
+---
+
+## Progressive Difficulty: The Stage System
+
+Not all knowledge should have the same interaction density. The framework defines 5 Stages:
+
+```
+Stage 1 🌱:  90% reading + 10% demo          (Reader is new, mostly observing)
+Stage 2 🌿:  70% reading + 20% interaction + 10% challenge  (Starting to engage)
+Stage 3 🌳:  40% reading + 40% interaction + 20% challenge  (Hands-on focused)
+Stage 4 ⚡:  20% reading + 50% interaction + 30% challenge  (Integrated application)
+Stage 5 🔥:  10% direction + 70% free exploration + 20% creation (Reader explores the frontier)
+```
+
+**Scaffolding removal** is a core game design principle:
+
+- Stage 1 articles have almost no prerequisites, interaction is mostly "watch"
+- Stage 3 articles begin recursive prerequisite chains, interaction is mostly "do"
+- Stage 5 articles give direction, not answers — the reader should write their own path tracer, not follow a tutorial
+
+This article itself is Stage 1. It requires no prerequisites and has low interaction density — you just need to read.
+
+---
+
+## Proof: This Design Is Correct
+
+<ProofStep summary="Proof: A file-driven interactive blog is better for knowledge dissemination than a database-driven CMS">
+**Premise 1: Knowledge should be reproducible.** An article + its interactive code should form a closed, executable system. Readers should be able to **re-run** all computations from the article in their own browser.
+
+**Premise 2: Knowledge should be structured.** Concepts have prerequisite dependencies. A reader who doesn't know "vectors" can't understand "matrix multiplication" — this dependency should be explicitly modeled, not left to guesswork.
+
+**Premise 3: Knowledge should be verified.** Reading ≠ learning. Interactive challenges (QuizChain, CodeCell modification tasks) let readers **apply** newly learned concepts to confirm understanding.
+
+File-driven (not database-driven) satisfies Premise 1: article directories are self-contained, version-controlled, and copyable. The knowledge graph satisfies Premise 2. Interactive components satisfy Premise 3.
+
+Therefore, this design is better for knowledge dissemination than traditional Markdown → HTML static blogs. ∎
+</ProofStep>
+
+---
+
+## What's Next
+
+| Status | Item | Notes |
+|--------|------|-------|
+| ✅ Done | **Framework skeleton** | Astro 5 + MDX + Shiki highlighting |
+| ✅ Done | **Interactive component library** | ShaderPlayground, CodeCell, QuizChain, ProofStep, WasmDemo, Simulation |
+| ✅ Done | **Knowledge graph** | Concept DAG + Stage groups + Series filter, /graph visualization |
+| ✅ Done | **Branding & SEO** | OG / Twitter Card tags, semantic HTML, Giscus comments |
+| ✅ Done | **Old post migration** | 10 non-math posts migrated; math posts in archive/ pending math rendering fix |
+| ✅ Done | **i18n support** | Chinese (default) + English, URL-based routing, language switcher |
+| 🔜 Now | **sitemap + RSS** | `@astrojs/sitemap` + `@astrojs/rss` |
+| 🔜 Now | **First real interactive article** | Shader intro or linear algebra visualization |
+| 📋 Soon | **Math rendering** | Fix MDX + LaTeX build-time parsing, migrate math posts from archive/ |
+| 📋 Soon | WebGPU compute shader | Beyond rendering: parallel computation on GPU |
+| 📋 Later | Reader progress tracking | localStorage-based concept unlock tracking |
+
+**Reveriel isn't about showing off a tech stack.** It explores a question: **what happens when knowledge isn't printed on paper waiting for you to read it, but designed like a well-crafted game waiting for you to play?**

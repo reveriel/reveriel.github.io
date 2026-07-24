@@ -1,0 +1,14 @@
+
+export default new Map([
+["src/content/posts/hello-interactive-world/en.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fhello-interactive-world%2Fen.mdx&astroContentModuleFlag=true")],
+["src/content/posts/file-server-on-ubuntu/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Ffile-server-on-ubuntu%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/posts/object-tracking-on-rpi/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fobject-tracking-on-rpi%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/posts/hello-interactive-world/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fhello-interactive-world%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/posts/system-server-high-cpu-usage/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fsystem-server-high-cpu-usage%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/posts/mininet-simulation/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fmininet-simulation%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/posts/network-simulator-ns-3/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fnetwork-simulator-ns-3%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/posts/web-server-using-nodejs/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fweb-server-using-nodejs%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/posts/on-the-fly-batching/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fon-the-fly-batching%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/posts/termbox-an-api-for-text-based-ui/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Ftermbox-an-api-for-text-based-ui%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/posts/记全国大学生-iot-创新大赛/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2F%E8%AE%B0%E5%85%A8%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F-iot-%E5%88%9B%E6%96%B0%E5%A4%A7%E8%B5%9B%2Findex.mdx&astroContentModuleFlag=true")]]);
+		

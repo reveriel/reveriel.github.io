@@ -1,0 +1,166 @@
+---
+// CodeCell.astro — runnable code cell with JS or Python (Pyodide).
+// Uses a <textarea> for reliable editing. Syntax highlighting via highlight.js.
+
+interface Props {
+  lang?: 'js' | 'python'
+  caption?: string
+  code?: string
+}
+
+const { lang = 'js', caption, code } = Astro.props
+const id = `cell-${Math.random().toString(36).slice(2, 8)}`
+const langLabel = lang === 'python' ? '🐍 Python (Pyodide)' : '🟨 JavaScript'
+const hlLang = lang === 'python' ? 'python' : 'javascript'
+---
+
+<div class="interactive-block" id={id}>
+  <div class="interactive-block__header">
+    <span>{langLabel}{caption ? ` — ${caption}` : ''}</span>
+    <button id="{id}-run" style="
+      font-size: 0.75rem; background: var(--accent-dim); color: #fff;
+      border: none; border-radius: 4px; padding: 0.25em 0.8em; cursor: pointer;
+    ">▶ 运行</button>
+  </div>
+  <div class="interactive-block__body">
+    <!-- Editable textarea (reliable, no MDX-interpretation issues) -->
+    <textarea
+      id="{id}-code"
+      data-lang={hlLang}
+      spellcheck="false"
+      style="
+        width: 100%; font-family: var(--font-mono); font-size: 0.82rem;
+        background: var(--bg); color: var(--text);
+        border: 1px solid var(--border); border-radius: var(--radius);
+        padding: 0.8rem; min-height: 5rem; resize: vertical;
+        line-height: 1.5; tab-size: 2; outline: none;
+        white-space: pre; overflow-x: auto;
+      "
+    >{code || ''}</textarea>
+    <!-- Output area -->
+    <pre
+      id="{id}-output"
+      style="
+        font-family: var(--font-mono); font-size: 0.8rem;
+        background: var(--bg-card); border: 1px solid var(--border);
+        border-radius: 4px; padding: 0.6rem 0.8rem; margin-top: 0.5rem;
+        min-height: 1.5rem; color: var(--text-muted); white-space: pre-wrap;
+      "
+    >点击"运行"以执行代码</pre>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const btn = document.getElementById('{id}-run') as HTMLButtonElement | null
+    const codeEl = document.getElementById('{id}-code') as HTMLTextAreaElement | null
+    const outputEl = document.getElementById('{id}-output') as HTMLPreElement | null
+    if (!btn || !codeEl || !outputEl) return
+
+    // ── Load highlight.js on demand ─────────────────────────
+
+    let hlReady = false
+    async function ensureHL() {
+      if (hlReady) return
+      // @ts-ignore
+      if (typeof hljs !== 'undefined') { hlReady = true; return }
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css'
+      document.head.appendChild(link)
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js'
+      await new Promise((res, rej) => { script.onload = res; script.onerror = rej; document.head.appendChild(script) })
+      hlReady = true
+    }
+
+    // ── Syntax highlight textarea content ────────────────────
+
+    async function highlight() {
+      await ensureHL()
+      const text = codeEl!.value
+      const lang = codeEl!.dataset.lang || 'javascript'
+      // @ts-ignore
+      if (typeof hljs === 'undefined') return
+      try {
+        // @ts-ignore
+        const result = hljs.highlight(text, { language: lang })
+        codeEl!.value = result.value
+      } catch {
+        // highlight.js may not have the language — ignore
+      }
+    }
+
+    // ── Highlight initially ──────────────────────────────────
+
+    // Only attempt highlighting when the cell enters viewport
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        highlight().catch(() => {})
+        observer.disconnect()
+      }
+    }, { rootMargin: '200px' })
+    observer.observe(codeEl)
+
+    // ── Run button ───────────────────────────────────────────
+
+    btn.addEventListener('click', async () => {
+      const code = codeEl.value || ''
+      outputEl.textContent = '运行中...'
+      outputEl.style.color = 'var(--text-muted)'
+
+      try {
+        if ('{lang}' === 'python') {
+          const py = await loadPyodide()
+          if (!py) {
+            outputEl.textContent = '❌ Pyodide 加载失败。'
+            outputEl.style.color = 'var(--danger)'
+            return
+          }
+          let output = ''
+          py.setStdout({ batched: (s: string) => { output += s + '\\n' } })
+          py.setStderr({ batched: (s: string) => { output += '[err] ' + s + '\\n' } })
+          py.runPython(code)
+          outputEl.textContent = output || '(无输出)'
+          outputEl.style.color = 'var(--success)'
+        } else {
+          const logs: string[] = []
+          const orig = console.log
+          console.log = (...args: any[]) => {
+            logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' '))
+            orig(...args)
+          }
+          try {
+            const result = eval(code)
+            if (result !== undefined) logs.push(String(result))
+            outputEl.textContent = logs.join('\\n') || '(无输出)'
+            outputEl.style.color = 'var(--success)'
+          } finally {
+            console.log = orig
+          }
+        }
+      } catch (err: any) {
+        outputEl.textContent = '❌ ' + (err?.message || err)
+        outputEl.style.color = 'var(--danger)'
+      }
+    })
+
+    // ── Pyodide singleton loader ─────────────────────────────
+
+    let pyodideP: Promise<any> | null = null
+    function loadPyodide(): Promise<any> {
+      if (pyodideP) return pyodideP
+      pyodideP = (async () => {
+        // @ts-ignore
+        if (typeof loadPyodide === 'undefined') {
+          const s = document.createElement('script')
+          s.src = 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js'
+          await new Promise((res, rej) => { s.onload = res; s.onerror = rej; document.head.appendChild(s) })
+        }
+        // @ts-ignore
+        return (window as any).loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/' })
+      })()
+      return pyodideP
+    }
+  })()
+</script>

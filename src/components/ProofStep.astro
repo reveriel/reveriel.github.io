@@ -1,0 +1,34 @@
+---
+// ProofStep.astro — collapsible proof. Readers expand at their own pace.
+
+interface Props {
+  summary: string
+  defaultOpen?: boolean
+}
+
+const { summary, defaultOpen = false } = Astro.props
+const id = `proof-${Math.random().toString(36).slice(2, 8)}`
+---
+
+<details
+  id={id}
+  class="interactive-block"
+  open={defaultOpen}
+  style="cursor: pointer;"
+>
+  <summary
+    style="
+      padding: 0.6rem 1rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      user-select: none;
+      background: var(--bg-card);
+      border-radius: var(--radius) var(--radius) 0 0;
+    "
+  >
+    📐 {summary}
+  </summary>
+  <div class="interactive-block__body" style="border-top: 1px solid var(--border);">
+    <slot />
+  </div>
+</details>

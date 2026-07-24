@@ -1,0 +1,203 @@
+---
+// QuizChain.astro — progressive question sequence.
+// Readers answer correctly (with hints) to unlock the next question.
+// Data is embedded in a <script type="application/json"> tag to avoid
+// HTML-attribute quote-escaping issues.
+
+interface Question {
+  text: string
+  type?: 'choice' | 'text'
+  options?: string[]
+  answer: number | string
+  hint?: string
+}
+
+interface Props {
+  questions: Question[]
+  checkpoint?: boolean
+}
+
+const { questions = [], checkpoint = true } = Astro.props
+const id = `quiz-${Math.random().toString(36).slice(2, 8)}`
+---
+
+<div id={id} class="interactive-block" data-checkpoint={checkpoint ? 'true' : 'false'}>
+  <div class="interactive-block__header">
+    <span>🎯 知识挑战 ({questions.length} 题)</span>
+    <span id="{id}-progress" style="font-size: 0.75rem;">0 / {questions.length}</span>
+  </div>
+  <div class="interactive-block__body" id="{id}-body">
+    <p style="color: var(--text-muted);">加载挑战中...</p>
+  </div>
+</div>
+
+<script type="application/json" id="{id}-data">
+{JSON.stringify(questions)}
+</script>
+
+<script>
+  (function() {
+    const root = document.getElementById('{id}')
+    const body = document.getElementById('{id}-body')
+    const progress = document.getElementById('{id}-progress')
+    const dataEl = document.getElementById('{id}-data')
+    if (!root || !body || !progress || !dataEl) return
+
+    const qs = JSON.parse(dataEl.textContent || '[]')
+    const useCheckpoint = root.dataset.checkpoint === 'true'
+    const storageKey = 'quiz:{id}'
+
+    // If no questions, nothing to do
+    if (!qs.length) {
+      body.innerHTML = '<p style="color: var(--text-muted);">暂无挑战。</p>'
+      return
+    }
+
+    let currentIndex = 0
+    let passed = 0
+
+    // Restore from localStorage if checkpoint mode
+    if (useCheckpoint) {
+      try {
+        const saved = localStorage.getItem(storageKey)
+        if (saved) {
+          const { idx, p } = JSON.parse(saved)
+          currentIndex = Math.min(idx, qs.length)
+          passed = Math.min(p, qs.length)
+        }
+      } catch {}
+    }
+
+    function save() {
+      if (useCheckpoint) {
+        localStorage.setItem(storageKey, JSON.stringify({ idx: currentIndex, p: passed }))
+      }
+    }
+
+    function checkAnswer(given: string | number) {
+      const q = qs[currentIndex]
+      const correct = q.answer
+
+      let isCorrect = false
+      if (typeof correct === 'number' && typeof given === 'number') {
+        isCorrect = given === correct
+      } else {
+        isCorrect = String(given).trim().toLowerCase() === String(correct).trim().toLowerCase()
+      }
+
+      const feedback = document.getElementById('{id}-feedback')
+      const step = body.querySelector('.quiz-step')
+      if (!feedback || !step) return
+
+      if (isCorrect) {
+        step.classList.remove('active')
+        step.classList.add('passed')
+        feedback.textContent = '✅ 正确！'
+        feedback.style.color = 'var(--success)'
+        passed++
+        save()
+        setTimeout(() => { currentIndex++; render() }, 800)
+      } else {
+        step.classList.add('failed')
+        feedback.textContent = q.type === 'text'
+          ? '❌ 不对，再试试。'
+          : '❌ 不对，再选一次。'
+        feedback.style.color = 'var(--danger)'
+        setTimeout(() => step.classList.remove('failed'), 600)
+      }
+    }
+
+    function render() {
+      progress.textContent = `${passed} / ${qs.length}`
+
+      if (currentIndex >= qs.length) {
+        body.innerHTML = `
+          <div style="text-align: center; padding: 2rem;">
+            <p style="font-size: 1.2rem; color: var(--success);">
+              ✅ 全部完成！通过了 ${passed}/${qs.length} 道挑战。
+            </p>
+            ${passed === qs.length
+              ? '<p style="color: var(--accent);">太棒了，你掌握了本章的所有概念。</p>'
+              : '<p style="color: var(--text-muted);">重新试试，你可以做得更好。</p>'}
+          </div>`
+        return
+      }
+
+      const q = qs[currentIndex]
+      const isText = q.type === 'text'
+
+      body.innerHTML = `
+        <div class="quiz-step active">
+          <p style="font-weight: 600; margin-bottom: 0.6rem;">
+            第 ${currentIndex + 1} 题：${q.text}
+          </p>
+          ${isText
+            ? `<input
+                type="text"
+                id="{id}-input"
+                placeholder="输入你的答案，按回车提交..."
+                style="
+                  width: 100%; font-family: var(--font-mono); font-size: 0.9rem;
+                  background: var(--bg); color: var(--text);
+                  border: 1px solid var(--border); border-radius: 4px;
+                  padding: 0.5em 0.7em; outline: none;
+                "
+              />`
+            : `<div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                ${(q.options || []).map((opt, i) => `
+                  <button
+                    data-idx="${i}"
+                    style="
+                      text-align: left; padding: 0.5em 0.8em;
+                      font-size: 0.9rem;
+                      background: var(--bg); color: var(--text);
+                      border: 1px solid var(--border); border-radius: 4px;
+                      cursor: pointer;
+                    "
+                    onmouseover="this.style.borderColor='var(--accent)'"
+                    onmouseout="this.style.borderColor='var(--border)'"
+                  >${opt}</button>`).join('')}
+              </div>`
+          }
+          <div
+            id="{id}-feedback"
+            style="margin-top: 0.5rem; font-size: 0.82rem; min-height: 1.5em;"
+          ></div>
+          ${q.hint ? `
+            <button
+              id="{id}-hint-btn"
+              style="
+                font-size: 0.75rem; background: none; color: var(--warning);
+                border: none; cursor: pointer; padding: 0.2em 0;
+              "
+            >💡 显示提示</button>` : ''}
+        </div>`
+
+      // Bind events
+      if (isText) {
+        const input = document.getElementById('{id}-input')
+        input?.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') checkAnswer((e.target as HTMLInputElement).value)
+        })
+        input?.focus()
+      } else {
+        body.querySelectorAll('button[data-idx]').forEach(btn => {
+          btn.addEventListener('click', () => checkAnswer(parseInt(btn.getAttribute('data-idx')!)))
+        })
+      }
+
+      const hintBtn = document.getElementById('{id}-hint-btn')
+      if (hintBtn) {
+        hintBtn.addEventListener('click', () => {
+          const fb = document.getElementById('{id}-feedback')
+          if (fb) {
+            fb.textContent = `💡 ${q.hint}`
+            fb.style.color = 'var(--warning)'
+          }
+        })
+      }
+    }
+
+    render()
+  })()
+</script>

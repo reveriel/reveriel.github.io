@@ -1,0 +1,17 @@
+{
+  "name": "bltblg",
+  "version": "2.0.0",
+  "description": "Interactive blog — games as knowledge carriers",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "post:new": "mkdir -p src/content/posts/$POST/demos && echo '---\ntitle: \"\"\ndate: '$(date +%Y-%m-%d)'\ndraft: true\nstage: 1\n---\n' > src/content/posts/$POST/index.mdx"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/rss": "^4.0.0",
+    "astro": "^5.0.0"
+  }
+}

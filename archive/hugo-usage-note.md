@@ -1,0 +1,145 @@
+---
+title: "Hugo Usage Note"
+date: 2019-02-21T16:09:53+08:00
+draft:
+---
+
+Notes about how to use hugo.
+
+<!--more-->
+
+## Basics
+
+Create a new post.
+
+``` shell
+hugo new posts/my-first-post.md
+```
+
+run server
+
+``` shell
+hugo server -D
+```
+
+`-D` for draft
+
+## deploy
+
+```
+./deploy.sh
+```
+
+## MathJax
+
+$$\frac{a}{b}$$
+
+在需要用到的 markdown 页面加上这个 :
+
+``` html
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+```
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+## javascript
+
+```html
+<p id = "count">  </p>
+
+<script>
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    var pp = document.getElementById("count");
+
+    async function b(){
+        var a;
+        for (a = 0; a < 100000; a++) {
+            pp.textContent = a + ""
+            await sleep(320)
+        }
+    }
+    b();
+</script>
+```
+
+<p id = "count">  </p>
+
+<script>
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    var pp = document.getElementById("count");
+
+    async function b(){
+        var a;
+        for (a = 0; a < 100000; a++) {
+            pp.textContent = a + ""
+            await sleep(320)
+        }
+    }
+    b();
+</script>
+
+# Others
+
+设置时的记录, 可以忘记了.
+
+## 安装 hugo
+
+``` shell
+go get -v github.com/gohugoio/hugo
+go install github.com/gohugoio/hugo
+```
+
+## 创建 site
+
+``` shell
+hugo new site quickstart
+```
+
+在 `~/site/quickstart` 创建目录.
+
+## theme
+
+adapted from https://themes.gohugo.io/hugo-primer/,
+这个超简洁, 像我这样的前端白痴也敢动手改.
+
+## host on GitHub
+
+[doc](https://gohugo.io/hosting-and-deployment/hosting-on-github/)
+
+## 域名
+
+之前在一个小网站上注册的域名, 后来那网站看起来要凉了, 就把域名转移到 godaddy 了,
+然后域名一直属于 parked 状态, 指向 godaddy 的广告页.
+
+参考
+
+[Using a Custom Domain with Github Pages](https://help.github.com/en/articles/using-a-custom-domain-with-github-pages)
+
+[manually Forwarding or Masking your domain or subdomain](https://www.godaddy.com/help/manually-forwarding-or-masking-your-domain-or-subdomain-422)
+
+![DNS](/img/Screenshot 2019-02-21 at 9.47.06 PM.png)
+
+<img style="width: 400px" src="/img/Screenshot 2019-02-21 at 10.00.30 PM.png">
+</img>
+
+<!-- ![DNS Forwarding](/img/Screenshot 2019-02-21 at 10.00.30 PM.png) -->
+反正捣鼓捣鼓, 就行了.
+
+<small style="color:gray">
+PS: 如果 markdown 不能调整图片大小, 可以直接用 html..
+
+``` html
+<img style="width: 400px" src="/img/Screenshot 2019-02-21 at 10.00.30 PM.png">
+</img>
+```
+</small>
+
+godaddy 的域名转发的 ip 好像被墙了, 在国内用不了, 所以 reveriel.com 不能自动跳到
+www.reveriel.com, 虽然设置好了..
