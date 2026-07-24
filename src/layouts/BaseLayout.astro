@@ -1,6 +1,7 @@
 ---
 // BaseLayout.astro — every page wraps in this.
 import { t } from '@i18n/ui'
+import '@styles/global.css'
 
 interface Props {
   title: string
@@ -51,7 +52,6 @@ const otherPath = locale === 'zh-CN'
     <meta name="twitter:image" content={image} />
 
     <title>{title === SITE ? `${SITE} · ${TAGLINE}` : `${title} — ${SITE}`}</title>
-    <link rel="stylesheet" href="/src/styles/global.css" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <slot name="head" />
   </head>
