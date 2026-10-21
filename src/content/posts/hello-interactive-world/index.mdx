@@ -1,11 +1,19 @@
 ---
-title: "Reveriel：一个交互式知识系统的设计"
+title: Reveriel：一个交互式知识系统的设计
 date: 2026-07-23
 stage: 1
-prerequisites: []
-concepts: [reveriel-architecture, knowledge-graph, interactive-components, mdx-authoring, static-site-seo]
-tags: [meta, architecture]
-summary: "Reveriel 是一个交互式知识系统，伪装成博客的样子。这篇文章解释它的设计哲学、目录结构、内容管线、组件系统、知识图谱、品牌与 SEO——以及为什么游戏是比书本更先进的知识载体。"
+concepts:
+  - reveriel-architecture
+  - knowledge-graph
+  - interactive-components
+  - mdx-authoring
+  - static-site-seo
+tags:
+  - meta
+  - architecture
+summary: Reveriel 是一个交互式知识系统，伪装成博客的样子。这篇文章解释它的设计哲学、目录结构、内容管线、组件系统、知识图谱、品牌与 SEO——以及为什么游戏是比书本更先进的知识载体。
+locale: zh-CN
+draft: false
 ---
 
 import ShaderPlayground from '@components/ShaderPlayground.astro'
@@ -16,9 +24,10 @@ import WasmDemo from '@components/WasmDemo.astro'
 
 ## 问题：为什么书本不够好
 
-翻开一本教科书。它假设你会从第一页读到最后一页，它不检查你是否真的理解了，它不能回应你的错误。你跳过困难的部分，它不抗议；你误解了一个概念，它不纠正；你失去兴趣，它不挽留。
-
-**书是死的。** 它在纸上等待你翻阅，而翻阅是一种单向的、不需要反馈的行为。
+书本三大罪状
+* 死的，没有更新，或者更新极慢，以年为单位
+* 死的，没有交互，只是单方面的向你传递信息，不需要读者的反馈。
+* 单媒体的，只有文字和静态图片，无法充分刺激人的大脑，难以被记忆、理解。
 
 另一方面，一个好的游戏——比如《传送门》或《Baba Is You》——根本不会给你一本规则手册。它给你一个安全的、可以试错的环境，让你通过**做**来学习。失败没有惩罚，成功有即时的反馈。难度逐步增加，每一个新关卡都建立在上一个关卡学到的技能之上。
 
@@ -40,6 +49,8 @@ import WasmDemo from '@components/WasmDemo.astro'
 />
 
 **这个博客的信仰是：游戏是比死书本更先进的知识载体。** 它不是一个"技术博客"——它是一个**交互式知识系统**，伪装成博客的样子。
+
+总有一天，世界上几乎所有的知识都来自 AI， 而对于人类来说，理解知识会成为最重要的事情。
 
 ---
 
@@ -66,20 +77,6 @@ src/content/posts/                             https://reveriel.com/
 3. **元数据即图谱。** frontmatter 里的 `prerequisites` 和 `concepts` 自动生成知识依赖关系。
 4. **按需加载。** WASM、shader、Pyodide 只在使用时加载。首页的速度和纯文本博客一样快。
 5. **对搜索引擎友好。** 静态生成 + 语义 HTML + Open Graph 标签 + sitemap，让知识能被发现。
-
----
-
-## 品牌：为什么叫 Reveriel
-
-Reveriel 这个名字来自 "reverie"（沉思 / 幻想）—— 知识不应该是枯燥的、单向的灌输，而应该是一种沉浸式的、可以玩的体验。
-
-每篇文章的页面 title 格式是 `{文章标题} — Reveriel`，Open Graph 标签里 site_name 是 `Reveriel · Interactive Knowledge`。这些标签决定了：
-
-- 搜索引擎结果页上**你的链接长什么样**
-- 分享到 Twitter / Slack / Telegram 时**卡片怎么展示**
-- RSS 阅读器里**标题怎么显示**
-
-Tagline 是 **"知识是游戏，阅读是游玩"**。这个 tagline 本身就在回击传统的"读书"概念——这里没有书，只有关卡。
 
 ---
 
@@ -426,7 +423,7 @@ fn main(@builtin(position) coord: vec4f) -> @location(0) vec4f {
 
 ## 接下来
 
-以下是 Reveriel 的路线图：
+以下是网站的路线图：
 
 | 状态 | 内容 | 说明 |
 |------|------|------|
@@ -442,4 +439,4 @@ fn main(@builtin(position) coord: vec4f) -> @location(0) vec4f {
 | 📋 远期 | 读者进度追踪 | localStorage 记录已解锁的概念 |
 | 📋 远期 | 多语言支持 | 概念 ID 跨语言共享，`zh.mdx` / `en.mdx` |
 
-**Reveriel 不是用来展示技术栈的。** 它探索一个问题：**如果知识不是印在纸上等你读，而是像一个精心设计的游戏一样等你玩——会发生什么？**
+
