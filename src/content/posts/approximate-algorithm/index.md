@@ -1,0 +1,30 @@
+---
+title: "approximate algorithm"
+date: 2018-01-08
+stage: 1
+prerequisites: []
+concepts: [近似算法, np-completeness]
+tags: []
+summary: "总结"
+---
+
+## 近似算法
+
+总结
+
+
+
+
+## NP-completeness
+
+- 可计算
+- 计算模型
+- Church-Turing
+- Halt(Program, input)
+- 确定型图灵机
+- 非确定型图灵机sa
+- **P类问题**: 一类问题的集合, 对其中的任一问题, 都存在
+  一个确定型图灵机 $M$ 和一个多项式 $p$, 对于该问题的任何(编码)长度为$n$ 的实例, $M$ 都能在 $p(n)$ 步内, 给出回答. 即*多项时间内可解的问题*
+- **NP类问题**: 一类问题的集合, 对其中的任一问题, 都存在一个非确定型图灵机 $M$ 和
+  一个多项式$p$, 对该问题的任何(编码)长度为 $n$ 的实例, $M$ 都能在 $p(n)$ 步内,
+  给出对该实例的回答.  若 NTM
