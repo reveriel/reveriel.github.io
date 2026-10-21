@@ -1,6 +1,6 @@
 ---
 // PostLayout.astro — wraps every blog article.
-import type { CollectionEntry } from 'astro:content'
+import { getCollection, type CollectionEntry } from 'astro:content'
 import BaseLayout from './BaseLayout.astro'
 import GiscusComments from '@components/GiscusComments.astro'
 import { t } from '@i18n/ui'
@@ -13,6 +13,21 @@ const { title, date, stage, series, seriesOrder, prerequisites, concepts, tags, 
 const locale = Astro.url.pathname.startsWith('/en/') ? 'en' : 'zh-CN'
 const strings = t(locale)
 
+const BASE_URL = 'https://www.reveriel.com'
+const slug = post.id
+  .replace(/\/index\.(mdx|md)$/, '')
+  .replace(/\.(mdx|md)$/, '')
+  .replace(/\/(en|zh-CN)$/, '')
+const allPosts = await getCollection('posts')
+const hasZh = allPosts.some((p) => {
+  const s = p.id.replace(/\/index\.(mdx|md)$/, '').replace(/\.(mdx|md)$/, '').replace(/\/(en|zh-CN)$/, '')
+  return s === slug && (p.data.locale || 'zh-CN') === 'zh-CN'
+})
+const hasEn = allPosts.some((p) => {
+  const s = p.id.replace(/\/index\.(mdx|md)$/, '').replace(/\.(mdx|md)$/, '').replace(/\/(en|zh-CN)$/, '')
+  return s === slug && (p.data.locale || 'zh-CN') === 'en'
+})
+
 function formatDate(d: Date) {
   const l = locale === 'en' ? 'en-US' : 'zh-CN'
   return d.toLocaleDateString(l, { year: 'numeric', month: 'long', day: 'numeric' })
@@ -23,8 +38,9 @@ function formatDate(d: Date) {
   <Fragment slot="head">
     <meta property="article:published_time" content={date.toISOString()} />
     {tags.map(t => <meta property="article:tag" content={t} />)}
-    <link rel="alternate" hreflang="zh-CN" href={`https://www.reveriel.com/posts/${post.id.replace(/\/index\.(mdx|md)$/, '').replace(/\.(mdx|md)$/, '').replace(/\/(en|zh-CN)$/, '')}`} />
-    <link rel="alternate" hreflang="en" href={`https://reveriel.com/en/posts/${post.id.replace(/\/index\.(mdx|md)$/, '').replace(/\.(mdx|md)$/, '').replace(/\/(en|zh-CN)$/, '')}`} />
+    {hasZh && <link rel="alternate" hreflang="zh-CN" href={`${BASE_URL}/posts/${slug}/`} />}
+    {hasEn && <link rel="alternate" hreflang="en" href={`${BASE_URL}/en/posts/${slug}/`} />}
+    {hasZh && <link rel="alternate" hreflang="x-default" href={`${BASE_URL}/posts/${slug}/`} />}
   </Fragment>
 
   <article>
