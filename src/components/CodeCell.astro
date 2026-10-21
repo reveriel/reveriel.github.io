@@ -1,6 +1,9 @@
 ---
 // CodeCell.astro — runnable code cell with JS or Python (Pyodide).
-// Uses a <textarea> for reliable editing. Syntax highlighting via highlight.js.
+// Uses a plain <textarea> for reliable editing (no HTML injection).
+//
+// IMPORTANT: Astro does not interpolate `{...}` inside <script> blocks or
+// string attributes, so everything is wired through data attributes.
 
 interface Props {
   lang?: 'js' | 'python'
@@ -9,24 +12,20 @@ interface Props {
 }
 
 const { lang = 'js', caption, code } = Astro.props
-const id = `cell-${Math.random().toString(36).slice(2, 8)}`
 const langLabel = lang === 'python' ? '🐍 Python (Pyodide)' : '🟨 JavaScript'
-const hlLang = lang === 'python' ? 'python' : 'javascript'
 ---
 
-<div class="interactive-block" id={id}>
+<div class="interactive-block" data-code-cell data-lang={lang}>
   <div class="interactive-block__header">
     <span>{langLabel}{caption ? ` — ${caption}` : ''}</span>
-    <button id="{id}-run" style="
+    <button data-role="run" style="
       font-size: 0.75rem; background: var(--accent-dim); color: #fff;
       border: none; border-radius: 4px; padding: 0.25em 0.8em; cursor: pointer;
     ">▶ 运行</button>
   </div>
   <div class="interactive-block__body">
-    <!-- Editable textarea (reliable, no MDX-interpretation issues) -->
     <textarea
-      id="{id}-code"
-      data-lang={hlLang}
+      data-role="code"
       spellcheck="false"
       style="
         width: 100%; font-family: var(--font-mono); font-size: 0.82rem;
@@ -37,9 +36,8 @@ const hlLang = lang === 'python' ? 'python' : 'javascript'
         white-space: pre; overflow-x: auto;
       "
     >{code || ''}</textarea>
-    <!-- Output area -->
     <pre
-      id="{id}-output"
+      data-role="output"
       style="
         font-family: var(--font-mono); font-size: 0.8rem;
         background: var(--bg-card); border: 1px solid var(--border);
@@ -51,116 +49,75 @@ const hlLang = lang === 'python' ? 'python' : 'javascript'
 </div>
 
 <script>
-  (function() {
-    const btn = document.getElementById('{id}-run') as HTMLButtonElement | null
-    const codeEl = document.getElementById('{id}-code') as HTMLTextAreaElement | null
-    const outputEl = document.getElementById('{id}-output') as HTMLPreElement | null
+  let pyodidePromise: Promise<any> | null = null
+
+  function loadPyodideOnce(): Promise<any> {
+    if (pyodidePromise) return pyodidePromise
+    pyodidePromise = (async () => {
+      const w = window as any
+      if (typeof w.loadPyodide === 'undefined') {
+        const s = document.createElement('script')
+        s.src = 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js'
+        await new Promise<void>((resolve, reject) => {
+          s.onload = () => resolve()
+          s.onerror = () => reject(new Error('Pyodide 脚本加载失败'))
+          document.head.appendChild(s)
+        })
+      }
+      return w.loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/' })
+    })()
+    return pyodidePromise
+  }
+
+  document.querySelectorAll('[data-code-cell]').forEach(root => {
+    const btn = root.querySelector('[data-role="run"]') as HTMLButtonElement | null
+    const codeEl = root.querySelector('[data-role="code"]') as HTMLTextAreaElement | null
+    const outputEl = root.querySelector('[data-role="output"]') as HTMLElement | null
     if (!btn || !codeEl || !outputEl) return
 
-    // ── Load highlight.js on demand ─────────────────────────
+    const lang = root.getAttribute('data-lang') || 'js'
 
-    let hlReady = false
-    async function ensureHL() {
-      if (hlReady) return
-      // @ts-ignore
-      if (typeof hljs !== 'undefined') { hlReady = true; return }
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css'
-      document.head.appendChild(link)
-      const script = document.createElement('script')
-      script.src = 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js'
-      await new Promise((res, rej) => { script.onload = res; script.onerror = rej; document.head.appendChild(script) })
-      hlReady = true
+    function setOutput(text: string, color = 'var(--text)') {
+      outputEl!.textContent = text
+      outputEl!.style.color = color
     }
-
-    // ── Syntax highlight textarea content ────────────────────
-
-    async function highlight() {
-      await ensureHL()
-      const text = codeEl!.value
-      const lang = codeEl!.dataset.lang || 'javascript'
-      // @ts-ignore
-      if (typeof hljs === 'undefined') return
-      try {
-        // @ts-ignore
-        const result = hljs.highlight(text, { language: lang })
-        codeEl!.value = result.value
-      } catch {
-        // highlight.js may not have the language — ignore
-      }
-    }
-
-    // ── Highlight initially ──────────────────────────────────
-
-    // Only attempt highlighting when the cell enters viewport
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        highlight().catch(() => {})
-        observer.disconnect()
-      }
-    }, { rootMargin: '200px' })
-    observer.observe(codeEl)
-
-    // ── Run button ───────────────────────────────────────────
 
     btn.addEventListener('click', async () => {
       const code = codeEl.value || ''
-      outputEl.textContent = '运行中...'
-      outputEl.style.color = 'var(--text-muted)'
+      btn.disabled = true
+      setOutput('运行中...', 'var(--text-muted)')
 
       try {
-        if ('{lang}' === 'python') {
-          const py = await loadPyodide()
-          if (!py) {
-            outputEl.textContent = '❌ Pyodide 加载失败。'
-            outputEl.style.color = 'var(--danger)'
-            return
-          }
+        if (lang === 'python') {
+          const py = await loadPyodideOnce()
           let output = ''
-          py.setStdout({ batched: (s: string) => { output += s + '\\n' } })
-          py.setStderr({ batched: (s: string) => { output += '[err] ' + s + '\\n' } })
-          py.runPython(code)
-          outputEl.textContent = output || '(无输出)'
-          outputEl.style.color = 'var(--success)'
+          py.setStdout({ batched: (s: string) => { output += s + '\n' } })
+          py.setStderr({ batched: (s: string) => { output += '[err] ' + s + '\n' } })
+          const result = py.runPython(code)
+          if (result !== undefined && result !== null) output += String(result) + '\n'
+          setOutput(output || '(无输出)', 'var(--success)')
+          result?.destroy?.()
         } else {
           const logs: string[] = []
-          const orig = console.log
-          console.log = (...args: any[]) => {
-            logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' '))
-            orig(...args)
-          }
+          const origLog = console.log
+          const origErr = console.error
+          const fmt = (a: any) => (typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a))
+          console.log = (...args: any[]) => { logs.push(args.map(fmt).join(' ')); origLog(...args) }
+          console.error = (...args: any[]) => { logs.push('[err] ' + args.map(fmt).join(' ')); origErr(...args) }
           try {
-            const result = eval(code)
+            const result = (0, eval)(code)
             if (result !== undefined) logs.push(String(result))
-            outputEl.textContent = logs.join('\\n') || '(无输出)'
-            outputEl.style.color = 'var(--success)'
           } finally {
-            console.log = orig
+            console.log = origLog
+            console.error = origErr
           }
+          setOutput(logs.join('\n') || '(无输出)', 'var(--success)')
         }
       } catch (err: any) {
-        outputEl.textContent = '❌ ' + (err?.message || err)
-        outputEl.style.color = 'var(--danger)'
+        setOutput('❌ ' + (err?.message || err), 'var(--danger)')
+      } finally {
+        btn.disabled = false
       }
     })
-
-    // ── Pyodide singleton loader ─────────────────────────────
-
-    let pyodideP: Promise<any> | null = null
-    function loadPyodide(): Promise<any> {
-      if (pyodideP) return pyodideP
-      pyodideP = (async () => {
-        // @ts-ignore
-        if (typeof loadPyodide === 'undefined') {
-          const s = document.createElement('script')
-          s.src = 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js'
-          await new Promise((res, rej) => { s.onload = res; s.onerror = rej; document.head.appendChild(s) })
-        }
-        // @ts-ignore
-        return (window as any).loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/' })
-      })()
-      return pyodideP
-    }
-  })()
+  })
 </script>

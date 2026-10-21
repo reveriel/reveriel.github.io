@@ -213,8 +213,8 @@ const { width = 640, height = 360 } = Astro.props
 下面是一个 **Mandelbrot 集**的 WASM 渲染器。核心计算用 Rust 写，编译为 `.wasm` 文件，通过 `<WasmDemo>` 组件加载：
 
 <WasmDemo
-  wasm="./demos/pkg/mandelbrot_bg.wasm"
-  js="./demos/pkg/mandelbrot.js"
+  wasm="/wasm/mandelbrot/mandelbrot_bg.wasm"
+  js="/wasm/mandelbrot/mandelbrot.js"
   width={640}
   height={400}
 />

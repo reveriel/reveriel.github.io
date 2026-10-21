@@ -1,21 +1,17 @@
 ---
 // ShaderPlayground.astro — live WGSL shader editor with WebGPU rendering.
 // Reader edits the WGSL code, clicks "Run" to compile and see the result.
+//
+// IMPORTANT: Astro does not interpolate `{...}` inside <script> blocks or
+// string attributes, so everything is wired through data attributes.
 
 interface Props {
-  shader?: string       // path to .wgsl file (relative to post dir, loaded at runtime)
   editable?: boolean
   width?: number
   height?: number
 }
 
-const {
-  editable = true,
-  width = 640,
-  height = 360,
-} = Astro.props
-
-const id = `sp-${Math.random().toString(36).slice(2, 8)}`
+const { editable = true, width = 640, height = 360 } = Astro.props
 
 const defaultShader = `// 你的第一个 shader —— 每个像素执行一次
 // 点击下方 "▶ 运行" 按钮查看效果
@@ -28,13 +24,13 @@ fn main(@builtin(position) coord: vec4f) -> @location(0) vec4f {
 }`
 ---
 
-<div class="interactive-block" id={id}>
+<div class="interactive-block" data-shader data-default-shader={defaultShader}>
   <div class="interactive-block__header">
     <span>{editable ? '✏️ Shader Playground' : '🎨 Shader 演示'}</span>
     <div style="display: flex; align-items: center; gap: 0.5rem;">
-      <span id="{id}-gpu-badge" style="font-size: 0.75rem; color: var(--text-muted);"></span>
+      <span data-role="gpu-badge" style="font-size: 0.75rem; color: var(--text-muted);"></span>
       {editable && (
-        <button id="{id}-run" style="
+        <button data-role="run" style="
           font-size: 0.75rem; background: var(--accent-dim); color: #fff;
           border: none; border-radius: 4px; padding: 0.25em 0.8em; cursor: pointer;
         ">▶ 运行</button>
@@ -44,7 +40,7 @@ fn main(@builtin(position) coord: vec4f) -> @location(0) vec4f {
   <div class="interactive-block__body">
     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
       <canvas
-        id="{id}-canvas"
+        data-role="canvas"
         width={width}
         height={height}
         style="
@@ -54,7 +50,7 @@ fn main(@builtin(position) coord: vec4f) -> @location(0) vec4f {
       ></canvas>
       {editable && (
         <textarea
-          id="{id}-editor"
+          data-role="editor"
           spellcheck="false"
           style="
             flex: 1; min-width: 280px; min-height: 240px;
@@ -68,7 +64,7 @@ fn main(@builtin(position) coord: vec4f) -> @location(0) vec4f {
       )}
     </div>
     <pre
-      id="{id}-error"
+      data-role="error"
       style="
         margin-top: 0.5rem; padding: 0.5rem 0.8rem; font-family: var(--font-mono);
         font-size: 0.78rem; color: var(--danger); white-space: pre-wrap;
@@ -80,22 +76,21 @@ fn main(@builtin(position) coord: vec4f) -> @location(0) vec4f {
 </div>
 
 <script>
-  (function() {
-    const canvas = document.getElementById('{id}-canvas') as HTMLCanvasElement | null
-    const editor = document.getElementById('{id}-editor') as HTMLTextAreaElement | null
-    const runBtn = document.getElementById('{id}-run') as HTMLButtonElement | null
-    const errorEl = document.getElementById('{id}-error') as HTMLPreElement | null
-    const gpuBadge = document.getElementById('{id}-gpu-badge')
-
+  document.querySelectorAll('[data-shader]').forEach(root => {
+    const canvas = root.querySelector('[data-role="canvas"]') as HTMLCanvasElement | null
+    const editor = root.querySelector('[data-role="editor"]') as HTMLTextAreaElement | null
+    const runBtn = root.querySelector('[data-role="run"]') as HTMLButtonElement | null
+    const errorEl = root.querySelector('[data-role="error"]') as HTMLElement | null
+    const gpuBadge = root.querySelector('[data-role="gpu-badge"]') as HTMLElement | null
     if (!canvas) return
 
-    let device: GPUDevice | null = null
+    const defaultShader = root.getAttribute('data-default-shader') || ''
+    let device: any = null
     let active = false
 
     const FULLSCREEN_QUAD_VERTEX = `
 @vertex
 fn vs_main(@builtin(vertex_index) idx: u32) -> @builtin(position) vec4f {
-  // A triangle that covers the entire viewport
   var pos = array<vec2f, 3>(
     vec2f(-1.0,  3.0),
     vec2f(-1.0, -1.0),
@@ -104,17 +99,26 @@ fn vs_main(@builtin(vertex_index) idx: u32) -> @builtin(position) vec4f {
   return vec4f(pos[idx], 0.0, 1.0);
 }`
 
-    // ── WebGPU init ──────────────────────────────────────────
+    function showError(msg: string, color = 'var(--danger)') {
+      if (!errorEl) return
+      errorEl.textContent = msg
+      errorEl.style.display = 'block'
+      errorEl.style.color = color
+    }
 
     async function initGPU(): Promise<boolean> {
       if (device) return true
-      if (!navigator.gpu) {
+      const gpu = (navigator as any).gpu
+      if (!gpu) {
         showFallback('WebGPU 不可用 — 请使用 Chrome 113+ / Edge 113+')
         return false
       }
       try {
-        const adapter = await navigator.gpu.requestAdapter()
-        if (!adapter) { showFallback('无法获取 GPU 适配器'); return false }
+        const adapter = await gpu.requestAdapter()
+        if (!adapter) {
+          showFallback('无法获取 GPU 适配器')
+          return false
+        }
         device = await adapter.requestDevice()
         if (gpuBadge) {
           gpuBadge.textContent = 'WebGPU ✅'
@@ -143,81 +147,78 @@ fn vs_main(@builtin(vertex_index) idx: u32) -> @builtin(position) vec4f {
       }
     }
 
-    // ── Compile & render ─────────────────────────────────────
-
     async function compileAndRender() {
       if (!(await initGPU())) return
-      if (!device || !canvas) return
+      if (!device) return
 
-      const wgsl = editor ? editor.value : '{defaultShader}'
+      const wgsl = editor ? editor.value : defaultShader
       if (errorEl) errorEl.style.display = 'none'
 
-      // Build full shader: if user wrote @vertex, use theirs; else prepend
       const hasVertex = /@vertex/.test(wgsl)
       const fullWGSL = hasVertex ? wgsl : FULLSCREEN_QUAD_VERTEX + '\n' + wgsl
 
-      let shaderModule: GPUShaderModule
+      let shaderModule: any
       try {
         shaderModule = device.createShaderModule({ code: fullWGSL })
-        // Check for compilation messages (warnings)
         const info = await shaderModule.getCompilationInfo()
-        if (info.messages.length > 0) {
-          const msgs = info.messages
-            .map(m => `[${m.type}] line ${m.lineNum}:${m.linePos} — ${m.message}`)
-            .join('\n')
-          if (errorEl) {
-            errorEl.textContent = msgs
-            errorEl.style.display = 'block'
-            errorEl.style.color = 'var(--warning)'
-          }
+        const errors = info.messages.filter((m: any) => m.type === 'error')
+        const warnings = info.messages.filter((m: any) => m.type !== 'error')
+        if (errors.length) {
+          showError(
+            errors.map((m: any) => `[error] line ${m.lineNum}:${m.linePos} — ${m.message}`).join('\n')
+          )
+          return
+        }
+        if (warnings.length) {
+          showError(
+            warnings.map((m: any) => `[${m.type}] line ${m.lineNum}:${m.linePos} — ${m.message}`).join('\n'),
+            'var(--warning)'
+          )
         }
       } catch (err: any) {
-        if (errorEl) {
-          errorEl.textContent = '❌ 编译错误:\n' + (err?.message || err)
-          errorEl.style.display = 'block'
-          errorEl.style.color = 'var(--danger)'
-        }
+        showError('❌ 编译错误:\n' + (err?.message || err))
         return
       }
 
-      // Set up render pipeline
-      const pipeline = device.createRenderPipeline({
-        layout: 'auto',
-        vertex: { module: shaderModule, entryPoint: 'vs_main' },
-        fragment: {
-          module: shaderModule,
-          entryPoint: hasVertex ? 'fs_main' : 'main',
-          targets: [{ format: navigator.gpu.getPreferredCanvasFormat() }],
-        },
-        primitive: { topology: 'triangle-list' },
-      })
+      try {
+        const format = (navigator as any).gpu.getPreferredCanvasFormat()
+        const pipeline = device.createRenderPipeline({
+          layout: 'auto',
+          vertex: { module: shaderModule, entryPoint: 'vs_main' },
+          fragment: {
+            module: shaderModule,
+            entryPoint: hasVertex ? 'fs_main' : 'main',
+            targets: [{ format }],
+          },
+          primitive: { topology: 'triangle-list' },
+        })
 
-      // Configure canvas context
-      const context = canvas.getContext('webgpu')
-      if (!context) { showFallback('无法获取 WebGPU context'); return }
-      context.configure({
-        device,
-        format: navigator.gpu.getPreferredCanvasFormat(),
-        alphaMode: 'premultiplied',
-      })
+        const context = canvas!.getContext('webgpu')
+        if (!context) {
+          showFallback('无法获取 WebGPU context')
+          return
+        }
+        context.configure({ device, format, alphaMode: 'premultiplied' })
 
-      // Render one frame
-      const encoder = device.createCommandEncoder()
-      const pass = encoder.beginRenderPass({
-        colorAttachments: [{
-          view: context.getCurrentTexture().createView(),
-          clearValue: { r: 0, g: 0, b: 0, a: 1 },
-          loadOp: 'clear',
-          storeOp: 'store',
-        }],
-      })
-      pass.setPipeline(pipeline)
-      pass.draw(3)  // 3 vertices = 1 triangle that covers the viewport
-      pass.end()
-      device.queue.submit([encoder.finish()])
+        const encoder = device.createCommandEncoder()
+        const pass = encoder.beginRenderPass({
+          colorAttachments: [
+            {
+              view: context.getCurrentTexture().createView(),
+              clearValue: { r: 0, g: 0, b: 0, a: 1 },
+              loadOp: 'clear',
+              storeOp: 'store',
+            },
+          ],
+        })
+        pass.setPipeline(pipeline)
+        pass.draw(3)
+        pass.end()
+        device.queue.submit([encoder.finish()])
+      } catch (err: any) {
+        showError('❌ 渲染失败:\n' + (err?.message || err))
+      }
     }
-
-    // ── Run button ───────────────────────────────────────────
 
     if (runBtn) {
       runBtn.addEventListener('click', () => {
@@ -230,15 +231,16 @@ fn vs_main(@builtin(vertex_index) idx: u32) -> @builtin(position) vec4f {
       })
     }
 
-    // ── Auto-run on first view ───────────────────────────────
-
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && !active) {
-        active = true
-        compileAndRender()
-        observer.disconnect()
-      }
-    }, { rootMargin: '200px' })
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting && !active) {
+          active = true
+          compileAndRender()
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '200px' }
+    )
     observer.observe(canvas)
-  })()
+  })
 </script>

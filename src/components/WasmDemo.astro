@@ -1,37 +1,31 @@
 ---
 // WasmDemo.astro — loads a wasm-pack module and renders to canvas.
-// Uses IntersectionObserver for lazy loading.
-// The WASM module is expected to export a `render(w, h, cx, cy, zoom, max_iter) -> Vec<u8>` function.
+// Uses IntersectionObserver for lazy loading, with a pure-JS fallback.
+//
+// IMPORTANT: Astro does not interpolate `{...}` inside <script> blocks or
+// string attributes, so everything is wired through data attributes.
 
 interface Props {
-  wasm: string       // path to .wasm file
+  wasm: string       // path to .wasm file (display only)
   js: string         // path to JS glue code (wasm-pack output)
-  canvasId?: string
   width?: number
   height?: number
   caption?: string
 }
 
-const {
-  wasm,
-  js,
-  canvasId = `wasm-canvas-${Math.random().toString(36).slice(2, 8)}`,
-  width = 640,
-  height = 400,
-  caption,
-} = Astro.props
+const { wasm, js, width = 640, height = 400, caption } = Astro.props
 ---
 
-<div class="interactive-block" id={`${canvasId}-container`} data-wasm-js={js}>
+<div class="interactive-block" data-wasm data-wasm-js={js} data-wasm-file={wasm}>
   <div class="interactive-block__header">
     <span>🦀 WASM Demo</span>
-    <span style="font-size: 0.75rem; color: var(--text-muted);" id={`${canvasId}-subtitle`}>
+    <span data-role="subtitle" style="font-size: 0.75rem; color: var(--text-muted);">
       {wasm.split('/').pop()}
     </span>
   </div>
   <div class="interactive-block__body" style="text-align: center;">
     <canvas
-      id={canvasId}
+      data-role="canvas"
       width={width}
       height={height}
       style="
@@ -48,7 +42,7 @@ const {
       </p>
     )}
     <p
-      id={`${canvasId}-status`}
+      data-role="status"
       style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.5rem;"
     >加载 WASM 模块中...</p>
     <div style="margin-top: 0.4rem; font-size: 0.75rem; color: var(--text-muted);">
@@ -58,28 +52,32 @@ const {
 </div>
 
 <script>
-  (function() {
-    const container = document.getElementById('{canvasId}-container')
-    const canvas = document.getElementById('{canvasId}') as HTMLCanvasElement | null
-    const status = document.getElementById('{canvasId}-status')
-    if (!canvas || !status || !container) return
+  document.querySelectorAll('[data-wasm]').forEach(root => {
+    const canvas = root.querySelector('[data-role="canvas"]') as HTMLCanvasElement | null
+    const status = root.querySelector('[data-role="status"]') as HTMLElement | null
+    if (!canvas || !status) return
 
-    const wasmJsPath = container.dataset.wasmJs || ''
+    const wasmJsPath = root.getAttribute('data-wasm-js') || ''
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
 
     let wasmModule: any = null
     let useWasm = false
+    let wasmTried = false
     let centerX = -0.5
     let centerY = 0.0
     let zoom = 1.0
     const maxIter = 200
 
-    // ── JS Fallback Mandelbrot renderer ─────────────────────
+    // ── JS fallback Mandelbrot renderer ─────────────────────
 
     function mandelbrotJS(cx: number, cy: number): number {
-      let x = 0, y = 0, iter = 0
-      while (x*x + y*y <= 4 && iter < maxIter) {
-        const xt = x*x - y*y + cx
-        y = 2*x*y + cy
+      let x = 0
+      let y = 0
+      let iter = 0
+      while (x * x + y * y <= 4 && iter < maxIter) {
+        const xt = x * x - y * y + cx
+        y = 2 * x * y + cy
         x = xt
         iter++
       }
@@ -90,7 +88,9 @@ const {
       const c = v * s
       const hp = h / 60
       const x = c * (1 - Math.abs((hp % 2) - 1))
-      let r1 = 0, g1 = 0, b1 = 0
+      let r1 = 0
+      let g1 = 0
+      let b1 = 0
       const seg = Math.floor(hp) % 6
       if (seg === 0) { r1 = c; g1 = x }
       else if (seg === 1) { r1 = x; g1 = c }
@@ -103,15 +103,14 @@ const {
     }
 
     function renderJS() {
-      const w = canvas!.width, h = canvas!.height
-      const ctx = canvas!.getContext('2d')
-      if (!ctx) return
-      const imgData = ctx.createImageData(w, h)
+      const w = canvas!.width
+      const h = canvas!.height
+      const imgData = ctx!.createImageData(w, h)
       const aspect = w / h
       const scale = 4.0 / zoom
-      const xMin = centerX - scale * aspect / 2
+      const xMin = centerX - (scale * aspect) / 2
       const yMin = centerY - scale / 2
-      const dx = scale * aspect / w
+      const dx = (scale * aspect) / w
       const dy = scale / h
 
       for (let py = 0; py < h; py++) {
@@ -121,33 +120,31 @@ const {
           const iter = mandelbrotJS(cx, cy)
           const idx = (py * w + px) * 4
           if (iter === maxIter) {
-            imgData.data[idx] = 0; imgData.data[idx+1] = 0
-            imgData.data[idx+2] = 0; imgData.data[idx+3] = 255
+            imgData.data[idx] = 0
+            imgData.data[idx + 1] = 0
+            imgData.data[idx + 2] = 0
+            imgData.data[idx + 3] = 255
           } else {
             const t = iter / maxIter
             const hue = (t * 360 + 200) % 360
             const [r, g, b] = hsvToRgb(hue, 0.8, 0.9)
-            imgData.data[idx] = r; imgData.data[idx+1] = g
-            imgData.data[idx+2] = b; imgData.data[idx+3] = 255
+            imgData.data[idx] = r
+            imgData.data[idx + 1] = g
+            imgData.data[idx + 2] = b
+            imgData.data[idx + 3] = 255
           }
         }
       }
-      ctx.putImageData(imgData, 0, 0)
+      ctx!.putImageData(imgData, 0, 0)
     }
 
     // ── WASM render ─────────────────────────────────────────
 
     function renderWasm() {
-      if (!wasmModule) return
-      const data = wasmModule.render(
-        canvas!.width, canvas!.height,
-        centerX, centerY, zoom, maxIter
-      )
-      const ctx = canvas!.getContext('2d')
-      if (!ctx) return
-      const imgData = ctx.createImageData(canvas!.width, canvas!.height)
+      const data = wasmModule.render(canvas!.width, canvas!.height, centerX, centerY, zoom, maxIter)
+      const imgData = ctx!.createImageData(canvas!.width, canvas!.height)
       imgData.data.set(new Uint8Array(data))
-      ctx.putImageData(imgData, 0, 0)
+      ctx!.putImageData(imgData, 0, 0)
     }
 
     async function render() {
@@ -160,7 +157,7 @@ const {
           renderJS()
         }
         const elapsed = (performance.now() - start).toFixed(0)
-        const mode = useWasm ? 'WASM' : 'JS'
+        const mode = useWasm ? 'WASM' : wasmTried ? 'JS（WASM 回退）' : 'JS'
         status!.textContent = `✅ ${mode} | 中心: (${centerX.toFixed(4)}, ${centerY.toFixed(4)}) | 缩放: ${zoom.toFixed(1)}x | ${elapsed}ms`
         status!.style.color = 'var(--success)'
       } catch (err: any) {
@@ -170,30 +167,34 @@ const {
     }
 
     async function init() {
-      // 1. Render immediately with JS (always works, ~200ms)
+      // 1. Render immediately with JS (always works)
       useWasm = false
       status!.textContent = '🟨 JS 渲染中...'
       status!.style.color = 'var(--warning)'
       await render()
 
-      // 2. Try WASM in background for future zooms
+      // 2. Try WASM in the background (glue file may not exist)
+      if (!wasmJsPath) return
+      wasmTried = true
       try {
-        const importPromise = import(/* @vite-ignore */ wasmJsPath)
-        const timeout = new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('timeout')), 4000)
-        )
-        wasmModule = await Promise.race([importPromise, timeout])
-        await wasmModule.default?.()
+        const jsUrl = new URL(wasmJsPath, document.baseURI).href
+        // Avoid a noisy module-import 404 when the glue hasn't been built.
+        const head = await fetch(jsUrl, { method: 'HEAD' }).catch(() => null)
+        if (!head || !head.ok) return
+        const importPromise = import(/* @vite-ignore */ jsUrl)
+        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 4000))
+        const mod: any = await Promise.race([importPromise, timeout])
+        await mod.default?.()
+        if (typeof mod.render !== 'function') throw new Error('missing render()')
+        wasmModule = mod
         useWasm = true
-        // Re-render with WASM for comparison
         await render()
       } catch {
-        // WASM unavailable — JS stays active, nothing changes
+        // WASM unavailable — JS stays active
       }
     }
 
-    // Click to zoom in, right-click to zoom out
-    canvas.addEventListener('click', (e) => {
+    canvas.addEventListener('click', e => {
       const rect = canvas!.getBoundingClientRect()
       const x = (e.clientX - rect.left) / rect.width
       const y = (e.clientY - rect.top) / rect.height
@@ -205,20 +206,22 @@ const {
       render()
     })
 
-    canvas.addEventListener('contextmenu', (e) => {
+    canvas.addEventListener('contextmenu', e => {
       e.preventDefault()
-      if (!wasmModule || zoom <= 1.0) return
+      if (zoom <= 1.0) return
       zoom /= 2.0
       render()
     })
 
-    // Lazy load: only initialize when visible
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        init()
-        observer.disconnect()
-      }
-    }, { rootMargin: '200px' })
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          init()
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '200px' }
+    )
     observer.observe(canvas)
-  })()
+  })
 </script>

@@ -11,3 +11,6 @@ node_modules/
 # IDE
 .vscode/
 .idea/
+
+# Rust wasm build artifacts
+**/target/
