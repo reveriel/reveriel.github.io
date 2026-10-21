@@ -2,8 +2,6 @@
 title: "ML-oxford"
 date: 2018-01-12
 stage: 1
-prerequisites: []
-concepts: []
 tags: []
 summary: "linear matrix differentiation."
 ---

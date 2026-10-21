@@ -2,8 +2,6 @@
 title: "Inference on Embeded Systems"
 date: 2018-03-14
 stage: 1
-prerequisites: []
-concepts: [sparsification-and-separation.]
 tags: []
 summary: "key Contributions:
  * A sparse coding-based approach to optimize depp learning

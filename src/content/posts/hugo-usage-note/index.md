@@ -2,8 +2,6 @@
 title: "Hugo Usage Note"
 date: 2019-02-21T16:09:53+08:00
 stage: 1
-prerequisites: []
-concepts: [basics, deploy, mathjax, javascript, others]
 tags: []
 summary: "Notes about how to use hugo."
 ---

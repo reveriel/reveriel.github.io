@@ -2,8 +2,6 @@
 title: "paralell computing"
 date: 2018-01-05
 stage: 1
-prerequisites: []
-concepts: [paralell]
 tags: []
 summary: "data dependency statement S, T, **define** :
  depends on ,  must be executed before   if and only if one of the cases are true.  is a variable"

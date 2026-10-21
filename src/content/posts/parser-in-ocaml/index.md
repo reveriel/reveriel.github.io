@@ -2,8 +2,6 @@
 title: "Write a Parser in OCaml"
 date: 2017-06-25
 stage: 1
-prerequisites: []
-concepts: [definition, syntax-definition, sematics-definition, implementation, translate-language-definition-to-code]
 tags: []
 summary: "First we define the language, then translate it into OCaml code."
 ---

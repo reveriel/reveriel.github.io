@@ -2,8 +2,6 @@
 title: "Logic"
 date: 2019-02-21T17:06:52+08:00
 stage: 1
-prerequisites: []
-concepts: []
 tags: []
 summary: "> constructive logic proves that the law of the excluded middle is positively
 > not refuted (its double negation is constructively true)."

@@ -2,8 +2,6 @@
 title: "eigen"
 date: 2017-12-30
 stage: 1
-prerequisites: []
-concepts: [计算矩阵的全部特征值的-qr-方法, 离散小波变换-dwt]
 tags: []
 summary: ""
 ---

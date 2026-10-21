@@ -2,8 +2,6 @@
 title: "始まりの物語"
 date: 2017-03-01
 stage: 1
-prerequisites: []
-concepts: [新的开始, 打算写些什么, 博客, markdown-功能测试]
 tags: []
 summary: "原来的文章写得毫无意义，而且更新了 hexo 之后连编译都过不了了。于是从零开始。 其实我更喜欢 LaTeX 的，这里只能用 MarkDown 和 <i
 style=\"background-color:rgb(180, 40, 40);color:white;font-size:300%;\">HTML</i>)。 等等"

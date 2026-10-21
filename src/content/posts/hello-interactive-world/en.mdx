@@ -3,10 +3,8 @@ title: "Reveriel: Designing an Interactive Knowledge System"
 date: 2026-07-23
 locale: en
 stage: 1
-prerequisites: []
-concepts: [reveriel-architecture, knowledge-graph, interactive-components, mdx-authoring, static-site-seo]
 tags: [meta, architecture]
-summary: "Reveriel is an interactive knowledge system disguised as a blog. This article explains its design — directory structure, content pipeline, component system, knowledge graph, branding & SEO — and why games are a superior knowledge carrier to dead books."
+summary: "Reveriel is an interactive knowledge system disguised as a blog. This article explains its design — directory structure, content pipeline, component system, branding & SEO — and why games are a superior knowledge carrier to dead books."
 ---
 
 import ShaderPlayground from '@components/ShaderPlayground.astro'
@@ -60,13 +58,12 @@ src/content/posts/                                       https://reveriel.com/
       sim.py           →  Pyodide reference       →     Python runs in reader's browser
 ```
 
-**Five core principles:**
+**Four core principles:**
 
 1. **Files are articles.** One directory = one post = one self-contained knowledge unit. Directory name = URL.
 2. **Components are interactions.** Where interaction is needed, insert a component tag (like `<ShaderPlayground />`), not a bunch of `<script>` tags.
-3. **Metadata is the graph.** Frontmatter `prerequisites` and `concepts` auto-generate the knowledge dependency graph.
-4. **Load on demand.** WASM, shaders, Pyodide only load when used. The homepage is as fast as a plain text blog.
-5. **Search-engine friendly.** Static generation + semantic HTML + Open Graph tags + sitemap. Knowledge should be discoverable.
+3. **Load on demand.** WASM, shaders, Pyodide only load when used. The homepage is as fast as a plain text blog.
+4. **Search-engine friendly.** Static generation + semantic HTML + Open Graph tags + sitemap. Knowledge should be discoverable.
 
 ---
 
@@ -91,8 +88,7 @@ The data flow:
 ```
 index.mdx (you write)
     │
-    ├── YAML frontmatter    →  Metadata (title, stage, concepts...)
-    │                         →  Knowledge graph database
+    ├── YAML frontmatter    →  Metadata (title, stage, tags...)
     │
     ├── Markdown body       →  Astro MDX parser
     │                         →  Shiki syntax highlighting
@@ -208,31 +204,6 @@ If Giscus isn't configured, a placeholder message is shown instead — no broken
 
 ---
 
-## Series: Linear Learning Paths
-
-Some knowledge is naturally sequential. "Intro to Shaders" → "Drawing Shapes with SDF" → "Ray Marching for 3D" — these three form a linear series.
-
-Declare a series in frontmatter:
-
-```yaml
----
-title: "Intro to SDF"
-series: "shader-from-scratch"
-seriesOrder: 2    # Position in the series
----
-```
-
-All articles in a series are auto-collected and sorted. Visit `/graph?series=shader-from-scratch` to see the linear reading order.
-
-**Stage and Series are orthogonal:**
-
-- **Stage** describes difficulty (1→5 progression, cross-series)
-- **Series** describes topic (linear reading order within a topic)
-
-A Stage 4 article could be #3 in a series — meaning that series gets hard toward the end.
-
----
-
 ## Progressive Difficulty: The Stage System
 
 Not all knowledge should have the same interaction density. The framework defines 5 Stages:
@@ -247,11 +218,11 @@ Stage 5 🔥:  10% direction + 70% free exploration + 20% creation (Reader explo
 
 **Scaffolding removal** is a core game design principle:
 
-- Stage 1 articles have almost no prerequisites, interaction is mostly "watch"
-- Stage 3 articles begin recursive prerequisite chains, interaction is mostly "do"
+- Stage 1 articles assume little background, interaction is mostly "watch"
+- Stage 3 articles begin combining multiple topics, interaction is mostly "do"
 - Stage 5 articles give direction, not answers — the reader should write their own path tracer, not follow a tutorial
 
-This article itself is Stage 1. It requires no prerequisites and has low interaction density — you just need to read.
+This article itself is Stage 1. It assumes little background and has low interaction density — you just need to read.
 
 ---
 
@@ -260,11 +231,9 @@ This article itself is Stage 1. It requires no prerequisites and has low interac
 <ProofStep summary="Proof: A file-driven interactive blog is better for knowledge dissemination than a database-driven CMS">
 **Premise 1: Knowledge should be reproducible.** An article + its interactive code should form a closed, executable system. Readers should be able to **re-run** all computations from the article in their own browser.
 
-**Premise 2: Knowledge should be structured.** Concepts have prerequisite dependencies. A reader who doesn't know "vectors" can't understand "matrix multiplication" — this dependency should be explicitly modeled, not left to guesswork.
+**Premise 2: Knowledge should be verified.** Reading ≠ learning. Interactive challenges (QuizChain, CodeCell modification tasks) let readers **apply** newly learned concepts to confirm understanding.
 
-**Premise 3: Knowledge should be verified.** Reading ≠ learning. Interactive challenges (QuizChain, CodeCell modification tasks) let readers **apply** newly learned concepts to confirm understanding.
-
-File-driven (not database-driven) satisfies Premise 1: article directories are self-contained, version-controlled, and copyable. The knowledge graph satisfies Premise 2. Interactive components satisfy Premise 3.
+File-driven (not database-driven) satisfies Premise 1: article directories are self-contained, version-controlled, and copyable. Interactive components satisfy Premise 2.
 
 Therefore, this design is better for knowledge dissemination than traditional Markdown → HTML static blogs. ∎
 </ProofStep>
@@ -277,7 +246,6 @@ Therefore, this design is better for knowledge dissemination than traditional Ma
 |--------|------|-------|
 | ✅ Done | **Framework skeleton** | Astro 5 + MDX + Shiki highlighting |
 | ✅ Done | **Interactive component library** | ShaderPlayground, CodeCell, QuizChain, ProofStep, WasmDemo, Simulation |
-| ✅ Done | **Knowledge graph** | Concept DAG + Stage groups + Series filter, /graph visualization |
 | ✅ Done | **Branding & SEO** | OG / Twitter Card tags, semantic HTML, Giscus comments |
 | ✅ Done | **Old post migration** | 10 non-math posts migrated; math posts in archive/ pending math rendering fix |
 | ✅ Done | **i18n support** | Chinese (default) + English, URL-based routing, language switcher |

@@ -14,7 +14,6 @@
 - [快速上手](#快速上手)
 - [写一篇文章](#写一篇文章)
 - [交互组件库](#交互组件库)
-- [知识图谱系统](#知识图谱系统)
 - [递进式难度设计](#递进式难度设计)
 - [WASM / WebGPU / Shader](#wasm--webgpu--shader)
 - [Pyodide — 在浏览器里跑 Python](#pyodide--在浏览器里跑-python)
@@ -38,9 +37,6 @@ content/posts/
       sim.py         ──→    Pyodide 在读者浏览器里执行
       demo.rs        ──→    编译 → WASM → 按需加载
 
-meta 数据              ──→   知识图谱自动生成
-prerequisites:        ──→   学习路径可视化
-concepts:             ──→   概念依赖 DAG
 stage: 2              ──→   递进式难度分组
 ```
 
@@ -55,8 +51,6 @@ stage: 2              ──→   递进式难度分组
 title: "SDF 入门"
 date: 2026-07-23
 stage: 2
-prerequisites: [coordinate-systems, vectors]
-concepts: [signed-distance-functions, fragment-shaders]
 tags: [graphics, shader]
 summary: "用数学函数描述形状——比建模更本质的方式。"
 ---
@@ -77,9 +71,8 @@ summary: "用数学函数描述形状——比建模更本质的方式。"
 
 1. **文件即文章。** 一个目录 = 一篇文 = 一个自包含的知识单元。
 2. **组件即交互。** 需要互动的地方，插入一个组件，而不是写一堆 `<script>` 标签。
-3. **元数据即图谱。** frontmatter 里的 `prerequisites` 和 `concepts` 自动生成知识依赖关系。
-4. **按需加载。** WASM、shader、Pyodide 只在真正需要时才加载，首页速度不受影响。
-5. **纯静态输出。** `npm run build` 产出一堆 HTML，可以部署到任何地方。
+3. **按需加载。** WASM、shader、Pyodide 只在真正需要时才加载，首页速度不受影响。
+4. **纯静态输出。** `npm run build` 产出一堆 HTML，可以部署到任何地方。
 
 ---
 
@@ -108,8 +101,6 @@ touch src/content/posts/my-post/index.mdx
 title: "我的第一篇文章"
 date: 2026-07-23
 stage: 1
-prerequisites: []
-concepts: [my-first-concept]
 tags: [demo]
 summary: "这是一篇示例文章。"
 ---
@@ -150,8 +141,6 @@ npm run preview     # 本地预览构建结果
 | `date` | date | ✅ | 发布日期 |
 | `draft` | boolean | 否 | 草稿不会出现在生产构建中 |
 | `stage` | 1-5 | 否 | 难度等级，见下文 |
-| `prerequisites` | string[] | 否 | 读者需要先理解的概念 ID |
-| `concepts` | string[] | 否 | 本文教给读者的概念 ID |
 | `tags` | string[] | 否 | 标签 |
 | `summary` | string | 否 | 简短摘要，显示在文章列表页 |
 
@@ -312,63 +301,15 @@ import ProofStep from '@components/ProofStep.astro'
 
 ---
 
-## 知识图谱系统
-
-### 它是怎么工作的
-
-每篇文章的 frontmatter 声明了自己**教什么概念**（`concepts`）和**依赖什么概念**（`prerequisites`）。框架在构建时自动分析所有文章：
-
-```
-concept-A ──→ concept-B ──→ concept-D
-                         ──→ concept-E
-concept-C ──→ concept-E
-```
-
-### 读者看到什么
-
-访问 `/graph` → 看到按 Stage 分组的文章列表，每篇文章标注了前置概念和教授概念。
-
-读者可以：
-- 看到自己的学习进度（哪些概念已解锁）
-- 按 Stage 递进学习
-- 点击任何概念名，看到有哪些文章在教它
-
-### 你来制定规则
-
-你设计概念体系。例如：
-
-```yaml
-# 数学线
-concepts:
-  - real-numbers          → Stage 1
-  - limits                → Stage 2 (prereq: real-numbers)
-  - derivatives           → Stage 2 (prereq: limits)
-  - integrals             → Stage 3 (prereq: derivatives)
-  - multivariable         → Stage 4 (prereq: integrals)
-
-# 图形学线
-concepts:
-  - coordinate-systems    → Stage 1
-  - vectors               → Stage 1
-  - matrices              → Stage 2 (prereq: vectors)
-  - fragment-shaders      → Stage 2 (prereq: coordinate-systems)
-  - sdfs                  → Stage 3 (prereq: vectors, fragment-shaders)
-  - ray-marching          → Stage 4 (prereq: sdfs, matrices)
-```
-
-**概念 ID 是短横线连接的小写英文**，同一个概念可以出现在多篇文章中（加强理解）。
-
----
-
 ## 递进式难度设计
 
 ### Stage 系统
 
 | Stage | 标签 | 含义 | 读者体验 | 文章特征 |
 |-------|------|------|---------|---------|
-| 🌱 1 | 入门 | 零基础可读 | 主要是阅读 + 看演示 | 不需要前置知识 |
-| 🌿 2 | 基础 | 引入概念 | 开始有简单互动 | 依赖 1-2 个 Stage 1 概念 |
-| 🌳 3 | 进阶 | 知识开始组合 | 互动增加，有挑战题 | 需要多个前置概念 |
+| 🌱 1 | 入门 | 零基础可读 | 主要是阅读 + 看演示 | 不需要额外背景 |
+| 🌿 2 | 基础 | 引入概念 | 开始有简单互动 | 建立在 Stage 1 的内容之上 |
+| 🌳 3 | 进阶 | 知识开始组合 | 互动增加，有挑战题 | 需要组合多个知识点 |
 | ⚡ 4 | 高阶 | 综合应用 | 主要靠互动和挑战 | 跨领域知识组合 |
 | 🔥 5 | 前沿 | 开放探索 | 给方向而非答案 | 引导读者自己探索 |
 
@@ -537,10 +478,6 @@ blog/
 │   │   ├── posts/
 │   │   │   ├── index.astro     ← /posts
 │   │   │   └── [...slug].astro ← /posts/xxx (自动路由)
-│   │   └── graph.astro         ← /graph (知识图谱)
-│   │
-│   ├── lib/                    ← 工具函数
-│   │   └── knowledge-graph.ts
 │   │
 │   └── styles/
 │       └── global.css

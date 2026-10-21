@@ -2,8 +2,6 @@
 title: "distributed algorithm"
 date: 2018-01-08
 stage: 1
-prerequisites: []
-concepts: [分布式算法, 生成树]
 tags: []
 summary: "**模型**： - 异步共享存储
 - 异步msg传递

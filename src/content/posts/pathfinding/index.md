@@ -2,8 +2,6 @@
 title: "pathfinding"
 date: 2018-01-09
 stage: 1
-prerequisites: []
-concepts: []
 tags: []
 summary: "from wiki A pathfinding method searches a [graph](https://en.wikipedia.org/wiki/Graph_(data_structure)) by starting at one [vertex](https://en.wikipedia.org/wik"
 ---

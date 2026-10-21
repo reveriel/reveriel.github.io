@@ -2,8 +2,6 @@
 title: "On the Fly Batching"
 date: 2019-05-28T08:55:42+08:00
 stage: 1
-prerequisites: []
-concepts: [其他，-先在这里放着]
 tags: []
 summary: "对于一个 RNN, naive 实现是每次只计算一个句子。 ```r func rnn( xs:[vec{8}] )  // 假设词向量长度8     n = length(xs)     h_0 = 0     for x in xs         h_t = tanh(W * [h_{t-1}; x_t] + b"
 ---

@@ -140,9 +140,6 @@ article {
   margin: 0.15em;
 }
 
-.concept-tag.locked     { opacity: 0.4; }
-.concept-tag.unlocked   { color: var(--success); border-color: var(--success); }
-.concept-tag.mastered   { color: var(--accent); border-color: var(--accent); }
 
 /* ── Stage indicator ────────────────────────────────────────── */
 

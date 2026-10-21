@@ -2,8 +2,6 @@
 title: "randomized algorithm"
 date: 2017-12-11
 stage: 1
-prerequisites: []
-concepts: [概率算法, 基本概念, 概率算法分类, 数值积分, 概率計数]
 tags: []
 summary: "总结"
 ---

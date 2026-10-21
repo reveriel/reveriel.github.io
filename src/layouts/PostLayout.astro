@@ -8,7 +8,7 @@ import { t } from '@i18n/ui'
 interface Props { post: CollectionEntry<'posts'> }
 
 const { post } = Astro.props
-const { title, date, stage, series, seriesOrder, prerequisites, concepts, tags, summary, locale: postLocale } = post.data
+const { title, date, stage, tags, summary, locale: postLocale } = post.data
 
 const locale = Astro.url.pathname.startsWith('/en/') ? 'en' : 'zh-CN'
 const strings = t(locale)
@@ -54,11 +54,6 @@ function formatDate(d: Date) {
           {stage === 5 && '🔥 '}
           Stage {stage}
         </span>
-        {series && (
-          <span style="font-size: 0.78rem; color: var(--accent); background: var(--bg-card); padding: 0.15em 0.6em; border-radius: 10px; border: 1px solid var(--border);">
-            📚 {series}{seriesOrder != null ? ` #${seriesOrder}` : ''}
-          </span>
-        )}
         {tags.map(t => <span class="concept-tag">{t}</span>)}
       </div>
 
@@ -67,23 +62,6 @@ function formatDate(d: Date) {
         {formatDate(date)}
       </time>
 
-      {
-        prerequisites.length > 0 && (
-          <div style="margin-top: 1rem; font-size: 0.85rem;">
-            <span style="color: var(--text-muted);">{strings.post.prerequisite}：</span>
-            {prerequisites.map(p => <span class="concept-tag">{p}</span>)}
-          </div>
-        )
-      }
-
-      {
-        concepts.length > 0 && (
-          <div style="margin-top: 0.5rem; font-size: 0.85rem;">
-            <span style="color: var(--text-muted);">{strings.post.concepts}：</span>
-            {concepts.map(c => <span class="concept-tag unlocked">{c}</span>)}
-          </div>
-        )
-      }
     </header>
 
     <div class="post-body">

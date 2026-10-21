@@ -2,16 +2,10 @@
 title: Reveriel：一个交互式知识系统的设计
 date: 2026-07-23
 stage: 1
-concepts:
-  - reveriel-architecture
-  - knowledge-graph
-  - interactive-components
-  - mdx-authoring
-  - static-site-seo
 tags:
   - meta
   - architecture
-summary: Reveriel 是一个交互式知识系统，伪装成博客的样子。这篇文章解释它的设计哲学、目录结构、内容管线、组件系统、知识图谱、品牌与 SEO——以及为什么游戏是比书本更先进的知识载体。
+summary: Reveriel 是一个交互式知识系统，伪装成博客的样子。这篇文章解释它的设计哲学、目录结构、内容管线、组件系统、品牌与 SEO——以及为什么游戏是比书本更先进的知识载体。
 locale: zh-CN
 draft: false
 ---
@@ -70,13 +64,12 @@ src/content/posts/                             https://reveriel.com/
       sim.py          →  Pyodide 引用     →   读者浏览器里跑 Python
 ```
 
-**核心原则只有五个：**
+**核心原则只有四个：**
 
 1. **文件即文章。** 一个目录 = 一篇文 = 一个自包含的知识单元。目录名就是 URL。
 2. **组件即交互。** 需要互动的地方，插入一个组件标签（如 `<ShaderPlayground />`），而不是写一堆 `<script>` 标签。
-3. **元数据即图谱。** frontmatter 里的 `prerequisites` 和 `concepts` 自动生成知识依赖关系。
-4. **按需加载。** WASM、shader、Pyodide 只在使用时加载。首页的速度和纯文本博客一样快。
-5. **对搜索引擎友好。** 静态生成 + 语义 HTML + Open Graph 标签 + sitemap，让知识能被发现。
+3. **按需加载。** WASM、shader、Pyodide 只在使用时加载。首页的速度和纯文本博客一样快。
+4. **对搜索引擎友好。** 静态生成 + 语义 HTML + Open Graph 标签 + sitemap，让知识能被发现。
 
 ---
 
@@ -116,8 +109,7 @@ src/content/posts/
 ```
 index.mdx (你写的)
     │
-    ├── YAML frontmatter    →  元数据（title, stage, concepts...）
-    │                         →  知识图谱数据库
+    ├── YAML frontmatter    →  元数据（title, stage, tags...）
     │
     ├── Markdown 正文       →  Astro MDX 解析器
     │                         →  Shiki 语法高亮
@@ -134,37 +126,6 @@ index.mdx (你写的)
 构建时（`npm run build`），Astro 遍历所有 `.mdx` 文件，提取 frontmatter，渲染 Markdown 为 HTML，把组件标签替换为真实的交互式组件代码，然后输出纯静态文件到 `dist/` 目录。
 
 **关键点：输出的是静态 HTML + CSS + JS，不需要服务器。** 部署到 GitHub Pages、Cloudflare Pages 或任何一个能托管静态文件的地方就行。
-
----
-
-## 知识图谱：概念 DAG
-
-每篇文章的 frontmatter 里有两个关键字段：
-
-```yaml
-prerequisites:   # 读者在读本文之前应该先理解的概念
-  - coordinate-systems
-  - vectors
-concepts:        # 本文会教给读者的概念
-  - signed-distance-functions
-  - fragment-shaders
-```
-
-框架在构建时自动分析所有文章的 `prerequisites` 和 `concepts`，构建一个有向无环图（DAG）：
-
-```
-coordinate-systems ──→ fragment-shaders ──→ signed-distance-functions ──→ ray-marching
-vectors ──────────────┘                    └── matrices ──────────────────┘
-```
-
-访问 `/graph` 可以看到这个图谱。读者可以：
-- 看到每个概念的依赖链
-- 按 Stage 递进学习
-- 知道自己已经"解锁"了哪些概念
-
-### 概念 ID 怎么起
-
-概念 ID 是短横线连接的小写英文，比如 `signed-distance-functions`。同一个概念 ID 可以在多篇文章中出现——这意味着同一概念有多种解释方式，读者可以选择适合自己的路线。
 
 ---
 
@@ -305,31 +266,6 @@ WASM 模块也是懒加载的——只有读者滚动到它的位置时才开始
 
 ---
 
-## 系列（Series）：线性学习路径
-
-有些知识天然的应该按顺序阅读。比如一篇"Shader 入门"之后是"SDF 画形状"，然后是"光线步进做 3D 渲染"——这三篇构成了一个线性系列。
-
-在文章的 frontmatter 里声明系列：
-
-```yaml
----
-title: "SDF 入门"
-series: "shader-from-scratch"
-seriesOrder: 2    # 在系列中的位置
----
-```
-
-同一个系列的所有文章会被自动收集和排序。访问 `/graph?series=shader-from-scratch` 可以看到这个系列的线性阅读顺序。
-
-**Stage 和 Series 是正交的：**
-
-- **Stage** 描述难度（1→5 递进，跨系列的）
-- **Series** 描述主题（同一主题的线性阅读顺序）
-
-一篇 Stage 4 的文章可能属于某个系列的第 3 篇——说明这个系列到后面会变得很难。
-
----
-
 ## 递进式难度：Stage 系统
 
 不是所有知识都应该用同样的交互密度呈现。框架定义了 5 个 Stage：
@@ -344,11 +280,11 @@ Stage 5 🔥:  10% 方向 + 70% 自由探索 + 20% 创造 （读者自己探索�
 
 **脚手架的逐渐撤走**是游戏设计的核心原则：
 
-- Stage 1 的文章几乎没有前置知识要求，交互以"看"为主
-- Stage 3 的文章开始有递归的前置知识链，交互以"做"为主
+- Stage 1 的文章几乎没有背景要求，交互以"看"为主
+- Stage 3 的文章开始组合多个知识点，交互以"做"为主
 - Stage 5 的文章给出方向而不是答案——读者应该能自己写一个 path tracer，而不是跟着教程敲
 
-这篇文章本身是 Stage 1。它不需要任何前置知识，交互密度很低——你只需要读。
+这篇文章本身是 Stage 1。它不需要任何背景知识，交互密度很低——你只需要读。
 
 ---
 
@@ -370,8 +306,6 @@ touch src/content/posts/shader-from-pixels/index.mdx
 title: "Shader 入门：从像素理解 GPU"
 date: 2026-07-30
 stage: 1
-prerequisites: []
-concepts: [fragment-shaders, gpu-paradigm, uv-coordinates]
 tags: [graphics, shader]
 summary: "每一个像素都是一个独立的小程序。理解这一点是图形学的第一道门。"
 ---
@@ -410,11 +344,9 @@ fn main(@builtin(position) coord: vec4f) -> @location(0) vec4f {
 <ProofStep summary="证明：文件驱动的交互式博客比数据库驱动的 CMS 更适合知识传播">
 **前提 1：知识应该可复现。** 一篇文章 + 它的交互式代码应该构成一个封闭的、可执行的系统。读文章的人可以在自己浏览器里**重新运行**文章中的所有计算。
 
-**前提 2：知识应该有结构。** 概念之间有前置依赖关系。一个读者不知道"向量"就看不懂"矩阵乘法"——这个依赖关系应该被显式建模，而不是靠读者自己猜。
+**前提 2：知识应该被验证。** 读完不等于学会。交互式挑战（QuizChain、CodeCell 的修改任务）让读者**运用**刚学到的概念，从而确认自己真的理解了。
 
-**前提 3：知识应该被验证。** 读完不等于学会。交互式挑战（QuizChain、CodeCell 的修改任务）让读者**运用**刚学到的概念，从而确认自己真的理解了。
-
-文件驱动（而不是数据库驱动）满足前提 1：文章目录是自包含的、可版本控制的、可复制的。知识图谱满足前提 2。交互式组件满足前提 3。
+文件驱动（而不是数据库驱动）满足前提 1：文章目录是自包含的、可版本控制的、可复制的。交互式组件满足前提 2。
 
 因此，这个设计比传统的 Markdown → HTML 静态博客更适合知识传播。∎
 </ProofStep>
@@ -429,7 +361,6 @@ fn main(@builtin(position) coord: vec4f) -> @location(0) vec4f {
 |------|------|------|
 | ✅ 完成 | **框架骨架** | Astro 5 + MDX + Shiki 高亮 |
 | ✅ 完成 | **交互式组件库** | ShaderPlayground, CodeCell, QuizChain, ProofStep, WasmDemo, Simulation |
-| ✅ 完成 | **知识图谱** | 概念 DAG + Stage 分组 + Series 过滤，/graph 可视化 |
 | ✅ 完成 | **品牌 & SEO** | OG / Twitter Card 标签、语义 HTML、Giscus 评论系统 |
 | ✅ 完成 | **旧文章迁移** | 10 篇非数学类文章已迁入，数学类文章留在 archive/ 待 math 渲染方案就绪 |
 | 🔜 现在 | **sitemap + RSS** | `@astrojs/sitemap` + `@astrojs/rss` |

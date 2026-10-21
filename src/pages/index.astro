@@ -47,9 +47,6 @@ function formatDate(d: Date) {
             </div>
             <div style="margin-top: 0.3rem; font-size: 0.82rem; color: var(--text-muted);">
               {formatDate(post.data.date)}
-              {post.data.concepts.length > 0 && (
-                <span> — {post.data.concepts.join(', ')}</span>
-              )}
             </div>
             {post.data.summary && (
               <p style="margin-top: 0.4rem; font-size: 0.9rem; color: var(--text-muted);">

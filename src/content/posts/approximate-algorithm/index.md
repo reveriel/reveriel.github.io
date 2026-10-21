@@ -2,8 +2,6 @@
 title: "approximate algorithm"
 date: 2018-01-08
 stage: 1
-prerequisites: []
-concepts: [近似算法, np-completeness]
 tags: []
 summary: "总结"
 ---

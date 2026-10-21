@@ -24,11 +24,10 @@
 
 ```
 astro.config.mjs          — site URL, MDX 配置
-src/content/config.ts     — frontmatter schema (title, stage, concepts, locale, series...)
+src/content/config.ts     — frontmatter schema (title, date, stage, locale, tags, summary)
 src/i18n/ui.ts            — 中英文 UI 字符串
-src/lib/knowledge-graph.ts — 概念 DAG 构建，locale 过滤
 src/layouts/BaseLayout.astro  — HTML shell, OG/twitter tags, nav, footer, 语言切换
-src/layouts/PostLayout.astro  — 文章页包装: stage badge, series, hreflang, Giscus
+src/layouts/PostLayout.astro  — 文章页包装: stage badge, hreflang, Giscus
 src/components/           — 交互式组件库
 src/pages/                — 中文路由
 src/pages/en/             — 英文路由
@@ -49,16 +48,13 @@ src/content/posts/<slug>/
 
 Frontmatter 关键字段:
 - `stage: 1-5` — 递进难度
-- `prerequisites: [概念ID]` — 前置依赖
-- `concepts: [概念ID]` — 本文教的概念
-- `series: "series-name"` + `seriesOrder: N` — 线性阅读系列
 - `locale: zh-CN | en` — 默认为 zh-CN
 - `summary:` — 用于 SEO description 和 OG tags
 
 ## i18n
 
 URL 判断语言: `/en/...` → 英文，其余 → 中文。中英文各自有独立的路由文件。
-概念 ID 跨语言共享，知识图谱按 locale 过滤。
+中英文文章各占一条路由，locale 字段决定归属。
 
 ## 部署
 

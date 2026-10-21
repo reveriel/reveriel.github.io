@@ -2,8 +2,6 @@
 title: "string match"
 date: 2017-12-13
 stage: 1
-prerequisites: []
-concepts: []
 tags: []
 summary: "问题, Pattern, , Text  , 找 P 在 T 中的位置. Hash 函数  , 求 ,  与  的所有长度  的子串.
 先比较 Hash, 如果 hash 值相等, 再精确比较."
