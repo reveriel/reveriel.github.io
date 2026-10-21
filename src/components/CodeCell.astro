@@ -77,6 +77,13 @@ const langLabel = lang === 'python' ? '🐍 Python (Pyodide)' : '🟨 JavaScript
 
     const lang = root.getAttribute('data-lang') || 'js'
 
+    codeEl.addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault()
+        btn.click()
+      }
+    })
+
     function setOutput(text: string, color = 'var(--text)') {
       outputEl!.textContent = text
       outputEl!.style.color = color

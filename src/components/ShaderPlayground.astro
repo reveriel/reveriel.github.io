@@ -231,6 +231,14 @@ fn vs_main(@builtin(vertex_index) idx: u32) -> @builtin(position) vec4f {
       })
     }
 
+    // Ctrl+Enter / Cmd+Enter runs the shader (matches the article's hint)
+    editor?.addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault()
+        runBtn?.click()
+      }
+    })
+
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting && !active) {
