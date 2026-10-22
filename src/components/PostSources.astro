@@ -1,0 +1,120 @@
+---
+// PostSources.astro — "本文的源码" appendix.
+// Reads the post's demos/ folder at build time and renders each file as a
+// collapsible code block with a direct GitHub link.
+
+import { Code } from 'astro:components'
+import fs from 'node:fs'
+import path from 'node:path'
+
+interface Props {
+  slug: string
+}
+
+const { slug } = Astro.props
+const REPO = 'reveriel/reveriel.github.io'
+const BRANCH = 'master'
+const postDir = path.join(process.cwd(), 'src/content/posts', slug)
+const demosDir = path.join(postDir, 'demos')
+
+const LANG_BY_EXT: Record<string, string> = {
+  rs: 'rust',
+  wgsl: 'wgsl',
+  glsl: 'glsl',
+  toml: 'toml',
+  json: 'json',
+  js: 'js',
+  mjs: 'js',
+  ts: 'ts',
+  py: 'python',
+  sh: 'bash',
+  md: 'md',
+  txt: 'text',
+  html: 'html',
+  css: 'css',
+}
+
+const SKIP_DIRS = new Set(['target', 'node_modules', '.git', 'pkg', 'dist', '.astro'])
+const MAX_BYTES = 80 * 1024
+
+type SourceFile = {
+  rel: string
+  repoPath: string
+  lang: string
+  lines: number
+  code: string
+}
+
+function collect(dir: string, rel = '', out: SourceFile[] = []): SourceFile[] {
+  if (!fs.existsSync(dir)) return out
+  const entries = fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))
+  for (const entry of entries) {
+    if (entry.name.startsWith('.')) continue
+    const abs = path.join(dir, entry.name)
+    const relPath = rel ? `${rel}/${entry.name}` : entry.name
+    if (entry.isDirectory()) {
+      if (SKIP_DIRS.has(entry.name)) continue
+      collect(abs, relPath, out)
+      continue
+    }
+    const ext = (entry.name.split('.').pop() || '').toLowerCase()
+    const lang = LANG_BY_EXT[ext]
+    if (!lang) continue
+    const stat = fs.statSync(abs)
+    if (stat.size > MAX_BYTES) continue
+    const code = fs.readFileSync(abs, 'utf8')
+    out.push({
+      rel: relPath,
+      repoPath: `src/content/posts/${slug}/demos/${relPath}`,
+      lang,
+      lines: code.split('\n').length,
+      code,
+    })
+  }
+  return out
+}
+
+const files = collect(demosDir).sort((a, b) => {
+  const priority = (f: SourceFile) => (f.lang === 'rust' ? 0 : f.lang === 'wgsl' ? 1 : 2)
+  return priority(a) - priority(b) || a.rel.localeCompare(b.rel)
+})
+
+const repoUrl = `https://github.com/${REPO}/tree/${BRANCH}/src/content/posts/${slug}/demos`
+const fileUrl = (f: SourceFile) => `https://github.com/${REPO}/blob/${BRANCH}/${f.repoPath}`
+---
+
+{
+  files.length > 0 && (
+    <section class="post-sources">
+      <div class="post-sources__head">
+        <h2>本文的源码</h2>
+        <a href={repoUrl} target="_blank" rel="noopener">
+          在 GitHub 查看目录 ↗
+        </a>
+      </div>
+      <p class="post-sources__hint">
+        页面上每个交互组件的真实实现，构建时直接从 <code>demos/</code> 读取。
+      </p>
+      {files.map(f => (
+        <details class="source-file">
+          <summary>
+            <span class="source-file__path">{f.rel}</span>
+            <span class="source-file__meta">
+              {f.lang} · {f.lines} 行
+              <a
+                class="source-file__link"
+                href={fileUrl(f)}
+                target="_blank"
+                rel="noopener"
+                onclick="event.stopPropagation()"
+              >GitHub ↗</a>
+            </span>
+          </summary>
+          <div class="source-file__body">
+            <Code code={f.code} lang={f.lang} />
+          </div>
+        </details>
+      ))}
+    </section>
+  )
+}

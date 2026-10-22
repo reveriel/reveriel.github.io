@@ -3,6 +3,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 import BaseLayout from './BaseLayout.astro'
 import GiscusComments from '@components/GiscusComments.astro'
+import PostSources from '@components/PostSources.astro'
 import { t } from '@i18n/ui'
 
 interface Props { post: CollectionEntry<'posts'> }
@@ -67,6 +68,8 @@ function formatDate(d: Date) {
     <div class="post-body">
       <slot />
     </div>
+
+    <PostSources slug={slug} />
 
     <GiscusComments />
   </article>

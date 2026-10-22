@@ -168,3 +168,113 @@ article {
   .container { padding: 0 0.8rem; }
   h1 { font-size: 1.6rem; }
 }
+
+/* ── Post sources appendix ─────────────────────────────────── */
+
+.post-sources {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.post-sources__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.post-sources__head h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.post-sources__head a {
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.post-sources__hint {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  margin: 0.4rem 0 1rem;
+}
+
+.source-file {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 0.5rem 0;
+  overflow: hidden;
+}
+
+.source-file summary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  list-style: none;
+}
+
+.source-file summary::-webkit-details-marker {
+  display: none;
+}
+
+.source-file summary::before {
+  content: '▸';
+  color: var(--text-muted);
+  margin-right: 0.2rem;
+}
+
+.source-file[open] summary::before {
+  content: '▾';
+}
+
+.source-file__path {
+  margin-right: auto;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.source-file__meta {
+  color: var(--text-muted);
+  white-space: nowrap;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.source-file__link {
+  color: var(--accent);
+}
+
+.source-file__body {
+  border-top: 1px solid var(--border);
+  max-height: 520px;
+  overflow: auto;
+}
+
+.source-file__body pre {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  font-size: 0.78rem !important;
+}
+
+.component-source {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-left: 0.4rem;
+  border-bottom: 1px dotted var(--border);
+}
+
+.component-source:hover {
+  color: var(--accent);
+}
+
+.interactive-block__header { gap: 0.6rem; flex-wrap: wrap; }
